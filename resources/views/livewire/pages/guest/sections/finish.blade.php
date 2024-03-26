@@ -1,5 +1,5 @@
 {{-- Section 5 --}}
-<section class="mt-4" wire:poll.2s='changeSection("0", "0", "0")'>
+<section class="mt-4" wire:poll.2s='changeSection("5")'>
     <div class="mx-auto max-w-7xl bg-white flex justify-center">
         <div class="py-5">
             <div class="container relative">

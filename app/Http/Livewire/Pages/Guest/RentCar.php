@@ -125,6 +125,9 @@ class RentCar extends Component
     public $serviceIsSelected = false;
     public $unavailableCars = [];
 
+    private $carsRentPrices = [];
+    public $pretZiPerCode = [];
+
     protected $listeners = ['changeSection'];
 
     public function boot()
@@ -206,8 +209,6 @@ class RentCar extends Component
         $this->reset('showDateError');
     }
 
-    private $carsRentPrices = [];
-
     private function takeCarSpecification()
     {
         $dbCars = CarSpecification::select(['id', 'nume', 'nr_inmatriculare', 'garantie', 'cod_produs', 'path', 'pret', 'options'])->where('display', true)->get()->toArray();
@@ -247,8 +248,6 @@ class RentCar extends Component
         $this->calculeazaNrDeZile($this->carsRentPrices);
         $this->carsData = $arr;
     }
-
-    public $pretZiPerCode = [];
 
     private function calculeazaNrDeZile(array $preturi)
     {
@@ -370,7 +369,7 @@ class RentCar extends Component
         $this->unavailableCars = $arr;
     }
 
-    public function changeSection(int $value, $hasFirstStepReValidation = true)
+    public function changeSection(int $value)
     {
 
         $this->reset('showDateError');
@@ -379,37 +378,30 @@ class RentCar extends Component
             $this->setCookieStep($value);
         }
 
-        if ((bool) $hasFirstStepReValidation) { // acest if este pus pentru a nu mai da trigger la validare cand se trece de la step-ul 4 la 0
-            switch ($this->step) {
-                case 0:
-                    $this->calculeazaNrDeZile($this->carsRentPrices);
-                    $this->handleSectionValidation($this->rent_date_rules, $value);
-                    $this->handleUnavailableCars();
-                    return;
+        switch ($this->step) {
+            case 0:
+                $this->calculeazaNrDeZile($this->carsRentPrices);
+                $this->handleSectionValidation($this->rent_date_rules, $value);
+                $this->handleUnavailableCars();
+                return;
 
-                case 1:
-                    $this->showCompleteTheOrderBtn();
-                    $this->setCookieStep($value);
-                    return;
+            case 1:
+                $this->showCompleteTheOrderBtn();
+                $this->setCookieStep($value);
+                return;
 
-                case 2:
-                    $this->handleBuyOptions();
-                    $this->showCompleteTheOrderBtn();
-                    $this->calculateTotal();
-                    $this->setCookieStep($value);
-                    return;
+            case 2:
+                $this->handleBuyOptions();
+                $this->showCompleteTheOrderBtn();
+                $this->calculateTotal();
+                $this->setCookieStep($value);
+                return;
 
-                case 3:
-                    return $this->handleSectionValidation($this->check_out_rules, $value);
+            case 3:
+                return $this->handleSectionValidation($this->check_out_rules, $value);
 
-                default:
-                    // if ($value === 4) {
-                    //     // dd($value, $this->buyOptions);
-                    //     return;
-                    // }
-                    // $this->setCookieStep($value);
-                    return;
-            }
+            default:
+                return redirect()->route('reserve_now');
         }
     }
 
@@ -707,7 +699,22 @@ class RentCar extends Component
             if ($value === 4) { // am pus acest if pentru a reseta datele utilizatroului atunci cand ajunge in step 4
                 $this->handleCheckoutOrder();
                 $this->setCookieStep($value);
-                $this->reset('rawData');
+                $this->reset([
+                    'rawData',
+                    'carsData',
+                    'buyOptions',
+                    'handlePriceForEachCar',
+                    'additionalServicesData',
+                    'additionalEquipmentData',
+                    'pretGarantie',
+                    'checkoutPrice',
+                    'nrZileDeInchiriere',
+                    'selectedCar',
+                    'showDateError',
+                    'serviceIsSelected',
+                    'unavailableCars',
+                    'pretZiPerCode',
+                ]);
                 Cookie::queue(Cookie::forget('options'));
             }
 
