@@ -63,7 +63,7 @@
                             @foreach ($carsData ?? [] as $value)
                                 <div class="mx-auto px-5 mb-4 w-full">
                                     <div
-                                        class="cursor-pointer rounded-lg {{ $value['isSelected'] ? 'selected-car' : 'bg-white' }} p-2 shadow duration-150 hover:scale-105 hover:shadow-md w-full {{ false ? 'indisponibil' : null }}">
+                                        class="cursor-pointer rounded-lg {{ $value['isSelected'] ? 'selected-car' : 'bg-white' }} p-2 shadow duration-150 hover:scale-105 hover:shadow-md w-full {{ array_search($value['code'], $unavailableCars) ? 'indisponibil' : null }}">
                                         <img class="w-full h-[300px] rounded-lg object-cover object-center flex-shrink-0"
                                             src="{{ Storage::url('public/images/cars/' . $value['image']) }}"
                                             alt="{{ $value['nume'] }}" />
@@ -122,15 +122,17 @@
                                                 </p>
                                             </div>
 
-                                            <!-- Go to Section 2 Btn -->
-                                            @include('common.generic-btn', [
-                                                'btn_content' => 'Alege masina',
-                                                'wire_method' => 'choseCar("' . $value['code'] . '", "' . $value['nume'] . '" ,"' . $value['image'] . '")',
-                                                'onclick' => 'goTop()',
-                                                'class' =>
-                                                    'w-full p-2 rounded-md ' .
-                                                    getConstant('modal_generic_colors')['purple'],
-                                            ])
+                                            @if (!array_search($value['code'], $unavailableCars))
+                                                <!-- Go to Section 2 Btn -->
+                                                @include('common.generic-btn', [
+                                                    'btn_content' => 'Alege masina',
+                                                    'wire_method' => 'choseCar("' . $value['code'] . '", "' . $value['nume'] . '" ,"' . $value['image'] . '")',
+                                                    'onclick' => 'goTop()',
+                                                    'class' =>
+                                                        'w-full p-2 rounded-md ' .
+                                                        getConstant('modal_generic_colors')['purple'],
+                                                ])
+                                            @endif
 
                                         </div>
                                     </div>
