@@ -123,6 +123,7 @@ class RentCar extends Component
 
     public $showDateError = false;
     public $serviceIsSelected = false;
+    public $unavailableCars = [];
 
     protected $listeners = ['changeSection'];
 
@@ -187,6 +188,8 @@ class RentCar extends Component
         $this->takeCarSpecification();
         $this->takeAdditionalEquipment();
         $this->takeAdditionalServices();
+
+        $this->handleUnavailableCars();
     }
 
     private function resetStepAndSetCookie()
@@ -341,6 +344,32 @@ class RentCar extends Component
         $this->setCookieOptions($this->jsonArr);
     }
 
+    private function handleUnavailableCars()
+    {
+        [
+            "pickup_date" => $pickup_date,
+            "return_date" => $return_date,
+            "pickup_time" => $pickup_time,
+            "return_time" => $return_time,
+        ] = $this->rawData['rent_date'];
+
+        $startDate = $pickup_date . ' ' . $pickup_time;
+        $endDate = $return_date . ' ' . $return_time;
+
+        $data = CheckoutOrder::select('car_id')->where('pick_up_dateTime', '<=', $endDate)->where('return_dateTime', '>=', $startDate)->pluck('car_id')->toArray();
+
+        $arr = [];
+
+        foreach ($this->carIds ?? [] as $key => $value) {
+            $searchResult = array_search($value, $data);
+            if ($searchResult !== false) {
+                $arr[$value] = $key;
+            }
+        }
+
+        $this->unavailableCars = $arr;
+    }
+
     public function changeSection(int $value, $hasFirstStepReValidation = true)
     {
 
@@ -355,6 +384,7 @@ class RentCar extends Component
                 case 0:
                     $this->calculeazaNrDeZile($this->carsRentPrices);
                     $this->handleSectionValidation($this->rent_date_rules, $value);
+                    $this->handleUnavailableCars();
                     return;
 
                 case 1:
@@ -393,14 +423,14 @@ class RentCar extends Component
     public function choseCar(string $code, string $name, string $imagePath)
     {
         $previousSelectedCarCode = $this->jsonArr['selectedCar']['code'] ?? null;
-        
+
         $this->selectedCar = [
             'id' => $this->carIds[$code],
             'name' => $name,
             'code' => $code,
             'path' => $imagePath,
         ];
-        
+
         $this->jsonArr['selectedCar'] = $this->selectedCar;
 
         $this->setCookieOptions($this->jsonArr);
@@ -568,7 +598,7 @@ class RentCar extends Component
 
         // dacă $dateTime1 nu este mai mic sau egal cu $dateTime2, atunci $this->showDateError va fi setată la true, altfel va fi setată la false
         // $dateTime1 <= dateTime2 && dateTime1 >= currentDateTime && dateTime2 >= currentDateTime
-        $this->showDateError = !($dateTime1->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime)); 
+        $this->showDateError = !($dateTime1->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime));
     }
 
     public function updated(string $property): void
@@ -656,10 +686,8 @@ class RentCar extends Component
         $arr['aditional_equipment_ids'] = $selectedEquipmentIdsJson;
 
         $arr['location'] = $location;
-        $arr['return_date'] = $return_date;
-        $arr['return_time'] = $return_time;
-        $arr['pick_up_date'] = $pickup_date;
-        $arr['pick_up_time'] = $pickup_time;
+        $arr['return_dateTime'] = $return_date . ' ' . $return_time;
+        $arr['pick_up_dateTime'] = $pickup_date . ' ' . $pickup_time;
         $arr['price'] = (float) $this->checkoutPrice;
         $arr['nr_of_days'] = $this->nrZileDeInchiriere;
         $arr['status'] = false;
