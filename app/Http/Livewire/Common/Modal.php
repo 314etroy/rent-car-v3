@@ -16,9 +16,6 @@ class Modal extends Component
     
     public function show(array $data): void
     {
-        // $data = decryptData($value);
-        // dd($data);
-
         $this->init($data);
 
         $this->show = !$this->show;

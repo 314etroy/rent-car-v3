@@ -652,7 +652,7 @@ class RentCar extends Component
         $selectedServicesIds = [];
         foreach ($this->jsonArr['selectedServices'] ?? [] as $key => $value) {
             if ($value) {
-                $selectedServicesIds[] = $this->aditionalServicesIds[$key];
+                $selectedServicesIds[] = [$this->aditionalServicesIds[$key] => $value];
             }
         }
 
@@ -673,6 +673,7 @@ class RentCar extends Component
             $arr['user_id'] = 0;
         }
 
+        $arr['order_id'] = uniqid();
         $arr['car_id'] = $this->jsonArr['selectedCar']['id'];
         $arr['aditional_services_ids'] = $selectedServicesIdsJson;
         $arr['aditional_equipment_ids'] = $selectedEquipmentIdsJson;
@@ -683,10 +684,16 @@ class RentCar extends Component
         $arr['price'] = (float) $this->checkoutPrice;
         $arr['nr_of_days'] = $this->nrZileDeInchiriere;
         $arr['status'] = false;
-        $arr['addition_drivers'] = json_encode([]);
+        $arr['additional_driver'] = in_array('d2', array_values($this->jsonArr['selectedServices']));
+        $arr['additional_driver_name'] = '';
 
-        // dd($arr, $selectedServicesIds, $selectedEquipmentIds, $this->jsonArr, $this->carIds, $this->aditionalServicesIds, $this->aditionalEquipmentIds);
+        $carCode = $this->jsonArr['selectedCar']['code'];
+        $arr['price_per_day'] = $this->jsonArr['order'][$carCode]['pret'];
+
+        // dd($arr, $selectedjsonArrServicesIds, $selectedEquipmentIds, $this->jsonArr, $this->carIds, $this->aditionalServicesIds, $this->aditionalEquipmentIds);
         // dd($this->rawData, $this->carsData, $this->buyOptions, CheckoutOrder::all()->toArray());
+        // dd($arr, $this->jsonArr);
+        // dd($arr);
 
         CheckoutOrder::create($arr);
     }

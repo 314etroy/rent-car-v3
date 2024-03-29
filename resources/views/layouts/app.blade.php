@@ -30,6 +30,7 @@
             @livewire('components.additional-equipment-modal', key(uniqid()))
             @livewire('components.additional-service-modal', key(uniqid()))
             @livewire('components.car-specifications-modal', key(uniqid()))
+            @livewire('components.delete-order-modal', key(uniqid()))
         @endif
     @endif
 

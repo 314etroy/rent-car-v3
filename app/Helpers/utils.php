@@ -150,20 +150,6 @@ function handleModalAddData(string $operation = '', array $modalData = [], bool 
         $dataToEncode['inhibModalClosure'] = $inhibModalClosure;
     }
 
-    // $extractedData = firstElement($modalData);
-
-    // if (!empty($extractedData)) {
-    //     $firstDataElement = $extractedData->getAttributes();
-
-    //     foreach ($firstDataElement ?? [] as $key => $value) {
-    //         $arr[$key] = '';
-    //     }
-
-    //     unset($arr['id']);
-        
-    //     $dataToEncode['rowData'] = $arr;
-    // }
-
     $dataToEncode['rowData'] = [];
 
     return json_encode($dataToEncode);
@@ -188,6 +174,19 @@ function handleModalData(int $rowId, string $operation = '', array $modalData = 
     $dataToEncode['id'] = $modalData['id'];
 
     unset($modalData['id']);
+
+    $dataToEncode['rowData'] = $modalData;
+
+    return json_encode($dataToEncode);
+}
+
+function handleModalDeleteData(array $modalData = [], bool $inhibModalClosure = false)
+{
+    $dataToEncode['operation'] = 'delete';
+    
+    if (isset($inhibModalClosure)) {
+        $dataToEncode['inhibModalClosure'] = $inhibModalClosure;
+    }
 
     $dataToEncode['rowData'] = $modalData;
 
