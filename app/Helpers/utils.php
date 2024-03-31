@@ -230,3 +230,8 @@ function handleTableBody(array $data, array $fields = [])
 
     return $arr;
 }
+
+function replaceUnderlineWithSpace($value)
+{
+    return str_replace('_', ' ', ucfirst($value));
+}

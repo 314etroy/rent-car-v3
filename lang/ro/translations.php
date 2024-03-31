@@ -146,4 +146,10 @@ return [
     '500_error_msg1' => 'Ne pare rau, am întâmpinat o problemă.',
     '500_error_msg2' => 'Ceva este greșit.',
     '500_error_msg3' => 'Reveniți la pagina de start',
+
+    'reserveACar' => 'Rezervă o masină',
+
+    'select_date' => 'Selecteaza data',
+    'reset_date' => 'Reseteaza data',
+    'current_date' => 'Data curenta',
 ];

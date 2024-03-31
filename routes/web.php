@@ -36,6 +36,7 @@ Route::get('/' . __('messages.terms_and_conditions'), [HandleRoute::class, 'show
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/' . __('messages.dashboard'), [HandleRoute::class, 'show_dashboard'])->name('dashboard');
+    Route::get('/' . __('messages.reserveACar'), [HandleRoute::class, 'show_reserveACar'])->name('reserve_a_car');
 });
 
 Route::middleware('auth')->group(function () {

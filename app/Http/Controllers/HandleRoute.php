@@ -81,6 +81,11 @@ class HandleRoute extends Controller
         return view('app_pages.auth.Dashboard.index');
     }
 
+    public function show_reserveACar(): View
+    {
+        return view('app_pages.auth.ReserveACar.index');
+    }
+
     public function show_in_work(): View
     {
         return view('common.inWork');

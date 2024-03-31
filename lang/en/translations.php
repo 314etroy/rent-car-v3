@@ -146,4 +146,10 @@ return [
     '500_error_msg1' => 'OOPS! We encountered a problem.',
     '500_error_msg2' => 'Something is wrong.',
     '500_error_msg3' => 'Go back to home page',
+
+    'reserveACar' => 'Reserve a car',
+
+    'select_date' => 'Select date',
+    'reset_date' => 'Reset date',
+    'current_date' => 'Current date',
 ];

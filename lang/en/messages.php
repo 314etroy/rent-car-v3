@@ -17,4 +17,5 @@ return [
     'airport_transfer' => 'airport_transfer',
     'car_fleet' => 'car_fleet',
     'dashboard' => 'dashboard',
+    'reserveACar' => 'reserve_a_car',
 ];

@@ -45,7 +45,6 @@ class Contact extends Component
             'mesaj.required' => 'Adauga un mesaj',
         ];
 
-
         $validare = Validator::make($this->formFildsContent, $rules, $messages);
 
         if ($validare->errors()) {

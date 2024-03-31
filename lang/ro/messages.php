@@ -25,4 +25,5 @@ return [
     'airport_transfer' => 'transfer_aeroport',
     'car_fleet' => 'flota_auto',
     'dashboard' => 'dashboard',
+    'reserveACar' => 'rezerva_o_masina',
 ];

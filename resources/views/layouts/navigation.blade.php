@@ -44,8 +44,11 @@
                         @endforeach
 
                         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex ">
-                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white">
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                                 {{ __('translations.dashboard') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('reserve_a_car')" :active="request()->routeIs('reserve_a_car')">
+                                {{ __('translations.reserveACar') }}
                             </x-nav-link>
                         </div>
                     @else
@@ -120,6 +123,9 @@
                 <!-- Responsive Navigation Links -->
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('translations.dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('reserve_a_car')" :active="request()->routeIs('reserve_a_car')">
+                    {{ __('translations.reserveACar') }}
                 </x-responsive-nav-link>
             @else
                 <!-- Responsive Navigation Links -->
