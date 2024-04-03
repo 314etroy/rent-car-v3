@@ -125,7 +125,7 @@
             'key' => __('translations.translate_password'),
             'placeholder' => handlePlaceholder(__('translations.translate_password')),
             'wireModelName' => 'rawData.check_out.password',
-            'display' => !isAdmin(),
+            'display' => !Auth::check(),
             'validLabelClass' => config('constants.common_css.check_out.valid_label'),
             'errorLabelClass' => config('constants.common_css.check_out.error_label'),
             'emptyLabelClass' => config('constants.common_css.check_out.empty_label'),
@@ -138,7 +138,7 @@
             'key' => __('translations.translate_confirmPassword'),
             'placeholder' => handlePlaceholder(__('translations.translate_password')),
             'wireModelName' => 'rawData.check_out.confirm_password',
-            'display' => !isAdmin(),
+            'display' => !Auth::check(),
             'validLabelClass' => config('constants.common_css.check_out.valid_label'),
             'errorLabelClass' => config('constants.common_css.check_out.error_label'),
             'emptyLabelClass' => config('constants.common_css.check_out.empty_label'),
@@ -256,18 +256,6 @@
                     ])
 
                 </div>
-                {{-- <pre>
-                    @php
-                        print_r($rawData);
-                    @endphp
-                </pre> --}}
-
-                {{-- <pre>
-                    @php
-                        print_r($selectedCar);
-                        print_r($buyOptions);
-                    @endphp
-                </pre> --}}
             </div>
         </div>
     </div>
