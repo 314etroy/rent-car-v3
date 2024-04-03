@@ -47,9 +47,11 @@
                             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                                 {{ __('translations.dashboard') }}
                             </x-nav-link>
-                            <x-nav-link :href="route('reserve_a_car')" :active="request()->routeIs('reserve_a_car')">
-                                {{ __('translations.reserveACar') }}
-                            </x-nav-link>
+                            @if (isAdmin())
+                                <x-nav-link :href="route('reserve_a_car')" :active="request()->routeIs('reserve_a_car')">
+                                    {{ __('translations.reserveACar') }}
+                                </x-nav-link>
+                            @endif
                         </div>
                     @else
                         <!-- Navigation Links -->
@@ -124,9 +126,11 @@
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('translations.dashboard') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('reserve_a_car')" :active="request()->routeIs('reserve_a_car')">
-                    {{ __('translations.reserveACar') }}
-                </x-responsive-nav-link>
+                @if (isAdmin())
+                    <x-responsive-nav-link :href="route('reserve_a_car')" :active="request()->routeIs('reserve_a_car')">
+                        {{ __('translations.reserveACar') }}
+                    </x-responsive-nav-link>
+                @endif
             @else
                 <!-- Responsive Navigation Links -->
                 @foreach ($guest_links ?? [] as $value)

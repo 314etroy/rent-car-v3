@@ -20,8 +20,9 @@
             'emptyInputClass' => config('constants.common_css.rent_date.empty_input'),
             'selectDefaultText' => 'Selecteaza orasul',
             'allOptions' => [
+                'bucuresti' => 'București',
+                'brasov' => 'Brașov Aeroport Ghimbav',
                 'campulung' => 'Câmpulung',
-                'bucuresti' => 'Bucuresti',
             ],
             'wireModelName' => 'rawData.rent_date.location',
             'isRequired' => true,
@@ -79,8 +80,9 @@
             'emptyInputClass' => config('constants.common_css.rent_date.empty_input'),
             'selectDefaultText' => 'Selecteaza orasul',
             'allOptions' => [
+                'bucuresti' => 'București',
+                'brasov' => 'Brașov Aeroport Ghimbav',
                 'campulung' => 'Câmpulung',
-                'bucuresti' => 'Bucuresti',
             ],
             'wireModelName' => 'rawData.rent_date.return_location',
         ],

@@ -39,7 +39,7 @@
                                 {{ $value['nrOfDays'] > 1 ? 'zile' : 'zi' }}
                             </p>
                             <p class="text-sm text-left text-black truncate">
-                                {{ $value['pickUpDateTime'] }} ~ {{ $value['pickUpDateTime'] }}
+                                {{ $value['pickUpDateTime'] }} ~ {{ $value['returnDateTime'] }}
                             </p>
                             <p class="dark:text-white font-medium text-gray-900 text-left text-sm truncate">
                                 Ridicare și predare autovehicul:
@@ -162,6 +162,7 @@
                         </div>
                     </div>
                     <div class="px-2 pb-2 w-full">
+                        {{-- @dd(\Carbon\Carbon::parse($value['pickUpDateTime']), \Carbon\Carbon::now(), \Carbon\Carbon::parse($value['pickUpDateTime']) >= \Carbon\Carbon::now()) --}}
                         @if (\Carbon\Carbon::parse($value['pickUpDateTime']) >= \Carbon\Carbon::now() && !$value['isDeletedOrder'])
                             <button class="font-medium w-full text-white bg-red-500 hover:underline p-2"
                                 wire:click="{{ handleEmitTo($emitToPath, $emitToMethod, handleModalDeleteData(['code' => $value['codeId']])) }}">

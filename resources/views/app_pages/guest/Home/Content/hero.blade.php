@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="right-hero px-2 2xl:block xl:block lg:block md:block z-10">
-            @livewire('pages.guest.common.reserve-now-form')
+            @livewire('pages.guest.common.reserve-now-form', key(uniqid()))
         </div>
     </div>
     <div class="relative">
