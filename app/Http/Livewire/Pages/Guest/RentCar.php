@@ -29,10 +29,6 @@ class RentCar extends Component
         'checkout_form' => [],
     ];
 
-    private $carIds = [];
-    private $aditionalServicesIds = [];
-    private $aditionalEquipmentIds = [];
-
     public $rawData = [
         'rent_date' => [
             'location' => '',
@@ -108,12 +104,15 @@ class RentCar extends Component
         'rawData.check_out.policy.accepted' => ' ',
     ];
 
-
     public $carsData = [];
     public $buyOptions = [];
     public $handlePriceForEachCar = [];
     public $additionalServicesData = [];
     public $additionalEquipmentData = [];
+
+    private $carIds = [];
+    private $aditionalServicesIds = [];
+    private $aditionalEquipmentIds = [];
 
     public $pretGarantie = 0;
     public $checkoutPrice = 0;
@@ -352,10 +351,7 @@ class RentCar extends Component
             "return_time" => $return_time,
         ] = $this->rawData['rent_date'];
 
-        $startDate = $pickup_date . ' ' . $pickup_time;
-        $endDate = $return_date . ' ' . $return_time;
-
-        $data = CheckoutOrder::select('car_id')->where('pick_up_dateTime', '<=', $endDate)->where('return_dateTime', '>=', $startDate)->pluck('car_id')->toArray();
+        $data = CheckoutOrder::select('car_id')->whereRaw('DATE_FORMAT(pick_up_dateTime, "%Y-%m-%d") <= ?', $return_date)->whereRaw('DATE_FORMAT(return_dateTime, "%Y-%m-%d") >= ?', $pickup_date)->pluck('car_id')->toArray();
 
         $arr = [];
 
@@ -581,16 +577,19 @@ class RentCar extends Component
         $currentDateTime = Carbon::now();
         $dateTime1 = Carbon::createFromFormat('Y-m-d H:i', $pickUpFormat);
         $dateTime2 = Carbon::createFromFormat('Y-m-d H:i', $returnFormat);
-
-        $dateTime1->addMinutes(45);
-
-        $this->showDateError = $currentDateTime->gte($dateTime1) ? 'da' : 'nu';
-
-        $this->nrZileDeInchiriere = $dateTime1->diffInDays($dateTime2) + 1;
-
-        // dacă $dateTime1 nu este mai mic sau egal cu $dateTime2, atunci $this->showDateError va fi setată la true, altfel va fi setată la false
-        // $dateTime1 <= dateTime2 && dateTime1 >= currentDateTime && dateTime2 >= currentDateTime
         $this->showDateError = !($dateTime1->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime));
+
+        if (!$this->showDateError) {
+            if ($pickUpDate === $returnDate) {
+                $dateTime1->addMinutes(45);
+                $this->nrZileDeInchiriere = count(daysBetween($dateTime1, $dateTime2)->toArray());
+            }
+
+            $this->nrZileDeInchiriere = count(daysBetween($pickUpDate, $returnDate)->toArray());
+            // dacă $dateTime1 nu este mai mic sau egal cu $dateTime2, atunci $this->showDateError va fi setată la true, altfel va fi setată la false
+            // $dateTime1 <= dateTime2 && dateTime1 >= currentDateTime && dateTime2 >= currentDateTime
+            $this->showDateError = !($dateTime1->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime));
+        }
     }
 
     public function updated(string $property): void

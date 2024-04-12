@@ -73,6 +73,16 @@ function specificYearMonthAndDay($date)
     return Carbon::parse($date)->format('Y-m-d');
 }
 
+function currentHourAndMinute()
+{
+    return Carbon::now()->format('H:m');
+}
+
+function specificHourAndMinute($date)
+{
+    return Carbon::parse($date)->format('H:i');
+}
+
 function currentYearMonthDayHourAndMinute()
 {
     return Carbon::now()->format('Y-m-d H:m');
@@ -195,7 +205,6 @@ function specificMonthDays($date)
     return daysBetween(specificStartDateOfMonth($date), specificEndDateOfMonth($date), 'Y-m-d');
 }
 
-
 function daysBetween($startDate_str, $endDate_str, $dateFormat_str = 'Y-m-d')
 {
     return HoursHelper::create($startDate_str, $endDate_str, 60 * 24, $dateFormat_str);
@@ -205,7 +214,7 @@ function allMonthsInYearShortFormat()
 {
     $months = [];
     for ($m = 1; $m <= 12; $m++) {
-        $months[] = specificMonthNameShortFormat('2000-'.$m.'-1');
+        $months[] = specificMonthNameShortFormat('2000-' . $m . '-1');
     }
     return $months;
 }
@@ -214,7 +223,7 @@ function allMonthsInYearLongFormat()
 {
     $months = [];
     for ($m = 1; $m <= 12; $m++) {
-        $months[] = specificMonthNameLongFormat('2000-'.$m.'-1');
+        $months[] = specificMonthNameLongFormat('2000-' . $m . '-1');
     }
     return $months;
 }
@@ -247,4 +256,123 @@ function recreateYearMonthDay($year, $month, $day)
 function firstDayOTheMonth($date)
 {
     return Carbon::parse($date)->format('Y-m-01');
+}
+
+function min_date(array $date)
+{
+    $timestamps = array_map('strtotime', $date);
+    return date('Y-m-d', min($timestamps));
+}
+
+function max_date(array $date)
+{
+    $timestamps = array_map('strtotime', $date);
+    return  date('Y-m-d', max($timestamps));
+}
+
+function isInsideOfInterval(array $interval, $date)
+{
+    $dateTimeToCheck = Carbon::parse($date);
+    $startDateTime = Carbon::parse(min_date($interval));
+    $endDateTime = Carbon::parse(max_date($interval));
+
+    return $dateTimeToCheck->between($startDateTime, $endDateTime, true);
+}
+
+function isDayBeforeToday(string $dateToCheck)
+{
+    $dateTimeToCheck = Carbon::parse($dateToCheck);
+    $today = Carbon::now();
+
+    return $dateTimeToCheck->lt($today);
+}
+
+function hours_difference(string $dateTime1, string $dateTime2)
+{
+    $start = Carbon::parse($dateTime1);
+    $end = Carbon::parse($dateTime2);
+
+    return $end->diffInHours($start);
+}
+
+function lastDayOfNextMonth($dataReferinta = null)
+{
+    // Dacă nu se furnizează o dată de referință, se utilizează data de astăzi
+    if ($dataReferinta === null) {
+        $dataReferinta = Carbon::today();
+    } else {
+        $dataReferinta = Carbon::parse($dataReferinta);
+    }
+
+    $nextMonth = $dataReferinta->copy()->addMonth()->startOfMonth();
+    $lastDayOfNextMonth = $nextMonth->copy()->addMonth()->subDay();
+
+    return $lastDayOfNextMonth->format('Y-m-d');
+}
+
+function firstDayOfCurrentMonth($date)
+{
+    return Carbon::parse($date)->startOfMonth()->toDateString();
+}
+
+function lastDayOfCurrentMonth($date)
+{
+    return Carbon::parse($date)->endOfMonth()->toDateString();
+}
+
+function lastDayOfSpecificMonth($dataReferinta = null)
+{
+    $dataReferinta = Carbon::parse($dataReferinta);
+
+    $lastDayOfMonth = $dataReferinta->endOfMonth();
+
+    return $lastDayOfMonth->format('Y-m-d');
+}
+
+function firstDayOfPrevMonth($dataReferinta = null)
+{
+    // Dacă nu se furnizează o dată de referință, se utilizează data de astăzi
+    if ($dataReferinta === null) {
+        $dataReferinta = Carbon::today();
+    } else {
+        $dataReferinta = Carbon::parse($dataReferinta);
+    }
+
+    $dataReferinta->startOfMonth();
+    $primaZiDinLunaPrecedenta = $dataReferinta->subMonth()->startOfMonth();
+
+    return $primaZiDinLunaPrecedenta->format('Y-m-d');
+}
+
+function firstDayOfSpecificMonth($dataReferinta = null)
+{
+    $dataReferinta = Carbon::parse($dataReferinta);
+
+    $firstDayOfMonth = $dataReferinta->startOfMonth();
+
+    return $firstDayOfMonth->format('Y-m-d');
+}
+
+function isDateGraterThan(string $date1, string $date2)
+{
+    $date1 = Carbon::parse($date1);
+    $date2 = Carbon::parse($date2);
+
+    return $date2->gte($date1);
+}
+
+function getFirstAndLastDate(string $date1, string $date2): array
+{
+    $dateTime1 = Carbon::parse($date1);
+    $dateTime2 = Carbon::parse($date2);
+
+    if ($dateTime1->lt($dateTime2)) {
+        $first = $date1;
+        $last = $date2;
+    } else {
+        $first = $date2;
+        $last = $date1;
+    }
+
+    return ['first' => $first, 'last' => $last];
 }

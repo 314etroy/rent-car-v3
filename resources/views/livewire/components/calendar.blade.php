@@ -1,21 +1,25 @@
 <div class="text-gray-700">
 
     <!-- Component Start -->
-    <div class="flex flex-grow w-screen h-screen overflow-auto">
+    <div class="flex flex-grow h-screen overflow-auto">
 
         <div class="flex flex-col flex-grow">
 
             <div class="flex items-center justify-between mt-4 pl-4 pr-8">
-                <div>
-                    <div wire:ignore>
-                        <select class="form-control" id="select2">
-                            <option value="">Selectează autovehicul</option>
-                            @foreach ($series as $item)
-                                <option value="{{ $item }}">{{ $item }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                <div wire:ignore>
+                    <select class="form-control" id="select2">
+                        <option value="">Selectează autovehicul</option>
+                        @foreach ($series ?? [] as $key => $item)
+                            <option value="{{ $key }}">{{ $item }}</option>
+                        @endforeach
+                    </select>
                 </div>
+                @if ($isOverlapInterval)
+                    <div>
+                        <span class="bg-red-500 text-white font-bold">Intervalul selectat se suprapune peste o comandă
+                            existentă.</span>
+                    </div>
+                @endif
                 <div class="flex items-center">
                     <div class="mr-6 mt-2">
                         <button type="button" aria-label="prev_month" wire:click="renderMonth('{{ $prevMonth_str }}')">
@@ -25,52 +29,100 @@
                             @include('svg.arrow_right_calendar')
                         </button>
                     </div>
-                    @livewire('common.month-calendar', ['currentYearAndMonth' => $currentYearAndMonth])
+                    @livewire('common.month-calendar', ['currentYearAndMonth' => $currentYearAndMonth], key(uniqid()))
                 </div>
             </div>
 
             <div class="grid grid-cols-7 mt-4">
-                @if (isset($nameOfDaysOfWeek_arr))
-                    @forelse ($nameOfDaysOfWeek_arr as $name)
-                        <div class="pl-1 text-sm text-center">{{ $name }}</div>
-                    @empty
-                        Nu sunt declarate zilele saptamanii
-                    @endforelse
-                @else
-                    Array-ul ce contine zilele saptamanii nu exista.
-                @endif
+                @forelse ($nameOfDaysOfWeek_arr ?? [] as $name)
+                    <div class="pl-1 text-sm text-center">{{ $name }}</div>
+                @empty
+                    Nu sunt declarate zilele saptamanii
+                @endforelse
             </div>
+
             <div
                 class="grid flex-grow w-full h-auto grid-cols-7 grid-rows-{{ $numberOfRows_int }} gap-px pt-px mt-1 bg-gray-200">
 
-                @if (isset($currentDay_int))
-                    @for ($i = 0; $i < $currentDay_int; $i++)
-                        <div></div>
-                    @endfor
-                @else
-                    Array-ul pe baza caruia se randeaza spatiul pana la primul card nu exista.
-                @endif
+                @for ($i = 0; $i < $currentDay_int; $i++)
+                    <div></div>
+                @endfor
 
-                @if (isset($daysBetweenTwoDates_arr))
-                    @forelse ($daysBetweenTwoDates_arr as $date)
-                        {{-- Aici se pun datele din card-uri --}}
-                        @livewire(
-                            'common.calendar-card',
-                            [
-                                'currentSelectedDays' => $currentSelectedDays,
-                                'date' => $date,
-                                'day' => specificDay($date),
-                                'monthName' => specificMonthNameLongFormat($currentYearAndMonth),
-                            ],
-                            key(time() . $date)
-                        )
-                    @empty
-                        Array-ul cu datele utilizate pentru randarea card-urilor este gol.
-                    @endforelse
-                @else
-                    Array-ul pe baza caruia se randeaza card-urile nu exista.
-                @endif
+                @forelse ($daysBetweenTwoDates_arr ?? [] as $date)
+                    @php
+                        $css = 'bg-white';
 
+                        if ($date === currentYearMonthAndDay()) {
+                            $css = 'bg-stone-200';
+                        }
+
+                        foreach ($cardData[$date] ?? [] as $key => $value) {
+                            $css = 'bg-red-500';
+                        }
+
+                        if (in_array($date, $selectedCards)) {
+                            $css = 'bg-teal-100';
+                        }
+
+                        if ($date < currentYearMonthAndDay()) {
+                            $css .= ' cursor-not-allowed';
+                        }
+                    @endphp
+                    {{-- Aici se pun datele din card-uri --}}
+                    <div class="h-full relative flex flex-col group {{ $css }}">
+                        <span class="mx-2 my-1 text-xs font-bold">{{ specificDay($date) }}
+                            {{ specificMonthNameLongFormat($date) }}</span>
+
+                        @if ($carSelected && $date >= currentYearMonthAndDay())
+                            {{-- carSelected tine de dropdown-ul de sus --}}
+                            @if (!in_array($date, $selectedCards))
+                                @if ($showSelectBtn[$date])
+                                    <button type="button" wire:click="selectDate(`{{ $date }}`)"
+                                        class="absolute top-0 right-0 hidden items-center justify-center w-6 h-6 mt-1 mr-2 text-white bg-green-400 rounded group-hover:flex hover:bg-green-500">
+                                        @include('svg.plus-select-day')
+                                    </button>
+                                @endif
+                            @else
+                                @if ($date === $firstSelectedCard || $date === $lastSelectedCard)
+                                    <button type="button" wire:click="selectDate(`{{ $date }}`)"
+                                        class="absolute top-0 right-0 hidden items-center justify-center w-6 h-6 mt-1 mr-2 text-white bg-red-400 rounded group-hover:flex hover:bg-red-500">
+                                        @include('svg.minus-icon')
+                                    </button>
+                                @else
+                                    <button type="button" wire:click="removeSelectedDates()"
+                                        class="absolute top-0 right-0 hidden items-center justify-center w-6 h-6 mt-1 mr-2 text-white bg-yellow-400 rounded group-hover:flex hover:bg-yellow-500">
+                                        @include('svg.minus-icon')
+                                    </button>
+                                @endif
+                            @endif
+
+                            @if (count($this->selectedCards) && isInsideOfInterval($this->selectedCards, $date))
+                                <button type="button"
+                                    wire:click="$emit('modalSelectedDates', {{ json_encode([
+                                        'selectedData' => $selectedData,
+                                    ]) }})"
+                                    class="absolute bottom-0 right-0 flex items-center justify-center hidden w-6 h-6 mb-2 mr-2 text-white bg-gray-400 rounded group-hover:flex hover:bg-gray-500">
+                                    @include('svg.plus-open-calendar-modal')
+                                </button>
+                            @endif
+                        @endif
+
+                        @isset($cardData[$date])
+                            @livewire(
+                                'common.calendar-card',
+                                [
+                                    'date' => $date,
+                                    'cardData' => $cardData[$date],
+                                    'timeIntervals' => $timeIntervals,
+                                ],
+                                key(uniqid())
+                            )
+                        @endisset
+
+                    </div>
+                @empty
+                    Array-ul cu datele utilizate pentru randarea card-urilor este gol.
+                @endforelse
             </div>
         </div>
     </div>

@@ -183,7 +183,7 @@ function handleModalData(int $rowId, string $operation = '', array $modalData = 
 function handleModalDeleteData(array $modalData = [], bool $inhibModalClosure = false)
 {
     $dataToEncode['operation'] = 'delete';
-    
+
     if (isset($inhibModalClosure)) {
         $dataToEncode['inhibModalClosure'] = $inhibModalClosure;
     }
@@ -234,4 +234,14 @@ function handleTableBody(array $data, array $fields = [])
 function replaceUnderlineWithSpace($value)
 {
     return str_replace('_', ' ', ucfirst($value));
+}
+
+function isEven(int $num)
+{
+    return $num % 2 == 0;
+}
+
+function isOdd(int $num)
+{
+    return $num % 2 != 0;
 }

@@ -34,13 +34,13 @@
         <div class="mt-4">
             <x-input-label for="company_name" :value="__('translations.translate_company_name')" />
             <x-text-input id="company_name" class="block mt-1 w-full" type="text" :placeholder="handlePlaceholder(__('translations.translate_company_name'))"
-                name="company_name" :value="old('company_name')" required autofocus />
+                name="company_name" :value="old('company_name')" autofocus />
             <x-input-error :messages="$errors->get('company_name')" class="mt-2" />
         </div>
 
         <div class="mt-4">
             <x-input-label for="cui" :value="__('translations.translate_cui')" />
-            <x-text-input id="cui" class="block mt-1 w-full" type="text" :placeholder="handlePlaceholder(__('translations.translate_cui'))" name="cui" :value="old('cui')" required
+            <x-text-input id="cui" class="block mt-1 w-full" type="text" :placeholder="handlePlaceholder(__('translations.translate_cui'))" name="cui" :value="old('cui')"
                 autofocus />
             <x-input-error :messages="$errors->get('cui')" class="mt-2" />
         </div>

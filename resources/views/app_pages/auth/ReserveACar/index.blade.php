@@ -13,9 +13,9 @@
     <section class="mt-20 mb-2 bg-white">
         <div class="text-gray-900 dark:text-gray-100 my-4">
             @if (isAdmin())
-                @livewire('components.calendar')
-                @livewire('common.modal-form-type')
-                @livewire('common.modal-task-data')
+                @livewire('components.calendar', key(uniqid()))
+                @livewire('common.modal-selected-dates', key(uniqid()))
+                @livewire('common.modal-edit-selected-dates', key(uniqid()))
             @endif
         </div>
     </section>

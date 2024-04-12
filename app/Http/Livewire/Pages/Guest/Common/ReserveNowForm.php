@@ -92,11 +92,14 @@ class ReserveNowForm extends Component
         $dateTime1 = Carbon::createFromFormat('Y-m-d H:i', $pickUpFormat);
         $dateTime2 = Carbon::createFromFormat('Y-m-d H:i', $returnFormat);
 
-        $dateTime1->addMinutes(45);
+        $this->showDateError = !($dateTime1->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime));
 
-        // dacă $dateTime1 nu este mai mic sau egal cu $dateTime2, atunci $this->showDateError va fi setată la true, altfel va fi setată la false
-        // $dateTime1 <= dateTime2 && dateTime1 >= currentDateTime && dateTime2 >= currentDateTime
-        $this->showDateError = !($dateTime1->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime)); 
+        if (!$this->showDateError) {
+            $dateTime1->addMinutes(45);
+            // dacă $dateTime1 nu este mai mic sau egal cu $dateTime2, atunci $this->showDateError va fi setată la true, altfel va fi setată la false
+            // $dateTime1 <= dateTime2 && dateTime1 >= currentDateTime && dateTime2 >= currentDateTime
+            $this->showDateError = !($dateTime1->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime));
+        }
     }
 
     public function changeSection(int $value)

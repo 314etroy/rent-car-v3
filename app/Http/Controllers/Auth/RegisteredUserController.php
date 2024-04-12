@@ -51,6 +51,8 @@ class RegisteredUserController extends Controller
             'complete_address' => $request->complete_address,
             'phone' => $request->phone,
             'is_admin' => false,
+            'code' => uniqid(),
+            'created_by' => 'USER',
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);

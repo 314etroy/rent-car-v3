@@ -3,9 +3,9 @@
 return [
     'rent_date_section' => 'Inchiriaza',
     'choose_car_section' => 'Alege masina',
-    'additional_services_section' => 'Servicii aditionale',
-    'additional_services_equipment' => 'Echipament aditional',
-    'additional_services_warranty' => 'Garantie',
+    'additional_services_section' => 'Servicii adiționale',
+    'additional_services_equipment' => 'Echipament adițional',
+    'additional_services_warranty' => 'Garanție',
     'additional_services_car_detail' => 'Detalii masina',
     'additional_services_car_name' => 'Nume masina',
     'additional_services_included' => 'Ce e inclus?',
