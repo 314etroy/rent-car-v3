@@ -170,11 +170,17 @@ class ModalEditSelectedDates extends Component
             'nr_inmatriculare' => $nr_inmatriculare,
         ];
 
-        $this->takeAdditionalEquipment();
-        $this->takeAdditionalServices();
-
         $jsonDecodeEquipments = json_decode($aditional_equipment_ids, true);
         $jsonDecodeServices = json_decode($aditional_services_ids, true);
+
+        $jsonDecodeServicesKeys = [];
+        foreach ($jsonDecodeServices as $value) {
+            $jsonDecodeServicesKeys[] = key($value);
+        }
+
+        $this->takeAdditionalEquipment();
+        $this->takeAdditionalServices($jsonDecodeServicesKeys);
+
         $equipmentsFlipIds = array_flip($this->aditionalEquipmentIds);
         $servicesFlipIds = array_flip($this->aditionalServicesIds);
 
@@ -206,7 +212,6 @@ class ModalEditSelectedDates extends Component
 
                 $this->rawData['services_data'][$service_key][$service_value][$checkboxPosition[$service_value]] = true;
             }
-
         }
 
         $this->getFirstAndLastDate($firstSelectedCard, $lastSelectedCard);
@@ -331,9 +336,9 @@ class ModalEditSelectedDates extends Component
         $this->aditionalEquipmentIds = $aditionalEquipmentIds;
     }
 
-    private function takeAdditionalServices()
+    private function takeAdditionalServices(array $selectedServicesKeys)
     {
-        $dbAdditionalService = AdditionalService::select(['id', 'nume', 'row_code', 'services'])->where('display', true)->get()->toArray();
+        $dbAdditionalService = AdditionalService::select(['id', 'nume', 'row_code', 'services'])->whereIn('id', $selectedServicesKeys)->get()->toArray();
 
         $arr = [];
         $serviceCodes = [];
