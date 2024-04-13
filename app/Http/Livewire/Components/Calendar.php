@@ -213,7 +213,7 @@ class Calendar extends Component
             $arrDates[] = $this->countEntriesByDay($this->generateHourlyIntervals($firstAndLastDate['first'], $firstAndLastDate['last']));
 
             $arr[$index] = $value;
-            $arr[$index]['userName'] = $this->allUserNames[$value['user_id']] ?? 'WRONG ENTRY';
+            $arr[$index]['userName'] = $this->allUserNames[$value['user_id']] ?? 'ADMIN'; // cand admin-ul creaza o comanda
             $arr[$index]['car_name'] = $car_name;
             $arr[$index]['nr_inmatriculare'] = $nr_inmatriculare;
             $arr[$index]['garantie'] = $garantie;

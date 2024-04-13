@@ -173,12 +173,17 @@ class ModalEditSelectedDates extends Component
         $jsonDecodeEquipments = json_decode($aditional_equipment_ids, true);
         $jsonDecodeServices = json_decode($aditional_services_ids, true);
 
+        $jsonDecodeEquipmentsKeys = [];
+        foreach ($jsonDecodeEquipments as $value) {
+            $jsonDecodeEquipmentsKeys[] = $value;
+        }
+
         $jsonDecodeServicesKeys = [];
         foreach ($jsonDecodeServices as $value) {
             $jsonDecodeServicesKeys[] = key($value);
         }
 
-        $this->takeAdditionalEquipment();
+        $this->takeAdditionalEquipment($jsonDecodeEquipmentsKeys);
         $this->takeAdditionalServices($jsonDecodeServicesKeys);
 
         $equipmentsFlipIds = array_flip($this->aditionalEquipmentIds);
@@ -314,9 +319,9 @@ class ModalEditSelectedDates extends Component
         return false; // Dacă nu există suprapunere cu niciun interval, returnăm false
     }
 
-    private function takeAdditionalEquipment()
+    private function takeAdditionalEquipment(array $jsonDecodeEquipmentsKeys)
     {
-        $dbAdditionalEquipment = AdditionalEquipment::select(['id', 'nume', 'code', 'descriere', 'pret'])->where('display', true)->get()->toArray();
+        $dbAdditionalEquipment = AdditionalEquipment::select(['id', 'nume', 'code', 'descriere', 'pret'])->whereIn('id', $jsonDecodeEquipmentsKeys)->get()->toArray();
 
         $arr = [];
         $aditionalEquipmentIds = [];

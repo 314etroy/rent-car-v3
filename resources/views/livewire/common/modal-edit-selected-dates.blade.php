@@ -306,10 +306,12 @@
                                             </div>
                                         @endif
 
-                                        <div class="flex justify-center mb-1 mt-2 w-full">
-                                            <span
-                                                class="font-bold text-gray-900 text-center text-m truncate">{{ __('translations.additional_services_section') }}</span>
-                                        </div>
+                                        @if (count($additionalServicesData))
+                                            <div class="flex justify-center mb-1 mt-2 w-full">
+                                                <span
+                                                    class="font-bold text-gray-900 text-center text-m truncate">{{ __('translations.additional_services_section') }}</span>
+                                            </div>
+                                        @endif
 
                                         @foreach ($additionalServicesData ?? [] as $value)
                                             <div class="w-full mt-2 mb-1">
@@ -404,14 +406,13 @@
                                             @endforeach
 
                                             @foreach ($selectedServices ?? [] as $key => $value)
-                                                {{-- @dd($selectedServices) --}}
                                                 @if ($this->additionalServicesData && $this->additionalServicesData[$key]['services'][$value]['pret'])
                                                     <li>
                                                         <div class="flex items-center">
                                                             <div class="flex-1">
                                                                 <p
                                                                     class="dark:text-white font-medium text-gray-900 text-left text-sm truncate">
-                                                                    {{ $this->additionalServicesData[$key]['nume'] }}
+                                                                    {{ $this->additionalServicesData[$key]['services'][$value]['comment'] }}
                                                                 </p>
                                                             </div>
                                                             <div

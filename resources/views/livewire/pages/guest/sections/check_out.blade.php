@@ -196,6 +196,13 @@
                             src="{{ Storage::url('public/images/cars/' . $selectedCar['path']) }}"
                             alt="{{ $selectedCar['name'] }}" />
                     @endif
+
+                    <span class="font-bold ">Perioada:
+                        {{ $rawData['rent_date']['pickup_date'] . ' ' . $rawData['rent_date']['pickup_time'] }} ~
+                        {{ $rawData['rent_date']['return_date'] . ' ' . $rawData['rent_date']['return_time'] }}
+                        ({{ $nrZileDeInchiriere !== 1 ? $nrZileDeInchiriere . ' zile' : $nrZileDeInchiriere . ' zi' }})
+                    </span>
+
                     <table class="w-full">
                         <thead>
                             <tr>
