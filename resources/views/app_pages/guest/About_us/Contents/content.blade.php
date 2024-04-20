@@ -18,7 +18,7 @@
         dvs. de încredere în călătoriile dvs. cu mașina. Așteptăm cu nerăbdare să vă servim și să vă oferim o experiență
         de închiriere auto de neuitat la Starent Câmpulung!</p>
 
-    <a href="/rezerva_acum" class="link-to">
+    <a href="{{route("reserve_now")}}" class="link-to">
         <button class="w-[400px] h-[40px] p-2 rounded-md text-white bg-[#7963e0] hover:bg-opacity-80 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" wire:click="changeSection(&quot;1&quot;)">
             Închiriați acum mașina dorită
         </button>

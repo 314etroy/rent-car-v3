@@ -1,7 +1,6 @@
 <section>
     <div class="text-white">
-        <div>
-
+        <div class="content">
             <h1 class="title">1. Politica GDPR</h1>
             <p>Pentru a asigura respectarea dreptului utilizatorilor site-ului la protecția datelor cu caracter
                 personal, am implementat măsuri specifice de protecție, luând în considerare legislația română, precum

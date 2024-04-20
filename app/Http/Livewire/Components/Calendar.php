@@ -189,7 +189,7 @@ class Calendar extends Component
         $this->carSelected = true;
         $this->selectedCarNumber = $prop;
         $this->selectedCarData = $this->carsData[$prop];
-        
+
         $checkoutOrderData = CheckoutOrder::where('car_id', $this->carIds[$prop])->select($this->selectCheckoutOrder)->get()->toArray();
 
         [
@@ -201,7 +201,7 @@ class Calendar extends Component
         $arr = [];
         $arrDates = [];
         $timeIntervals = [];
-      
+
         foreach ($checkoutOrderData ?? [] as $index => $value) {
             $firstAndLastDate = getFirstAndLastDate($value['pick_up_dateTime'], $value['return_dateTime']);
 
@@ -211,6 +211,7 @@ class Calendar extends Component
             $return_time = specificHourAndMinute($firstAndLastDate['last']);
 
             $arrDates[] = $this->countEntriesByDay($this->generateHourlyIntervals($firstAndLastDate['first'], $firstAndLastDate['last']));
+            //             dd($this->allUserNames, $value['user_id']);
 
             $arr[$index] = $value;
             $arr[$index]['userName'] = $this->allUserNames[$value['user_id']] ?? 'ADMIN'; // cand admin-ul creaza o comanda
@@ -366,7 +367,7 @@ class Calendar extends Component
     public function selectDate(string $date)
     {
         $this->reset(['isOverlapInterval']);
-        
+
         if (in_array($date, $this->selectedCards)) {
             $key_to_unset = array_search($date, $this->selectedCards);
             unset($this->selectedCards[$key_to_unset]);
@@ -382,7 +383,7 @@ class Calendar extends Component
         if (count($this->selectedCards) >= 2) {
             $selectedDatesInterval = getFirstAndLastDate(reset($this->selectedCards), end($this->selectedCards));
             $this->isOverlapInterval = CheckoutOrder::select('order_id')->where('car_id', $this->selectedCarData['id'])->where('pick_up_dateTime', '<=', $selectedDatesInterval['last'])->where('return_dateTime', '>=', $selectedDatesInterval['first'])->pluck('order_id')->first();
-            if(!$this->isOverlapInterval) {
+            if (!$this->isOverlapInterval) {
                 $this->reset(['isOverlapInterval']);
             } else {
                 $this->isOverlapInterval = true;

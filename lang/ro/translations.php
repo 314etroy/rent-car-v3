@@ -39,16 +39,15 @@ return [
     'anpc_menu' => 'ANPC',
     'solvit_menu' => 'Solvit',
     'contact_menu' => 'Contact',
-    'cars_menu' => 'Autoturisme',
+    'cars_menu' => 'Închiriere termen scurt și lung',
     'airport_transfer_menu' => 'Transfer aeroport',
     'car_fleet_menu' => 'Flota auto',
-    'cancellation_policy_menu' => 'Politica anulare si retur',
+    'cancellation_policy_menu' => 'Politica de închiriere, anulare si predare',
 
     // 'return_policy' => 'Politica de retur',
-    'cancellation_policy' => 'Politica anulare si retur',
-    'cancellation_policy_title' => 'Politici Starent - Închiriere - Anulare - Retur',
+    'cancellation_policy' => 'Politica de închiriere, anulare si predare | Starent Închirieri auto',
+    'cancellation_policy_title' => 'Politici Starent - Închiriere - Anulare - Predare',
     'solvit' => 'Solvit',
-    'cars' => 'Autoturisme',
     'airport_transfer' => 'Transfer aeroport',
     'car_fleet' => 'Flota auto',
     'check_booking' => 'Verifica rezervrea',
@@ -152,4 +151,30 @@ return [
     'select_date' => 'Selecteaza data',
     'reset_date' => 'Reseteaza data',
     'current_date' => 'Data curenta',
+
+
+    'home_meta_title' => 'Starent închirieri auto Câmpulung - Rent a car termen scurt și lung',
+    'home_meta_description' => 'Fie că ai nevoie de o mașină pe termen scurt sau te-ar interesa o mașină pe termen lung, Starent îți oferă soluția ambelor probleme, la prețuri avantajoase. Rezervă acum mașina dorită!',
+
+    'about_meta_title' => 'Despre noi - Descoperă Starent Închirieri Auto Câmpulung',
+    'about_meta_description' => 'La Starent Câmpulung, ne mândrim cu faptul că oferim servicii de închiriere auto de înaltă calitate, adaptate nevoilor și preferințelor fiecărui client.',
+
+    'rezervare_meta_title' => 'Selecteaza data',
+    'rezervare_meta_description' => 'Selecteaza data',
+
+    'faq_meta_title' => 'Întrebări frecvente - Ce ne întreabă clienții Starent?',
+    'faq_meta_description' => 'Trebuie să aveți minimum 21 de ani și un permis de conducere valabil de minimum 1 an (posibil mai mult pentru anumite categorii de vehicule). De asemenea, pentru orice timp de închiriere, se vor achita în avans, sau pe loc, în locația fizică, garanția și contravaloarea mașinii.',
+
+    'contact_meta_title' => 'Află totul de la noi - Starent Închirieri Auto',
+    'contact_meta_description' => 'Informații despre închiriere, procesul închirierii sau beneficiile pe termen lung sunt doar câteva puncte de discuție pentru a considera închirierea cu succes.',
+    
+    'terms_meta_title' => 'Termeni și condiții website - Starent Închirieri Auto',
+    'terms_meta_description' => 'Termenii de utilizare și condițiile de utilizare a website-ului Starent Închirieri Auto.',
+
+    'gdpr_meta_title' => 'Regulament General de Protecția Datelor - Starent Închirieri Auto',
+    'gdpr_meta_description' => 'Regulament General de Protecția Datelor pentru utilizarea corectă de prelucrare a datelor de către Starent Închirieri Auto.',
+
+    'flota_meta_title' => 'Flotă auto completă - Starent Închirieri Auto',
+    'flota_meta_description' => 'Ce mașini puteți închiria din punctele cheie avute de Starent Închirieri Auto Câmpulung.',
 ];
+

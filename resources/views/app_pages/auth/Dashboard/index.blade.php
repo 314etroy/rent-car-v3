@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title')
-    {{ __('translations.dashboard') }} 
+    {{ __('translations.dashboard') }}
 @endsection
 
 @push('css')

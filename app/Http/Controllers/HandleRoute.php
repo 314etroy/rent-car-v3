@@ -41,11 +41,6 @@ class HandleRoute extends Controller
         return view('app_pages.guest.Privacy_notice.index');
     }
 
-    public function show_rental_conditions(): View
-    {
-        return view('app_pages.guest.Rental_conditions.index');
-    }
-
     public function show_gdpr(): View
     {
         return view('app_pages.guest.Gdpr.index');
@@ -61,10 +56,6 @@ class HandleRoute extends Controller
         return view('app_pages.guest.Cancellation_policy.index');
     }
 
-    public function show_cars(): View
-    {
-        return view('app_pages.guest.Cars.index');
-    }
 
     public function show_airport_transfer(): View
     {

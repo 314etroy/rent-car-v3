@@ -21,9 +21,8 @@
                             </div>
                             <span class="text-[#ddd] text-[12px] font-medium">Actualizat 2024</span>
                             <h4 class="text-[16px] leading-[22px] font-semibold mt-[15px] mb-[6px] text-[#7963e0]">
-                                Ce condiții trebuie să îndeplinesc pentru a închiria o mașină? <span class="ml-[15px] text-[#999] text-[14px]">-
-                                    First Class</span></h4>
-                            <p class="text-[13px] text-[#777] mb-0 leading-[28px]">De obicei, trebuie să aveți minimum 21 de ani și un permis de conducere valabil de minimum 1 an (posibil mai mult pentru anumite categorii de vehicule). De asemenea, pentru orice timp de închiriere, se vor achita în avans, sau pe loc, în locația fizică, garanția și contravaloarea mașinii.</p>
+                                Ce condiții trebuie să îndeplinesc pentru a închiria o mașină? <span class="ml-[15px] text-[#999] text-[14px]"></span></h4>
+                            <p class="text-[13px] text-[#777] mb-0 leading-[28px]">Trebuie să aveți minimum 21 de ani și un permis de conducere valabil de minimum 1 an (posibil mai mult pentru anumite categorii de vehicule). De asemenea, pentru orice timp de închiriere, se vor achita în avans, sau pe loc, în locația fizică, garanția și chiria pe perioadă completă a mașinii.</p>
                         </div>
                         <div class="p-[30px] bg-[#120f1c] rounded-3xl mt-8 relative aos-init aos-animate" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="600">
                             <div class="absolute top-0 bottom-0 -left-6 w-4">
@@ -45,7 +44,7 @@
                             </div>
                             <span class="text-[#ddd] text-[12px] font-medium">Actualizat 2024</span>
                             <h4 class="text-[16px] leading-[22px] font-semibold mt-[15px] mb-[6px] text-[#7963e0]">
-                                Cât costă închirierea unei mașini?<span class="ml-[15px] text-[#999] text-[14px]">- (A+)</span></h4>
+                                Cât costă închirierea unei mașini?<span class="ml-[15px] text-[#999] text-[14px]"></span></h4>
                             <p class="text-[13px] text-[#777] mb-0 leading-[28px]">
                                 Prețul variază în funcție de tipul de vehicul, perioada de închiriere, locația de unde se ridică și se returnează mașina, și alte opțiuni suplimentare. Puteți obține o estimare a prețului pe site-ul companiei sau telefonic.
                             </p>
@@ -109,12 +108,12 @@
                             <span class="text-[#ddd] text-[12px] font-medium">Actualizat 2024</span>
                             <h4 class="text-[16px] leading-[22px] font-semibold mt-[15px] mb-[6px] text-[#7963e0]"> Pot anula rezervarea facută?</h4>
                             <p class="text-[13px] text-[#777] mb-0 leading-[28px]">
-                                Da, posibilă anularea rezervării oricând înainte de data programată pentru ridicarea mașinii însă aceasta poate implica pierderea sumei plătite sau o parte din ea. Anularea târzie sau neprezentarea la timp a ridicării mașinii va implica penalizări.
+                                Da, posibilă anularea rezervării oricând înainte de data programată pentru ridicarea mașinii însă aceasta poate implica pierderea sumei plătite sau o parte din ea. Anularea târzie sau neprezentarea la timp a predării mașinii va implica penalizări.
                             </p>
                         </div>
                     </div>
                 </div>
-                <a href="/rezerva_acum" class="link-to">
+                <a href="{{route("reserve_now")}}" class="link-to">
                     <button class="w-[400px] h-[40px] p-2 rounded-md text-white bg-[#7963e0] hover:bg-opacity-80 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" wire:click="changeSection(&quot;1&quot;)">
                         Închiriați acum mașina dorită
                     </button>

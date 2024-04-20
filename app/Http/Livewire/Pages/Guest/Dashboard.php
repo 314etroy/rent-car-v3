@@ -42,6 +42,7 @@ class Dashboard extends Component
 
         $arr = [];
         $checkOutData = [];
+        
         foreach ($checkoutOrder ?? [] as $value) {
             $arr['pickUpDateTime'] = $value['pick_up_dateTime'];
             $arr['returnDateTime'] = $value['return_dateTime'];

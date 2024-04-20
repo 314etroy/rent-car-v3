@@ -24,7 +24,7 @@
                     mașină pe termen lung, Starent îți oferă soluția ambelor probleme, la prețuri avantajoase. Rezervă acum mașina dorită!</p>
             </div>
         </div>
-        <div class="right-hero px-2 2xl:block xl:block lg:block md:block z-10">
+        <div class="right-hero px-2 2xl:block xl:block lg:block md:block z-10 2xl:max-w-lg xl:max-w-lg lg:max-w-lg lg:w-1/2 lg:mx-0 md:max-w-lg md:w-1/2 md:mx-0 2xl:w-1/2 xl:w-1/2">
             @livewire('pages.guest.common.reserve-now-form', key(uniqid()))
         </div>
     </div>

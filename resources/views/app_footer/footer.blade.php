@@ -25,20 +25,20 @@
             'route_name' => 'gdpr',
             'route_translation' => __('translations.gdpr_menu'),
         ],
-        [
-            'route_name' => 'anpc',
-            'link' => $common_links['anpc'],
-            'route_translation' => __('translations.anpc_menu'),
-        ],
-        [
-            'route_name' => 'solvit',
-            'link' => $common_links['solvit'],
-            'route_translation' => __('translations.solvit_menu'),
-        ],
+        // [
+        //     'route_name' => 'anpc',
+        //     'link' => $common_links['anpc'],
+        //     'route_translation' => __('translations.anpc_menu'),
+        // ],
+        // [
+        //     'route_name' => 'solvit',
+        //     'link' => $common_links['solvit'],
+        //     'route_translation' => __('translations.solvit_menu'),
+        // ],
     ],
     'guest_footer_services_links' => [
         [
-            'route_name' => 'cars',
+            'route_name' => 'home',
             'route_translation' => __('translations.cars_menu'),
         ],
         [

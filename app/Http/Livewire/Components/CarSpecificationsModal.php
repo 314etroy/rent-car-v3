@@ -337,7 +337,7 @@ class CarSpecificationsModal extends Modal
         ] = $this->modalProps;
 
         empty($id) && exit;
-
+        
         // Sterg Poza sau o las pentru a o folosii in zona de comenzi utilizatori?
         if ($this->storagePhotoLocation) {
             Storage::delete($this->storagePhotoLocation);

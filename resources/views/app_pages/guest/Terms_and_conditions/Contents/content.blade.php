@@ -1,6 +1,6 @@
 <div class="text-white">
-    <div>
-        <h1 style="text-align: left;">1.Definiții</h1>
+    <div class="content">
+        <h1 class="title"   style="text-align: left;">1.Definiții</h1>
         <p>&nbsp;</p>
         <p>Termenii și condițiile generale prevăzute în continuare se vor aplica tuturor vânzărilor de bunuri de
             către&nbsp;<strong>STARENT</strong>&nbsp;și partenerii săi, prin intermediul magazinului virtual
@@ -26,7 +26,7 @@
         <p>Site – domeniul starentinchirieriauto.ro și subdomeniile acestuia.</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-        <h1>2.Documente Contractuale</h1>
+        <h1 class="title" >2.Documente Contractuale</h1>
         <p>Prin lansarea unei Comenzi electronice pe site-ul starentinchirieriauto.ro, Cumpărătorul este de acord cu
             forma de comunicare (e-mail, telefon) prin care Vânzatorul își derulează operațiunile. Comanda va fi
             compusă din următoarele documente:</p>
@@ -43,7 +43,7 @@
             Contractului astfel încheiat.</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-        <h1>3.Obligațiile Vânzătorului</h1>
+        <h1 class="title" >3.Obligațiile Vânzătorului</h1>
         <ul>
             <li>Vânzătorul își va utiliza cunoștințele sale profesionale și tehnice pentru a atinge rezultatul
                 stipulat în Comandă și va livra Bunurile care îndeplinesc cerințele și specificațiile Cumpărătorului
@@ -55,7 +55,7 @@
         </ul>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-        <h1>4.Dreptul de proprietate intelectuală și industrială</h1>
+        <h1 class="title" >4.Dreptul de proprietate intelectuală și industrială</h1>
         <p>&nbsp;</p>
         <p>Utilizatorul/Cumpărătorul înțelege dreptul de proprietate intelectuală și nu va dezvălui unei terțe părți
             sau va face publice nici una dintre informările primite de la Vânzător.</p>
@@ -77,7 +77,7 @@
             expres al&nbsp;<strong>STARENT</strong>.</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-        <h1>5.Drepturile asupra conținutului site-ului</h1>
+        <h1 class="title" >5.Drepturile asupra conținutului site-ului</h1>
         <p>&nbsp;</p>
         <p>Întreg continutul site-ului&nbsp;si elementele de grafica, inclusiv dar fara a se limita la acestea,
             respectiv tot continutul in format text, precum si sursele tehnice ale tuturor serviciilor si
@@ -120,7 +120,7 @@
             site.</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-        <h1>6.Limitarea răspunderii administratorului site-ului</h1>
+        <h1 class="title" >6.Limitarea răspunderii administratorului site-ului</h1>
         <p><strong>STARENT</strong>&nbsp;nu isi asuma obligatia si nu garanteaza implicit sau expres, pentru
             continutul site-ului, respectiv pentru continutul oferit de partenerii sai sau de Utilizatorii
             site-ului. Cu toate acestea,&nbsp;<strong>STARENT</strong>&nbsp;va depune toate eforturile rezonabile
@@ -182,7 +182,7 @@
             face pe propriul lor risc.</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-        <h1>7.Abonarea Utilizatorilor la newslwettere si alerte</h1>
+        <h1 class="title" >7.Abonarea Utilizatorilor la newslwettere si alerte</h1>
         <p>Utilizatorii site-ului au&nbsp;<strong>posibilitatea</strong>&nbsp;de a primi newslettere si alerte prin
             posta electronica, existand posibilitatea ca Utilizatorii sa poata opta oricand pentru varianta de a nu
             mai primi astfel de notificari, cu un singur click pe link-ul de dezabonare din newsletter/alerta
@@ -196,7 +196,7 @@
             pagina vizitata.</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-        <h1>8.Politica de cookie-uri</h1>
+        <h1 class="title" >8.Politica de cookie-uri</h1>
         <p>&nbsp;</p>
         <p>Un cookie este un fişier text care conţine mici fragmente de informaţii trimise navigatorului tău şi
             memorate în computerul, telefonul tău mobil sau alt dispozitiv, atunci când vizitezi un site. Acest
@@ -270,7 +270,7 @@
             cookie-urilor sau a tehnologiilor similare denotă consimţământul vizitatorilor pentru utilizarea de
             către noi a unor astfel de tehnologii şi pentru prelucrarea informaţiilor.</p>
         <p>&nbsp;</p>
-        <h1>9.Facturare și plăți</h1>
+        <h1 class="title" >9.Facturare și plăți</h1>
         <p>&nbsp;</p>
         <p>Prețul, modalitatea de plată și termenul de plată sunt specificate în Comandă. Vânzătorul va emite către
             Cumpărător o factură pentru Bunurile livrate, obligația Cumpărătorului fiind să furnizeze toate
@@ -281,7 +281,7 @@
         <p>Prin trimiterea Comenzii, Cumpărătorul își exprimă acordul să primească facturile și în format electronic
             prin intermediul poștei electronice, la adresa de e-mail menționată în Contul său.</p>
         <p>&nbsp;</p>
-        <h1>10.Responsabilități</h1>
+        <h1 class="title" >10.Responsabilități</h1>
         <ul>
             <li><strong>Vânzătorul</strong>se obligă să expedieze Bunurile și Serviciile în sistem de curierat
                 door-to-door către Cumpărător.</li>
@@ -319,7 +319,7 @@
                 strict interzisă, conform Codului Fiscal.</li>
         </ul>
         <p>&nbsp;</p>
-        <h1>11.Livrarea produselor</h1>
+        <h1 class="title" >11.Livrarea produselor</h1>
         <p>&nbsp;</p>
         <p>Livrarea <strong>nu</strong> este gratuită și se&nbsp;face&nbsp;prin&nbsp;curier&nbsp;rapid așa cum este
             descrisă în secțiunea "Livrări".</p>
@@ -348,15 +348,15 @@
         <p>– cauze umane: starea de război, starea de asediu, etatizarea forțată (trecerea în proprietatea
             statului), revoluții, revolte populare etc;</p>
         <p>– nerespectarea comenzilor de către furnizori și terți.</p>
-        <h1></h1>
-        <h1></h1>
-        <h1>12.Acceptarea</h1>
+        <h1 class="title" ></h1>
+        <h1 class="title" ></h1>
+        <h1 class="title" >12.Acceptarea</h1>
         <p>Acceptarea va fi facută atunci când Bunurile sunt conforme cu caracteristicile tehnice menționate în
             Comandă. În cazul în care Cumpărătorul descoperă că Produsele livrate nu sunt conforme specificațiilor
             tehnice, atunci Vânzătorul va aduce la conformitate Produsele. De asemenea, pentru produsele vândute și
             livrate de&nbsp;<strong>STARENT</strong>, Cumpărătorul beneficiază de returul produselor în 14 zile.</p>
         <p>&nbsp;</p>
-        <h1>13.Transferul proprietății</h1>
+        <h1 class="title" >13.Transferul proprietății</h1>
         <p>Proprietatea asupra Bunurilor va fi transferată la livrare, după efectuarea plății din
             partea&nbsp;<strong>Cumpărătorului</strong>&nbsp;în locația indicată în comandă (întelegând prin livrare
             – semnarea de primire a documentului de transport furnizat de curier sau semnarea de primire pe factura
@@ -365,7 +365,7 @@
             permită&nbsp;<strong>Cumpărătorului</strong>&nbsp;deschiderea coletelor înainte de semnarea de livrare,
             ci doar ulterior semnării de livrare și achitării eventualei contravalori a acestora.</p>
         <p>&nbsp;</p>
-        <h1>14.Returnarea produselor</h1>
+        <h1 class="title" >14.Returnarea produselor</h1>
         <p>Cumpărătorul poate solicita returnarea produselor în următoarele situații:</p>
         <p>Coletele prezintă deteriorări severe;</p>
         <p>Produsele au fost livrate / facturate greșit. Livrarea altor produse decât cele solicitate trebuie
@@ -396,7 +396,7 @@
             face prin virament bancar în contul indicat de Cumpărător în cel mult 14 de zile de la primirea
             produsului returnat.</p>
         <p>&nbsp;</p>
-        <h1>15.Prelucrarea datelor cu caracter personal</h1>
+        <h1 class="title" >15.Prelucrarea datelor cu caracter personal</h1>
         <p>Pentru a asigura respectarea dreptului utilizatorilor site-ului la protecția datelor cu caracter
             personal, am implementat măsuri specifice de protecție, luând în considerare legislația română, precum
             și cerințele stabilite de Regulamentul (UE) 2017/679 –&nbsp; aplicabil în întreaga Uniune Europeană
@@ -691,7 +691,7 @@
             astfel de neexecutare este datorată unui eveniment de forță majoră. Forța majoră este evenimentul
             imprevizibil, în afara controlului părților și care nu poate fi evitat.</p>
         <p>&nbsp;</p>
-        <h1>17.Legea aplicabilă</h1>
+        <h1 class="title" >17.Legea aplicabilă</h1>
         <p>&nbsp;</p>
         <p>Prezentul contract este supus legii Române. Eventualele litigii apărute
             între&nbsp;<strong>STARENT</strong>&nbsp;și utilizatori/clienți/cumpărători se vor rezolva pe cale
@@ -699,13 +699,13 @@
             judecătorești Române competente.</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-        <h1>18. Oferte speciale</h1>
+        <h1 class="title" >18. Oferte speciale</h1>
         <p>STARENT nu are în desfășurare campanii cu oferte speciale.</p>
         <p>&nbsp;</p>
         <p>&nbsp;</p>
 
         <p><strong>&nbsp;</strong></p>
-        <h1>19. Modificarea termenilor și condițiilor</h1>
+        <h1 class="title" >19. Modificarea termenilor și condițiilor</h1>
         <p><strong>STARENT</strong>&nbsp;are dreptul de a modifica oricând și în orice mod oricare dintre
             prevederile cuprinse în Termeni și condiții sau Termenii și Condițiile în întregime, fără nicio
             notificare prealabila și fără a fi obligata sa îndeplinească vreo alta formalitate fata de Utilizatori.

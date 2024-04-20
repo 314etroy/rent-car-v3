@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title')
-    {{ __('translations.home') }}
+    {{ __('translations.home_meta_title') }}
 @endsection
 
 @push('css')

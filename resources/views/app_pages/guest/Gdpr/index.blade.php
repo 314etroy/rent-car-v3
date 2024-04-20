@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('page_title')
-    {{ __('translations.gdpr') }}
+    {{ __('translations.gdpr_meta_title') }}
+@endsection
+
+@section('description')
+    {{ __('translations.gdpr_meta_description') }}
 @endsection
 
 @push('css')

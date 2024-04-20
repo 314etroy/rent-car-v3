@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('page_title')
-    {{ __('translations.faqs') }}
+    {{ __('translations.faq_meta_title') }}
+@endsection
+
+@section('description')
+    {{ __('translations.faq_meta_description') }}
 @endsection
 
 @push('css')

@@ -56,7 +56,7 @@ return [
             'empty_checkbox' => '',
             'valid_checkbox' => 'border border-blue-500',
             'error_checkbox' => 'border border-red-500 focus:border-red-500 focus:ring-red-500',
-
+        
             'empty_select' => 'w-full',
             'valid_select' => 'w-full border border-blue-500',
             'error_select' => 'w-full border border-red-500 focus:border-red-500 focus:ring-red-500',
@@ -90,7 +90,6 @@ return [
             'empty_textarea' => 'w-full text-gray-700 border border-slate-200 rounded py-3 px-4 mb-4 leading-tight focus:outline-none',
             'valid_textarea' => 'w-full text-gray-700 border border-blue-500 rounded py-3 px-4 mb-4 leading-tight focus:outline-none',
             'error_textarea' => 'w-full text-gray-700 border border-red-500 focus:border-red-500 focus:ring-red-500 rounded py-3 px-4 mb-4 leading-tight focus:outline-none',
-
         ],
         'home_page_contact' => [
             'empty_input' => 'appearance-none bg-[#161321] w-full py-6 px-3 text-[#777] leading-tight focus:outline-none focus:bg-[#120f1c] rounded-t-lg',
@@ -109,7 +108,7 @@ return [
             'empty_checkbox' => '',
             'valid_checkbox' => 'border border-blue-500',
             'error_checkbox' => 'border border-red-500 focus:border-red-500 focus:ring-red-500',
-
+        
             'empty_select' => 'w-full',
             'valid_select' => 'w-full border border-blue-500',
             'error_select' => 'w-full border border-red-500 focus:border-red-500 focus:ring-red-500',

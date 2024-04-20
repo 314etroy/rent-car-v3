@@ -164,7 +164,7 @@
         [
             'type' => 'checkbox',
             'key' => 'politica-de-procesare',
-            'labelText' => '<span class="edit-policy">Sunt de acord cu <a href="' . route('privacy_notice') . '" class="mx-1 text-blue-700 font-bold" target="_blank">politica de procesare</a> a datelor personale</span>',
+            'labelText' => '<span class="edit-policy">Sunt de acord cu <a href="' . route('cancellation_policy') . '" class="mx-1 text-blue-700 font-bold" target="_blank">politica de închiriere</a> a autovehiculului Starent.</span>',
             'divClass' => 'flex flex-row-reverse gap-4 items-center justify-end',
             'wireModelName' => 'rawData.check_out.policy',
             'isRequired' => true,

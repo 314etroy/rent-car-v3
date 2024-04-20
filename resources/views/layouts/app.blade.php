@@ -4,6 +4,8 @@
 <head>
     @include('common.metadata')
     <title>@yield('page_title', env('APP_NAME'))</title>
+    <meta name="description"
+        content="@if (View::hasSection('description')) @yield('description')@else {{ __('translations.home_meta_description') }} @endif">
     @include('common.fonts')
     @stack('css')
     @include('common.css')

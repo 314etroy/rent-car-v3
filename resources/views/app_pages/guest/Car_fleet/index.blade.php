@@ -1,8 +1,12 @@
 @extends('layouts.app')
 
 @section('page_title')
-    {{ __('translations.car_fleet') }}
+    {{ __('translations.flota_meta_title') }}
 @endsection
+@section('description')
+    {{ __('translations.flota_meta_description') }}
+@endsection
+
 
 @push('css')
     {{-- Zona pentru css-urile folosite la nivel de pagina --}}
@@ -16,7 +20,7 @@
             'description' => __('translations.car_fleet'),
         ])
         <div class="mx-auto max-w-7xl bg-white flex justify-center">
-            @include('common.inWork')
+            @include('app_pages.guest.Car_fleet.Content.cars')
         </div>
     </section>
 @endsection

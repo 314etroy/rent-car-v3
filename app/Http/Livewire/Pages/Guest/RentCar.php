@@ -683,7 +683,7 @@ class RentCar extends Component
         $arr['price'] = (float) $this->checkoutPrice;
         $arr['nr_of_days'] = $this->nrZileDeInchiriere;
         $arr['status'] = false;
-        $arr['additional_driver'] = in_array('d2', array_values($this->jsonArr['selectedServices']));
+        $arr['additional_driver'] = in_array('65f8a6b2370b0', array_values($this->jsonArr['selectedServices']));
         $arr['additional_driver_name'] = '';
 
         $carCode = $this->jsonArr['selectedCar']['code'];

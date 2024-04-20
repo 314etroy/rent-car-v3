@@ -105,7 +105,7 @@ function isAdmin()
     if (empty(Auth::user())) {
         return false;
     }
-
+    
     return (bool) Auth::user()->is_admin;
 }
 
@@ -139,7 +139,6 @@ function modifArray(array $arr = [], array $modif = [])
 
 function handleModalAddData(string $operation = '', array $modalData = [], bool $inhibModalClosure = false)
 {
-    // $arr = [];
     $dataToEncode = [];
 
     if (isset($operation)) {

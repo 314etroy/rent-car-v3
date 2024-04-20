@@ -162,13 +162,12 @@
                         </div>
                     </div>
                     <div class="px-2 pb-2 w-full">
-                        {{-- @dd(\Carbon\Carbon::parse($value['pickUpDateTime']), \Carbon\Carbon::now(), \Carbon\Carbon::parse($value['pickUpDateTime']) >= \Carbon\Carbon::now()) --}}
                         @if (\Carbon\Carbon::parse($value['pickUpDateTime']) >= \Carbon\Carbon::now() && !$value['isDeletedOrder'])
                             <button class="font-medium w-full text-white bg-red-500 hover:underline p-2"
                                 wire:click="{{ handleEmitTo($emitToPath, $emitToMethod, handleModalDeleteData(['code' => $value['codeId']])) }}">
                                 Anulează comanda
                             </button>
-                            {{-- @else
+                        {{-- @else
                             <div class="font-medium w-full text-black bg-gray-300 p-2 cursor-not-allowed">
                                 Comandă realizată
                             </div> --}}

@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', [HandleRoute::class, 'show_home'])->name('home');
 
-Route::get('/' . __('messages.cars'), [HandleRoute::class, 'show_cars'])->name('cars');
 Route::get('/' . __('messages.faqs'), [HandleRoute::class, 'show_faqs'])->name('faqs');
 Route::get('/' . __('messages.gdpr'), [HandleRoute::class, 'show_gdpr'])->name('gdpr');
 Route::get('/' . __('messages.contact'), [HandleRoute::class, 'show_contact'])->name('contact');
@@ -30,7 +29,6 @@ Route::get('/' . __('messages.reserve_now'), [HandleRoute::class, 'show_reserve_
 Route::get('/' . __('messages.return_policy'), [HandleRoute::class, 'show_return_policy'])->name('return_policy');
 Route::get('/' . __('messages.privacy_notice'), [HandleRoute::class, 'show_privacy_notice'])->name('privacy_notice');
 Route::get('/' . __('messages.airport_transfer'), [HandleRoute::class, 'show_airport_transfer'])->name('airport_transfer');
-Route::get('/' . __('messages.rental_conditions'), [HandleRoute::class, 'show_rental_conditions'])->name('rental_conditions');
 Route::get('/' . __('messages.cancellation_policy'), [HandleRoute::class, 'show_cancellation_policy'])->name('cancellation_policy');
 Route::get('/' . __('messages.terms_and_conditions'), [HandleRoute::class, 'show_terms_and_conditions'])->name('terms_and_conditions');
 

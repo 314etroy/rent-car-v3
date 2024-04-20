@@ -217,6 +217,7 @@ class ModalEditSelectedDates extends Component
 
                 $this->rawData['services_data'][$service_key][$service_value][$checkboxPosition[$service_value]] = true;
             }
+
         }
 
         $this->getFirstAndLastDate($firstSelectedCard, $lastSelectedCard);
@@ -319,9 +320,9 @@ class ModalEditSelectedDates extends Component
         return false; // Dacă nu există suprapunere cu niciun interval, returnăm false
     }
 
-    private function takeAdditionalEquipment(array $jsonDecodeEquipmentsKeys)
+    private function takeAdditionalEquipment(array $selectedEquipmentsKeys)
     {
-        $dbAdditionalEquipment = AdditionalEquipment::select(['id', 'nume', 'code', 'descriere', 'pret'])->whereIn('id', $jsonDecodeEquipmentsKeys)->get()->toArray();
+        $dbAdditionalEquipment = AdditionalEquipment::select(['id', 'nume', 'code', 'descriere', 'pret'])->whereIn('id', $selectedEquipmentsKeys)->get()->toArray();
 
         $arr = [];
         $aditionalEquipmentIds = [];
