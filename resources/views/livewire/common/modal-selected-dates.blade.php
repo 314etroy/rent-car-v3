@@ -52,7 +52,7 @@
         ],
         [
             'type' => 'select',
-            'key' => 'tara-/-regiune',
+            'key' => 'țară-/-regiune',
             'wireModelName' => 'rawData.form_data.contry_region',
             'isRequired' => true,
             'labelClass' => config('constants.common_css.calendar_modal_form.label_Class'),
@@ -107,7 +107,7 @@
         ],
         [
             'type' => 'select',
-            'key' => 'alege-locatia',
+            'key' => 'alege-locația',
             'isRequired' => true,
             'labelClass' => config('constants.common_css.calendar_modal_form.label_Class'),
             'validLabelClass' => config('constants.common_css.calendar_modal_form.valid_label'),
@@ -116,7 +116,7 @@
             'validInputClass' => config('constants.common_css.calendar_modal_form.valid_input'),
             'errorInputClass' => config('constants.common_css.calendar_modal_form.error_input'),
             'emptyInputClass' => config('constants.common_css.calendar_modal_form.empty_input'),
-            'selectDefaultText' => 'Selecteaza orasul',
+            'selectDefaultText' => 'Selectează orașul',
             'allOptions' => [
                 'bucuresti' => 'București',
                 'brasov' => 'Brașov Aeroport Ghimbav',
@@ -126,7 +126,7 @@
         ],
         [
             'type' => 'time',
-            'key' => 'ora-preluarii',
+            'key' => 'ora-preluării',
             'id' => 'time123',
             'isRequired' => true,
             'labelClass' => config('constants.common_css.calendar_modal_form.label_Class'),
@@ -140,7 +140,7 @@
         ],
         [
             'type' => 'time',
-            'key' => 'ora-predarii',
+            'key' => 'ora-predării',
             'isRequired' => true,
             'labelClass' => config('constants.common_css.calendar_modal_form.label_Class'),
             'validLabelClass' => config('constants.common_css.calendar_modal_form.valid_label'),
@@ -219,8 +219,8 @@
                                 @if (in_array('65f8a6b2370b0', array_values($this->selectedServices)))
                                     @include('common.genericInputFields', [
                                         'type' => 'search',
-                                        'key' => 'Sofer aditional',
-                                        'placeholder' => 'Adauga numele soferului aditional',
+                                        'key' => 'Șofer adițional',
+                                        'placeholder' => 'Adaugă numele șoferului adițional',
                                         'wireModelName' => 'rawData.form_data.additional_driver_name',
                                         'validLabelClass' => config(
                                             'constants.common_css.calendar_modal_form.valid_label'),

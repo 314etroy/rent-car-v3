@@ -32,7 +32,7 @@ return [
     'reserve_now_menu' => 'Rezervare auto',
     'about_us_menu' => 'Despre noi',
     'faqs_menu' => 'Întrebări frecvente',
-    'terms_and_conditions_menu' => 'Termeni și conditți',
+    'terms_and_conditions_menu' => 'Termeni și condiții',
     'privacy_notice_menu' => 'Politica de confidențialitate',
     'rental_conditions_menu' => 'Condiții de închiriere',
     'gdpr_menu' => 'Politica GDPR',

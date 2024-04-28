@@ -10,7 +10,7 @@
     'firstColumn' => [
         [
             'type' => 'select',
-            'key' => 'alege-locatia',
+            'key' => 'alege-locația',
             'labelClass' => config('constants.common_css.rent_date.label_Class'),
             'validLabelClass' => config('constants.common_css.rent_date.valid_label'),
             'errorLabelClass' => config('constants.common_css.rent_date.error_label'),
@@ -29,7 +29,7 @@
         ],
         [
             'type' => 'date',
-            'key' => 'alege-data',
+            'key' => 'alege-dată',
             'labelClass' => config('constants.common_css.rent_date.label_Class'),
             'validLabelClass' => config('constants.common_css.rent_date.valid_label'),
             'errorLabelClass' => config('constants.common_css.rent_date.error_label'),
@@ -42,7 +42,7 @@
         ],
         [
             'type' => 'time',
-            'key' => 'ora-ridicarii',
+            'key' => 'ora-ridicării',
             'step' => '1800',
             'labelClass' => config('constants.common_css.rent_date.label_Class'),
             'validLabelClass' => config('constants.common_css.rent_date.valid_label'),
@@ -59,7 +59,7 @@
         [
             'type' => $return_to_another_location ?? null ? 'hidden' : 'checkbox',
             'hideLabel' => $return_to_another_location ?? null,
-            'key' => 'predarea-in-alta-locatie',
+            'key' => 'predarea-în-altă-locație',
             'divClass' =>
                 $return_to_another_location ?? null ? '' : 'flex flex-row-reverse gap-4 items-center justify-end mt-3',
             'emptyLabelClass' => $return_to_another_location ?? null ? '' : 'mb-4',
@@ -69,7 +69,7 @@
         [
             'type' => $return_to_another_location ?? null ? 'select' : 'hidden',
             'hideLabel' => $return_to_another_location ?? null ? false : true,
-            'key' => 'locatie-predare',
+            'key' => 'locație-predare',
             'showValidationMsg' => false,
             'labelClass' => config('constants.common_css.rent_date.label_Class'),
             'validLabelClass' => config('constants.common_css.rent_date.valid_label'),
@@ -78,7 +78,7 @@
             'validInputClass' => config('constants.common_css.rent_date.valid_input'),
             'errorInputClass' => config('constants.common_css.rent_date.error_input'),
             'emptyInputClass' => config('constants.common_css.rent_date.empty_input'),
-            'selectDefaultText' => 'Selecteaza orasul',
+            'selectDefaultText' => 'Selectează orașul',
             'allOptions' => [
                 'bucuresti' => 'București',
                 'brasov' => 'Brașov Aeroport Ghimbav',
@@ -88,7 +88,7 @@
         ],
         [
             'type' => 'date',
-            'key' => 'data-predare',
+            'key' => 'dată-predare',
             'labelClass' => config('constants.common_css.rent_date.label_Class'),
             'validLabelClass' => config('constants.common_css.rent_date.valid_label'),
             'errorLabelClass' => config('constants.common_css.rent_date.error_label'),
@@ -101,7 +101,7 @@
         ],
         [
             'type' => 'time',
-            'key' => 'ora-predarii',
+            'key' => 'ora-predării',
             'step' => '1800',
             'labelClass' => config('constants.common_css.rent_date.label_Class'),
             'validLabelClass' => config('constants.common_css.rent_date.valid_label'),
@@ -147,7 +147,7 @@
 
         <!-- Go to Reserve-now-Form Btn -->
         @include('common.generic-btn', [
-            'btn_content' => 'Inchiriază masina',
+            'btn_content' => 'Închiriază mașina',
             'wire_method' => 'changeSection("1")',
             'class' => 'w-full p-2 rounded-md ' . getConstant('modal_generic_colors')['purple'],
         ])

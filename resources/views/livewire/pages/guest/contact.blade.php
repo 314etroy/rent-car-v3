@@ -49,7 +49,7 @@
                     <div class="row">
                         <div class="col-sm-6 mb-2">
                             <label class="form-label">
-                                Nume si prenume
+                                Nume și prenume
                                 <span class="text-danger-alt">*</span>
                             </label>
                             <div class="input-group form ">
@@ -99,7 +99,7 @@
                             </label>
                             <div class=" input-group form">
                                 <textarea class="form-control {{ config('constants.common_css.contact.empty_textarea') }}" type="number" name="mesaj"
-                                    rows="5" wire:model.debounce.200ms="formFildsContent.mesaj" placeholder="Adaugati mesaj"></textarea>
+                                    rows="5" wire:model.debounce.200ms="formFildsContent.mesaj" placeholder="Adăugați mesaj"></textarea>
                             </div>
                         </div>
                         <div id="errors" style="margin-top: 10px">
@@ -113,7 +113,7 @@
                             @if (empty($errorMsgs) && $successMsg)
                                 <div
                                     class="alert alert-success mb-4  alert-dismissible text-white bg-green-500 border border-green-500">
-                                    <span class="alert-heading ml-4">Cererea a fost trimisa cu succes.</span>
+                                    <span class="alert-heading ml-4">Cererea a fost trimisă cu succes.</span>
                                 </div>
                             @endif
                         </div>

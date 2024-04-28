@@ -61,14 +61,14 @@
     <div class="max-w-7xl mx-auto ">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
             <div class="flex flex-col ">
-                <p class="text-[20px] text-[#ddd] pt-6 font-bold">StaRent Inchirieri Auto Campulung</p>
+                <p class="text-[20px] text-[#ddd] pt-6 font-bold">StaRent Închirieri Auto Campulung</p>
                 <div class="flex flex-col  mt-5 space-y-2 text-white">
                     <ul>
                         <li>Municipiul Câmpulung, Strada G-RAL GRIGORE GRECESCU, Nr. 9, Bloc D17, Scara A, Etaj 1, Ap. 7, Judet Argeş</li>
                         <li><a href="tel:0722222222">0722-222-222</a></li>
                         <li><a href="mailto:contact@starentinchirieriauto.ro">contact@starentinchirieriauto.ro</a></li>
                     </ul>
-                    <u>Harta Sediu Campulung:</u>
+                    <u>Hartă Sediu Campulung:</u>
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d89876.85852940445!2d24.988596499804682!3d45.25483289432369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b329b90719bcb7%3A0xd4d45c5e5ba46dad!2sC%C3%A2mpulung!5e0!3m2!1sro!2sro!4v1708299022213!5m2!1sro!2sro"
                         width="100%" style="border:0;" allowfullscreen="" loading="async"
@@ -115,8 +115,8 @@
                 <div class="flex flex-col mt-5 space-y-2 text-white ">
                     <ul>
                         <li>Luni - Vineri: 08:00 la 17:00</li>
-                        <li>Sambata: 08:00 - 14:00</li>
-                        <li>Duminica: <b class="text-red-700">inchis</b></li>
+                        <li>Sâmbată: 08:00 - 14:00</li>
+                        <li>Duminică: <b class="text-red-700">închis</b></li>
                     </ul>
                 </div>
 

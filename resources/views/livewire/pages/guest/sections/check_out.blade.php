@@ -166,8 +166,8 @@
         [
             'type' => 'checkbox',
             'key' => 'termeni-si-conditii',
-            'labelText' => 'Sunt de acord cu termenii si conditiile website-ului si politica GDPR',
-            'labelText' => '<span class="edit-terms">Sunt de acord cu <a href="' . route('terms_and_conditions') . '" class="mx-1 text-blue-700 font-bold" target="_blank">termenii si conditiile</a> website-ului si <a href="' . route('gdpr') . '" class="mx-1 text-blue-700 font-bold" target="_blank">politica GDPR</a></span>',
+            'labelText' => 'Sunt de acord cu termenii și condițiile website-ului și politica GDPR',
+            'labelText' => '<span class="edit-terms">Sunt de acord cu <a href="' . route('terms_and_conditions') . '" class="mx-1 text-blue-700 font-bold" target="_blank">termenii și condițiile</a> website-ului si <a href="' . route('gdpr') . '" class="mx-1 text-blue-700 font-bold" target="_blank">politica GDPR</a></span>',
             'divClass' => 'flex flex-row-reverse gap-4 items-center justify-end',
             'wireModelName' => 'rawData.check_out.terms',
             'isRequired' => true,
