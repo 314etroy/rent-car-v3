@@ -123,6 +123,7 @@ return [
     'translate_longRandomPassword' => 'Ensure your account is using a long, random password to stay secure.',
     'translate_currentPassword' => 'Current Password',
     'translate_newPassword' => 'New Password',
+    'translate_confirmmPassword' => 'Confirm Password',
 
     'translate_deleteAccount' => 'Delete Account',
     'translate_cancel' => 'Cancel',

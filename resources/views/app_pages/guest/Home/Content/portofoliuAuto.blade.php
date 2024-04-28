@@ -1,6 +1,6 @@
 <section id="portfolio" class="section-Portfolio 2xl:py-[80px] py-[70px]">
     <div class="banner text-center mb-[30px]" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="300">
-        <span class="text-[14px] text-[#ddd]">Portofoliu de masini</span>
+        <span class="text-[14px] text-[#ddd]">Portofoliu de mașini</span>
         <h2
             class="text-center mt-[5px] text-white 2xl:text-[35px] xl:text-[33px] lg:text-[30px] md:text-[26px] sm:text-[24px] text-[22px] font-bold">
             Portofoliul <span class="text-[#7963e0]"> nostru</span></h2>
@@ -33,9 +33,9 @@
                                     class="transform hover:bg-blue-600 transition duration-500 hover:-rotate-12 hover:scale-125 flex h-[350px] w-full justify-center bg-cover">
                                 <h3 class="top-contain absolute top-[15px] right-[15px]">
                                     <span class="bg-black rounded-full text-white font-normal text-[12px] px-2 py-1">Cea
-                                        mai aleasa masina</span>
+                                        mai aleasă mașina</span>
                                     <span
-                                        class="bg-black rounded-full text-white font-normal text-[12px] px-2 py-1">Fiabila</span>
+                                        class="bg-black rounded-full text-white font-normal text-[12px] px-2 py-1">Fiabilă</span>
                                 </h3>
                                 <div class="bottom-contain absolute bottom-4 left-4 right-4">
                                     <div
@@ -59,7 +59,7 @@
                                     class="transform hover:bg-blue-600 transition duration-500 hover:-rotate-12 hover:scale-125 flex h-[350px] w-full justify-center bg-cover">
                                 <h3 class="top-contain absolute top-[15px] right-[15px]">
                                     <span class="bg-black rounded-full font-normal text-white text-[12px] px-2 py-1">Cea
-                                        mai economica</span>
+                                        mai economică</span>
                                 </h3>
                                 <div class="bottom-contain absolute bottom-4 left-4 right-4">
                                     <div

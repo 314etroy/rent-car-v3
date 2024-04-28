@@ -164,6 +164,10 @@ class Calendar extends Component
 
     public function updatedSelectedCar(string $prop, $resetSelectedDates = false)
     {
+        if($this->selectedCarNumber !== $prop && count($this->selectedCards)) {
+            $this->reset(['selectedCards']);
+        }
+
         if (!$prop) {
             $this->reset([
                 'carSelected',
@@ -204,15 +208,14 @@ class Calendar extends Component
 
         foreach ($checkoutOrderData ?? [] as $index => $value) {
             $firstAndLastDate = getFirstAndLastDate($value['pick_up_dateTime'], $value['return_dateTime']);
-
+            
             $pick_up_date = specificYearMonthAndDay($firstAndLastDate['first']);
             $pick_up_time = specificHourAndMinute($firstAndLastDate['first']);
             $return_date = specificYearMonthAndDay($firstAndLastDate['last']);
             $return_time = specificHourAndMinute($firstAndLastDate['last']);
 
             $arrDates[] = $this->countEntriesByDay($this->generateHourlyIntervals($firstAndLastDate['first'], $firstAndLastDate['last']));
-            //             dd($this->allUserNames, $value['user_id']);
-
+            
             $arr[$index] = $value;
             $arr[$index]['userName'] = $this->allUserNames[$value['user_id']] ?? 'ADMIN'; // cand admin-ul creaza o comanda
             $arr[$index]['car_name'] = $car_name;
@@ -222,9 +225,10 @@ class Calendar extends Component
             $arr[$index]['return_time'] = $return_time;
             $arr[$index]['firstSelectedCard'] = $pick_up_date;
             $arr[$index]['lastSelectedCard'] = $return_date;
-
+            
             foreach ($arrDates[$index] as $key => $numberOfHours) {
                 $enrichArr = array_merge($arr[$index], ['numberOfHours' => $numberOfHours, 'totalHours' => hours_difference($firstAndLastDate['first'], $firstAndLastDate['last'])]);
+                
                 switch ($key) {
                     case $pick_up_date:
                         $arrDates[$index][$key] = [$pick_up_time => array_merge($enrichArr, ['type' => 'start'])];
@@ -285,9 +289,10 @@ class Calendar extends Component
         }
 
         $this->timeIntervals = $timeIntervals;
+        
         $this->cardData = $mergedArray;
-
-        $this->handleShowSelectBtn(false, true);
+        
+        $this->handleShowSelectBtn(false, true, false); // true
     }
 
     public function renderMonth($month)
@@ -396,7 +401,7 @@ class Calendar extends Component
             $this->firstSelectedCard = min_date($this->selectedCards);
             $this->lastSelectedCard = max_date($this->selectedCards);
             $this->selectedCards = daysBetween($this->firstSelectedCard, $this->lastSelectedCard)->toArray();
-
+            
             $this->selectionData = getFirstAndLastDate($this->firstSelectedCard, $this->lastSelectedCard);
 
             $nrOfDays = count($this->selectedCards);
@@ -423,7 +428,7 @@ class Calendar extends Component
         }
     }
 
-    private function handleShowSelectBtn(bool $bool1, bool $bool2)
+    private function handleShowSelectBtn(bool $bool1, bool $bool2, bool $resetAtChangedCar = false)
     {
         foreach ($this->daysBetweenTwoDates_arr ?? [] as $date) {
             if (count($this->availableDatesToSelectInterval)) {

@@ -17,7 +17,8 @@
                     @case('delete')
                         Ești sigur că vrei să ștergi acestă comandă?
                         <br>
-                        Comanda: <b>{{ $modalProps['rowData']['orderId'] }}</b>
+                        Comanda: <b>{{ $modalProps['rowData']['orderId'] }}</b> în valoare de:
+                        <b>{{ $modalProps['price'] }}</b> Lei
                     @break
                 @endswitch
 

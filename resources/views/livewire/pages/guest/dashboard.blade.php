@@ -93,8 +93,8 @@
                                         <div
                                             class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                                             {{ $value['nrOfDays'] }}
-                                            {{ $value['nrOfDays'] > 1 ? 'zile' : 'zi' }} x {{ $value['pricePerDay'] }}
-                                            lei = {{ $value['nrOfDays'] * $value['pricePerDay'] }} lei
+                                            {{ $value['nrOfDays'] > 1 ? 'Zile' : 'Zi' }} x {{ $value['pricePerDay'] }}
+                                            Lei / Zi = {{ $value['nrOfDays'] * $value['pricePerDay'] }} Lei
                                         </div>
                                     </div>
                                 </li>
@@ -108,7 +108,9 @@
                                         </div>
                                         <div
                                             class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            {{ $value['garantie'] }} lei
+                                            {{ $value['nrOfDays'] }}
+                                            {{ $value['nrOfDays'] > 1 ? 'Zile' : 'Zi' }} x {{ $value['garantie'] }}
+                                            Lei / Zi = {{ $value['nrOfDays'] * $value['garantie'] }} Lei
                                         </div>
                                     </div>
                                 </li>
@@ -123,7 +125,10 @@
                                             </div>
                                             <div
                                                 class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                                {{ $equipment['price'] }} lei
+                                                {{ $value['nrOfDays'] }}
+                                                {{ $value['nrOfDays'] > 1 ? 'Zile' : 'Zi' }} x
+                                                {{ $equipment['price'] }}
+                                                Lei / Zi = {{ $value['nrOfDays'] * $equipment['price'] }} Lei
                                             </div>
                                         </div>
                                     </li>
@@ -139,7 +144,7 @@
                                             </div>
                                             <div
                                                 class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                                {{ $service['price'] }} lei
+                                                {{ $service['price'] }} Lei
                                             </div>
                                         </div>
                                     </li>
@@ -154,7 +159,7 @@
                                         </div>
                                         <div
                                             class="inline-flex items-center text-base font-bold text-gray-900 dark:text-white">
-                                            {{ $value['price'] }} lei
+                                            {{ $value['price'] }} Lei
                                         </div>
                                     </div>
                                 </li>
@@ -164,10 +169,10 @@
                     <div class="px-2 pb-2 w-full">
                         @if (\Carbon\Carbon::parse($value['pickUpDateTime']) >= \Carbon\Carbon::now() && !$value['isDeletedOrder'])
                             <button class="font-medium w-full text-white bg-red-500 hover:underline p-2"
-                                wire:click="{{ handleEmitTo($emitToPath, $emitToMethod, handleModalDeleteData(['code' => $value['codeId']])) }}">
+                                wire:click="{{ handleEmitTo($emitToPath, $emitToMethod, handleModalDeleteData(['code' => $value['codeId'], 'price' => $value['price']])) }}">
                                 Anulează comanda
                             </button>
-                        {{-- @else
+                            {{-- @else
                             <div class="font-medium w-full text-black bg-gray-300 p-2 cursor-not-allowed">
                                 Comandă realizată
                             </div> --}}

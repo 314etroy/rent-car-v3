@@ -9,7 +9,7 @@
                         Garantie {{ ucfirst($selectedCar['name']) }}
                     </h1>
                     <h1 class="text-3xl/tight font-semibold mt-3">
-                        + {{ $pretGarantie }} Lei
+                        + {{ $pretGarantie }} Lei / Zi
                     </h1>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                                             {{ $value['descriere'] }}
                                         </h1>
                                         <h1 class="text-3xl/tight font-semibold mt-3">
-                                            {{ $value['pret'] === 0 ? 'Fără costuri adiționale' : '+ ' . $value['pret'] . '  Lei' }}
+                                            {{ $value['pret'] === 0 ? 'Fără costuri adiționale' : '+ ' . $value['pret'] . '  Lei / Zi' }}
                                         </h1>
                                     </div>
                                 </div>
@@ -56,7 +56,6 @@
                     </div>
 
                     <div class="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-7 mt-14 w-full">
-
                         @foreach ($value['services'] ?? [] as $service)
                             <div data-aos="fade-up" data-aos-duration="500"
                                 wire:click='choseAdditionalServices("{{ $value['row_code'] }}", "{{ $service['code'] }}")'>

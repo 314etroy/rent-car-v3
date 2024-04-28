@@ -18,7 +18,7 @@
                 <span class="text-[#7963e0] text-[18px] font-bold"></span>
                 <h1
                     class="text-[#fff] 2xl:text-[60px] xl:text-[55px] lg:text-[50px] md:text-[45px] text-[40px] font-bold">
-                    Starent Inchirieri auto</h1>
+                    Starent Închirieri auto</h1>
                 <h2 class="py-4 text-[#fff] text-[20px] font-bold">Câmpulung Muscel</h2>
                 <p class="pt-2 text-white text-base">Fie că ai nevoie de o mașină pe termen scurt sau te-ar interesa o
                     mașină pe termen lung, Starent îți oferă soluția ambelor probleme, la prețuri avantajoase. Rezervă acum mașina dorită!</p>

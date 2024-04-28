@@ -94,7 +94,6 @@
                         <br>
                         {{ __('translations.equipment') }}: <b>{{ $this->modalProps['rowData']['nume'] }}</b>
                     @break
-
                 @endswitch
 
             </div>

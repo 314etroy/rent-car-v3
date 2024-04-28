@@ -50,8 +50,8 @@
     'selectHaveDafaultValue' => true,
 ])
 
-<div {!! setProperties('class', $divClass) !!}>
-    @if ($display)
+@if ($display)
+    <div {!! setProperties('class', $divClass) !!}>
         @if (!$hideLabel)
             <label {!! setProperties('for', $key) !!} {!! setProperties('class', $labelClass) !!}>
                 <span {!! setProperties('class', $emptyLabelClass) !!}>
@@ -104,5 +104,5 @@
 
             @default
         @endswitch
-    @endif
-</div>
+    </div>
+@endif

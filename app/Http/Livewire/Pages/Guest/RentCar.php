@@ -3,15 +3,20 @@
 namespace App\Http\Livewire\Pages\Guest;
 
 use Carbon\Carbon;
+use App\Models\User;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
 
 use App\Models\CheckoutOrder;
 use App\Models\CarSpecification;
 use App\Models\AdditionalService;
 use App\Models\AdditionalEquipment;
+
+use App\Providers\RouteServiceProvider;
 
 use Illuminate\Validation\ValidationException;
 
@@ -49,6 +54,7 @@ class RentCar extends Component
             // 'judet' => '',
             'phone' => '',
             'email' => '',
+            'have_account' => '',
             'password' => '',
             'confirm_password' => '',
             'terms' => '',
@@ -74,10 +80,10 @@ class RentCar extends Component
         'rawData.check_out.contry_region' => 'required',
         'rawData.check_out.complete_address' => 'required',
         // 'rawData.check_out.judet' => 'required',
-        'rawData.check_out.phone' => 'required',
+        'rawData.check_out.phone' => 'required|numeric|digits_between:1,10',
         'rawData.check_out.email' => 'required|email',
-        'rawData.check_out.password' => '',
-        'rawData.check_out.confirm_password' => '',
+        'rawData.check_out.password' => 'required|min:8',
+        'rawData.check_out.confirm_password' => 'required|min:8|required_with:rawData.check_out.password|same:rawData.check_out.password',
         'rawData.check_out.terms' => 'required|boolean|accepted',
         'rawData.check_out.policy' => 'required|boolean|accepted',
     ];
@@ -96,8 +102,12 @@ class RentCar extends Component
         'rawData.check_out.complete_address.required' => 'este necesar',
         // 'rawData.check_out.judet.required' => 'este necesar',
         'rawData.check_out.phone.required' => 'este necesar',
+        'rawData.check_out.phone.numeric' => 'in format numeric',
+        'rawData.check_out.phone.digits_between' => 'maxim 10 cifre',
         'rawData.check_out.email.required' => 'este necesar',
         'rawData.check_out.email.email' => 'in format email',
+        'rawData.check_out.password' => 'este necesar',
+        'rawData.check_out.confirm_password' => 'este necesar',
         'rawData.check_out.terms.required' => ' ',
         'rawData.check_out.policy.required' => ' ',
         'rawData.check_out.terms.accepted' => ' ',
@@ -126,6 +136,8 @@ class RentCar extends Component
 
     private $carsRentPrices = [];
     public $pretZiPerCode = [];
+    public $loginData = [];
+    private $nr_inmatriculare = [];
 
     protected $listeners = ['changeSection'];
 
@@ -141,6 +153,7 @@ class RentCar extends Component
             $this->rawData['check_out']['complete_address'] = Auth::user()->complete_address ?? '';
             $this->rawData['check_out']['phone'] = Auth::user()->phone ?? '';
             $this->rawData['check_out']['email'] = Auth::user()->email ?? '';
+            $this->rawData['check_out']['have_account'] = Auth::check();
         }
 
         if (Cookie::has('step')) {
@@ -148,10 +161,10 @@ class RentCar extends Component
         } else {
             $this->resetStepAndSetCookie();
         }
-
+        
         if (Cookie::has('options')) {
             $this->jsonArr = json_decode(Cookie::get('options'), true);
-
+            
             $rent_date = $this->jsonArr['rent_date'];
 
             if (!empty($rent_date)) {
@@ -202,9 +215,24 @@ class RentCar extends Component
 
     public function mount()
     {
+        $this->render();
+
+        if (Auth::check()) {
+            $this->rawData['check_out']['name'] = Auth::user()->name ?? '';
+            $this->rawData['check_out']['first_name'] = Auth::user()->first_name ?? '';
+            $this->rawData['check_out']['company_name'] = Auth::user()->company_name ?? '';
+            $this->rawData['check_out']['cui'] = Auth::user()->cui ?? '';
+            $this->rawData['check_out']['contry_region'] = Auth::user()->contry_region ?? '';
+            $this->rawData['check_out']['complete_address'] = Auth::user()->complete_address ?? '';
+            $this->rawData['check_out']['phone'] = Auth::user()->phone ?? '';
+            $this->rawData['check_out']['email'] = Auth::user()->email ?? '';
+            $this->rawData['check_out']['have_account'] = Auth::check();
+        }
+
         if ($this->step === 2) { // metoda mount se apeleaza la randarea componentei asa ca setez in true daca conditia se face la refesh deoarece la refresh livewire-ul pierde state-ul
             $this->showCompleteTheOrderBtn();
         }
+
         $this->reset('showDateError');
     }
 
@@ -239,6 +267,8 @@ class RentCar extends Component
                 'options' => $optionsArr,
                 'image' => $car['path'],
             ];
+
+            $this->nr_inmatriculare[$car['cod_produs']] = $car['nr_inmatriculare'];
 
             $carIds[$car['cod_produs']] = $car['id'];
         }
@@ -317,8 +347,8 @@ class RentCar extends Component
 
         $this->additionalServicesData = $arr;
         $this->aditionalServicesIds = $aditionalServicesIds;
-
-        if (!$this->additionalServicesData) {
+        
+        if (count($this->additionalServicesData)) {
             foreach ($this->jsonArr['selectedServices'] ?? [] as $key => $value) {
                 $this->additionalServicesData[$key]['services'][$value]['isSelected'] = true;
             }
@@ -365,8 +395,23 @@ class RentCar extends Component
         $this->unavailableCars = $arr;
     }
 
+    private function handleAutoLogin()
+    {
+        $credentials = $this->loginData;
+
+        if (Auth::attempt($credentials)) {
+            $this->reset(['loginData']);
+            return redirect(RouteServiceProvider::HOME);
+        }
+
+        $this->reset(['loginData']);
+    }
+
     public function changeSection(int $value)
     {
+        if ($value === 5) {
+            $this->handleAutoLogin();
+        }
 
         $this->reset('showDateError');
 
@@ -394,10 +439,14 @@ class RentCar extends Component
                 return;
 
             case 3:
+                if (Auth::check()) {
+                    $this->check_out_rules['rawData.check_out.password'] = '';
+                    $this->check_out_rules['rawData.check_out.confirm_password'] = '';
+                }
                 return $this->handleSectionValidation($this->check_out_rules, $value);
 
             default:
-                return redirect()->route('reserve_now');
+                return Auth::check() ? redirect()->route('dashboard') : redirect()->route('reserve_now');
         }
     }
 
@@ -441,15 +490,17 @@ class RentCar extends Component
 
         $arr[$code] = [
             'nume' => $nume,
-            'pret' => $pret,
+            'pret' => (float) $pret,
             'showPriceDetails' => true,
         ];
 
         $arr['garantie'] = [
             'nume' => 'Garantie',
-            'pret' => $this->pretGarantie,
+            'pret' => (float) $this->pretGarantie * $this->nrZileDeInchiriere,
+            'showPriceDetails' => true,
         ];
 
+        $this->pretZiPerCode['garantie'] = (float) $this->pretGarantie;
         $this->buyOptions = array_merge($this->buyOptions, $arr);
         $this->buyOptions = array_unique($this->buyOptions, SORT_REGULAR);
 
@@ -487,7 +538,13 @@ class RentCar extends Component
         $nume = $this->additionalEquipmentData[$code]['nume'];
         $pret = (float) $this->additionalEquipmentData[$code]['pret'];
 
-        $arr[$code] = ['nume' => $nume, 'pret' => $pret];
+        $arr[$code] = [
+            'nume' => $nume,
+            'pret' => (float) $pret * $this->nrZileDeInchiriere,
+            'showPriceDetails' => true,
+        ];
+
+        $this->pretZiPerCode[$code] = (float) $pret;
 
         if (empty($this->buyOptions)) {
             $this->buyOptions = $arr;
@@ -535,7 +592,10 @@ class RentCar extends Component
             return;
         }
 
-        $arr[$row_code] = ['nume' => $comment, 'pret' => $this->additionalServicesData[$row_code]['services'][$code]['pret']];
+        $arr[$row_code] = [
+            'nume' => $comment,
+            'pret' => $this->additionalServicesData[$row_code]['services'][$code]['pret'],
+        ];
 
         if (!$this->additionalServicesData[$row_code]['services'][$code]['isSelected']) {
             unset($this->buyOptions[$code]);
@@ -592,8 +652,16 @@ class RentCar extends Component
         }
     }
 
-    public function updated(string $property): void
+    public function updated(string $property)
     {
+        if ($property === 'rawData.check_out.have_account' && $this->rawData['check_out']['have_account']) {
+            $this->check_out_rules['rawData.check_out.password'] = '';
+            $this->check_out_rules['rawData.check_out.confirm_password'] = '';
+            return redirect()->route('login');
+        } else {
+            $this->reset(['check_out_rules']);
+        }
+
         if (strpos($property, 'rawData') === false) {
             return;
         }
@@ -635,8 +703,52 @@ class RentCar extends Component
 
     private function handleCheckoutOrder()
     {
+        $userData = [];
 
-        $rent_date = $this->rawData['rent_date'];
+        [
+            "name" => $name,
+            "first_name" => $first_name,
+            "company_name" => $company_name,
+            "cui" => $cui,
+            "contry_region" => $contry_region,
+            "complete_address" => $complete_address,
+            "phone" => $phone,
+            "email" => $email,
+            "have_account" => $have_account,
+        ] = $this->rawData['check_out'];
+
+        $password = $this->rawData['check_out']['password'] ?? '';
+
+        if (!$have_account && !Auth::check()) {
+            $user = User::create([
+                'name' => $name,
+                'first_name' => $first_name,
+                'company_name' => $company_name,
+                'cui' => $cui,
+                'contry_region' => $contry_region,
+                'complete_address' => $complete_address,
+                'phone' => $phone,
+                'is_admin' => false,
+                'code' => uniqid(),
+                'created_by' => 'USER',
+                'email' => $email,
+                'password' => Hash::make($password),
+            ]);
+
+            $userData = $user->toArray();
+
+            $this->loginData = [
+                'email' => $email,
+                'password' => $password,
+            ];
+        } else {
+            $userData = [
+                'name' => $name,
+                'first_name' => $first_name,
+                'email' => $email,
+                'phone' => $phone,
+            ];
+        }
 
         [
             'location' => $location,
@@ -644,7 +756,7 @@ class RentCar extends Component
             'return_date' => $return_date,
             'pickup_time' => $pickup_time,
             'return_time' => $return_time,
-        ] = $rent_date;
+        ] = $this->rawData['rent_date'];
 
         $arr = [];
 
@@ -666,12 +778,7 @@ class RentCar extends Component
 
         $selectedEquipmentIdsJson = json_encode($selectedEquipmentIds);
 
-        if (Auth::check()) {
-            $arr['user_id'] = Auth::id();
-        } else {
-            $arr['user_id'] = 0;
-        }
-
+        $arr['user_id'] = !$have_account || !Auth::check() ? $userData['id'] ?? 0 : Auth::id();
         $arr['order_id'] = uniqid();
         $arr['car_id'] = $this->jsonArr['selectedCar']['id'];
         $arr['aditional_services_ids'] = $selectedServicesIdsJson;
@@ -687,14 +794,36 @@ class RentCar extends Component
         $arr['additional_driver_name'] = '';
 
         $carCode = $this->jsonArr['selectedCar']['code'];
-        $arr['price_per_day'] = $this->jsonArr['order'][$carCode]['pret'];
+        $arr['price_per_day'] = $this->pretZiPerCode[$carCode];
 
-        // dd($arr, $selectedjsonArrServicesIds, $selectedEquipmentIds, $this->jsonArr, $this->carIds, $this->aditionalServicesIds, $this->aditionalEquipmentIds);
-        // dd($this->rawData, $this->carsData, $this->buyOptions, CheckoutOrder::all()->toArray());
-        // dd($arr, $this->jsonArr);
-        // dd($arr);
+        [
+            'order_id' => $order_id,
+        ] = CheckoutOrder::create($arr);
 
-        CheckoutOrder::create($arr);
+        $emailDetails = [
+            'nameSiPrenume' => $userData['name'] . ' ' . $userData['first_name'],
+            'email' => $userData['email'],
+            'phone' => $userData['phone'],
+            'car_name' => $this->carsData[$this->selectedCar['code']]['nume'],
+            'car_number' => $this->nr_inmatriculare[$this->selectedCar['code']],
+            'pick_up_dateTime' => $pickup_date . ' ' . $pickup_time,
+            'return_dateTime' => $return_date . ' ' . $return_time,
+            'nr_of_days' => $this->nrZileDeInchiriere,
+            'price' => (float) $this->checkoutPrice,
+            'buyOptions' => $this->buyOptions,
+            'location' => ucfirst($location),
+            'order_id' => $order_id,
+        ];
+
+        $this->handleEmailSubmit(env('MAIL_TO'), $emailDetails);
+        $this->handleEmailSubmit($userData['email'], $emailDetails);
+    }
+
+    private function handleEmailSubmit(string $emailTo, array $emailDetails)
+    {
+        Mail::send('emails.checkout', ['details' => $emailDetails], function ($message) use ($emailTo, $emailDetails) {
+            $message->from('no-replay@site.ro')->to($emailTo)->subject('CheckOut: ' . $emailDetails['nameSiPrenume']);
+        });
     }
 
     private function handleSectionValidation(array $rules, int $value)

@@ -216,7 +216,7 @@
                                         @include('common.genericInputFields', $value)
                                     </div>
                                 @endforeach
-                                @if (in_array('d2', array_values($this->selectedServices)))
+                                @if (in_array('65f8a6b2370b0', array_values($this->selectedServices)))
                                     @include('common.genericInputFields', [
                                         'type' => 'search',
                                         'key' => 'Sofer aditional',
@@ -238,7 +238,7 @@
                                     ])
                                 @endif
                             </div>
-
+                            
                             <div>
                                 <div class="flex flex-col">
                                     <div class="p-2 w-full">
@@ -263,7 +263,7 @@
                                                                 <input type="checkbox"
                                                                     wire:model='{{ 'rawData.equipments_data.' . $value['code'] }}'>
                                                                 <span
-                                                                    class="ml-2">{{ $value['pret'] . '  lei' }}</span>
+                                                                    class="ml-2">{{ $value['pret'] . '  Lei / Zi' }}</span>
                                                             </div>
                                                         </div>
                                                         @php
@@ -301,7 +301,7 @@
                                                                 <input type="checkbox"
                                                                     wire:model='{{ 'rawData.services_data.' . $value['row_code'] . '.' . $service['code'] . '.' . $i }}'>
                                                                 <span
-                                                                    class="ml-2">{{ $service['pret'] . '  lei' }}</span>
+                                                                    class="ml-2">{{ $service['pret'] . '  Lei' }}</span>
                                                             </div>
                                                         </div>
                                                         @php
@@ -334,9 +334,9 @@
                                                     </div>
                                                     <div
                                                         class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                                        {{ $nrOfDays }} {{ $nrOfDays === 1 ? 'zi' : 'zile' }} x
-                                                        {{ $selectedCarData['pretZi'] }} lei =
-                                                        {{ $selectedCarData['pret'] }} lei
+                                                        {{ $nrOfDays }} {{ $nrOfDays === 1 ? 'Zi' : 'Zile' }} x
+                                                        {{ $selectedCarData['pretZi'] }} Lei / Zi =
+                                                        {{ $selectedCarData['pret'] }} Lei
                                                     </div>
                                                 </div>
                                             </li>
@@ -350,7 +350,9 @@
                                                     </div>
                                                     <div
                                                         class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                                        {{ $selectedCarData['garantie'] }} lei
+                                                        {{ $nrOfDays }} {{ $nrOfDays === 1 ? 'Zi' : 'Zile' }} x
+                                                        {{ $selectedCarData['garantie'] }} Lei / Zi =
+                                                        {{ $nrOfDays * $selectedCarData['garantie'] }} Lei
                                                     </div>
                                                 </div>
                                             </li>
@@ -367,7 +369,12 @@
                                                             </div>
                                                             <div
                                                                 class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                                                {{ $this->additionalEquipmentData[$key]['pret'] }} lei
+                                                                {{ $nrOfDays }}
+                                                                {{ $nrOfDays === 1 ? 'zi' : 'zile' }} x
+                                                                {{ $this->additionalEquipmentData[$key]['pret'] }} Lei
+                                                                =
+                                                                {{ $nrOfDays * $this->additionalEquipmentData[$key]['pret'] }}
+                                                                Lei
                                                             </div>
                                                         </div>
                                                     </li>
@@ -387,7 +394,7 @@
                                                             <div
                                                                 class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                                                                 {{ $this->additionalServicesData[$key]['services'][$value]['pret'] }}
-                                                                lei
+                                                                Lei
                                                             </div>
                                                         </div>
                                                     </li>
@@ -404,7 +411,7 @@
                                                     </div>
                                                     <div
                                                         class="inline-flex items-center text-base font-bold text-gray-900 dark:text-white">
-                                                        {{ (float) $checkoutPrice }} lei
+                                                        {{ (float) $checkoutPrice }} Lei
                                                     </div>
                                                 </div>
                                             </li>
@@ -415,10 +422,15 @@
                         </div>
 
                         @if (count($rawData['services_data']) === count($additionalServicesData) && !$showDateError)
-                            <button wire:click="handleCheckoutOrder"
+                            <button wire:click="handleCheckoutOrder" id="{{ uniqid() }}"
                                 class="w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rezervă
                                 mașina</button>
+                        @else
+                            <button id="{{ uniqid() }}"
+                                class="cursor-not-allowed w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Rezervă
+                                mașina</button>
                         @endif
+
                     </div>
                 </div>
             </div>

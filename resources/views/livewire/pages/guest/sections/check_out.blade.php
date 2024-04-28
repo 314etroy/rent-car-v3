@@ -121,11 +121,27 @@
             'emptyInputClass' => config('constants.common_css.check_out.empty_input'),
         ],
         [
+            'type' => 'checkbox',
+            'key' => 'am-deja-cont',
+            'labelText' => 'Am deja cont',
+            'labelText' => '<span class="edit-terms">Am deja cont (<a href="' . route('login') . '" class="mx-1 text-blue-700 font-bold hover:underline">veți fi redirecționat către pagina de autentificare</a>)</span>',
+            'divClass' => 'flex flex-row-reverse gap-4 items-center justify-end',
+            'wireModelName' => 'rawData.check_out.have_account',
+            'display' => !Auth::check(),
+            'validLabelClass' => config('constants.common_css.check_out.valid_label'),
+            'errorLabelClass' => config('constants.common_css.check_out.error_label'),
+            'emptyLabelClass' => config('constants.common_css.check_out.empty_label'),
+            'validInputClass' => config('constants.common_css.check_out.valid_checkbox'),
+            'errorInputClass' => config('constants.common_css.check_out.error_checkbox'),
+            'emptyInputClass' => config('constants.common_css.check_out.empty_checkbox'),
+        ],
+        [
             'type' => 'password',
             'key' => __('translations.translate_password'),
             'placeholder' => handlePlaceholder(__('translations.translate_password')),
             'wireModelName' => 'rawData.check_out.password',
-            'display' => !Auth::check(),
+            'isRequired' => true,
+            'display' => !Auth::check() && !$rawData['check_out']['have_account'],
             'validLabelClass' => config('constants.common_css.check_out.valid_label'),
             'errorLabelClass' => config('constants.common_css.check_out.error_label'),
             'emptyLabelClass' => config('constants.common_css.check_out.empty_label'),
@@ -138,7 +154,8 @@
             'key' => __('translations.translate_confirmPassword'),
             'placeholder' => handlePlaceholder(__('translations.translate_password')),
             'wireModelName' => 'rawData.check_out.confirm_password',
-            'display' => !Auth::check(),
+            'isRequired' => true,
+            'display' => !Auth::check() && !$rawData['check_out']['have_account'],
             'validLabelClass' => config('constants.common_css.check_out.valid_label'),
             'errorLabelClass' => config('constants.common_css.check_out.error_label'),
             'emptyLabelClass' => config('constants.common_css.check_out.empty_label'),
@@ -202,7 +219,7 @@
                         {{ $rawData['rent_date']['return_date'] . ' ' . $rawData['rent_date']['return_time'] }}
                         ({{ $nrZileDeInchiriere !== 1 ? $nrZileDeInchiriere . ' zile' : $nrZileDeInchiriere . ' zi' }})
                     </span>
-
+                    
                     <table class="w-full">
                         <thead>
                             <tr>
@@ -212,24 +229,16 @@
                         </thead>
                         <tbody>
                             @foreach ($buyOptions ?? [] as $key => $value)
-                                @if (isset($value['showPriceDetails']))
+                                @if (isset($value['showPriceDetails']) && $value['showPriceDetails'])
                                     <tr>
                                         <td class="py-2">
                                             {{ $value['nume'] }}
                                             <br>
-                                            @if ($nrZileDeInchiriere !== 0)
-                                                @if ($nrZileDeInchiriere === 1)
-                                                    1 Zi
-                                                @else
-                                                    {{ $nrZileDeInchiriere . ' zile' }}
-                                                @endif
-                                                x
-                                                {{ (float) $pretZiPerCode[$key] ?? 0 }} Lei / Zi
-                                            @else
-                                                1 Zi x {{ (float) $pretZiPerCode[$key] ?? 0 }} Lei / Zi
-                                            @endif
+                                            {{ $nrZileDeInchiriere }}
+                                            {{ $nrZileDeInchiriere === 1 ? 'Zi' : 'Zile' }} x
+                                            {{ $value['pret'] }} Lei / Zi
                                         </td>
-                                        <td class="py-2">{{ $value['pret'] }} Lei</td>
+                                        <td>{{ (float) $value['pret'] }} Lei</td>
                                     </tr>
                                 @else
                                     <tr>
@@ -253,13 +262,16 @@
                         @include('common.genericInputFields', $value)
                     @endforeach
 
-                    <!-- Go to Section 4 Btn -->
+                    <!-- Go to Section 4 Btn !Auth::check() -->
                     @include('common.generic-btn', [
-                        'is_disabled' => false,
-                        'btn_content' => 'Continuati cu plata',
+                        'btn_content' => 'Continuați cu plata',
                         'wire_method' => 'changeSection("4")',
                         'onclick' => 'goTop()',
-                        'class' => 'w-full p-2 mt-4 rounded-md ' . getConstant('modal_generic_colors')['purple'],
+                        'class' =>
+                            (!Auth::check() && !$rawData['check_out']['have_account']) || Auth::check()
+                                ? 'w-full p-2 mt-4 rounded-md ' . getConstant('modal_generic_colors')['purple']
+                                : 'w-full p-2 mt-4 rounded-md cursor-not-allowed ' .
+                                    getConstant('modal_generic_colors')['purple'],
                     ])
 
                 </div>

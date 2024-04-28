@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire\Pages\Guest;
 
+use App\Models\User;
 use Livewire\Component;
 use App\Models\CheckoutOrder;
 use App\Models\CarSpecification;
 use App\Models\AdditionalService;
 use App\Models\AdditionalEquipment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class Dashboard extends Component
 {
@@ -15,6 +17,7 @@ class Dashboard extends Component
     public $tableData = [];
     public $input = [];
     public $dbAdditionalDriver = [];
+    private $userData = [];
 
     protected $listeners = [
         'refreshCompnent',
@@ -25,15 +28,51 @@ class Dashboard extends Component
         $this->getUserDashboardData();
     }
 
-    public function refreshCompnent()
+    public function refreshCompnent(string $orderId)
     {
+
+        $userData = User::where('id', $this->userData[$orderId])->select('name', 'first_name', 'email')->first()->toArray();
+
+        [
+            'pickUpDateTime' => $pickUpDateTime,
+            'returnDateTime' => $returnDateTime,
+            'nrInmatriculare' => $nrInmatriculare,
+            'location' => $location,
+            'nrOfDays' => $nrOfDays,
+            'carName' => $carName,
+            'price' => $price,
+        ] = $this->tableData[$orderId] ?? [];
+
+        $emailDetails = [
+            'nameSiPrenume' => $userData['name'] . ' ' . $userData['first_name'],
+            'email' => $userData['email'],
+            'car_name' => $carName,
+            'car_number' => $nrInmatriculare,
+            'pick_up_dateTime' => $pickUpDateTime,
+            'return_dateTime' => $returnDateTime,
+            'nr_of_days' => $nrOfDays,
+            'price' => (float) $price,
+            'location' => ucfirst($location),
+            'order_id' => $orderId,
+        ];
+
+        $this->handleEmailSubmit(env('MAIL_TO'), $emailDetails);
+        $this->handleEmailSubmit($userData['email'], $emailDetails);
+
         $this->getUserDashboardData();
+    }
+
+    private function handleEmailSubmit(string $emailTo, array $emailDetails)
+    {
+        Mail::send('emails.cancelOrder', ['details' => $emailDetails], function ($message) use ($emailTo, $emailDetails) {
+            $message->from('no-replay@site.ro')->to($emailTo)->subject('CheckOut: ' . $emailDetails['nameSiPrenume']);
+        });
     }
 
     public function handleAdditionalDriver($orderId)
     {
         CheckoutOrder::where('order_id', '=', $orderId)->update(['additional_driver_name' => $this->input[$orderId]]);
-        $this->refreshCompnent();
+        $this->refreshCompnent($orderId);
     }
 
     private function getUserDashboardData()
@@ -42,10 +81,12 @@ class Dashboard extends Component
 
         $arr = [];
         $checkOutData = [];
-        
+
         foreach ($checkoutOrder ?? [] as $value) {
-            $arr['pickUpDateTime'] = $value['pick_up_dateTime'];
-            $arr['returnDateTime'] = $value['return_dateTime'];
+            $this->userData[$value['order_id']] = $value['user_id'];
+            
+            $arr['pickUpDateTime'] = specificYearMonthDayHourAndMinute($value['pick_up_dateTime']);
+            $arr['returnDateTime'] = specificYearMonthDayHourAndMinute($value['return_dateTime']);
             $arr['nrOfDays'] = $value['nr_of_days'];
             $arr['price'] = (float) $value['price'];
             $arr['pricePerDay'] = $value['price_per_day'];
@@ -101,10 +142,9 @@ class Dashboard extends Component
             }
 
             $arr['aditionalServices'] = $serviceArr;
-
-            $checkOutData[] = $arr;
+            $checkOutData[$arr['codeId']] = $arr;            
         }
-
+        // dd($checkOutData);
         $this->tableData = $checkOutData;
     }
 

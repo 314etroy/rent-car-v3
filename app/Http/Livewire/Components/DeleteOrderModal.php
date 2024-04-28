@@ -38,12 +38,14 @@ class DeleteOrderModal extends Modal
         if ($data['operation'] === 'delete') {
             [
                 'code' => $orderId,
+                'price' => $price,
             ] = $data['rowData'];
 
             $this->modalProps['rowData']['orderId'] = $orderId;
         }
 
         $this->modalProps['operation'] = $data['operation'];
+        $this->modalProps['price'] = $price;
         $this->modalProps['inhibModalClosure'] = $data['inhibModalClosure'];
     }
 
@@ -58,7 +60,7 @@ class DeleteOrderModal extends Modal
         CheckoutOrder::where('order_id', '=', $orderId)->delete();
 
         $this->closeModal();
-        $this->emitTo('pages.guest.dashboard', 'refreshCompnent');
+        $this->emitTo('pages.guest.dashboard', 'refreshCompnent', $orderId);
     }
 
     public function render(): View

@@ -19,19 +19,13 @@ class Contact extends Component
 
     public $errorMsgs;
     public $successMsg = false;
-    function extractLastSegment()
-    {
-        $url = url()->previous();
-        $segments = explode('/', rtrim($url, '/'));
-        return ucfirst(end($segments));
-    }
 
     public function handleSubmit()
     {
         $rules = [
             'nameSiPrenume' => 'required',
             'email' => 'required|email',
-            'phone' => 'required|numeric',
+            'phone' => 'required|numeric|digits_between:1,10',
             'subject' => 'required',
             'mesaj' => 'required'
         ];
@@ -40,7 +34,9 @@ class Contact extends Component
             'nameSiPrenume.required' => 'Adauga nume si prenume',
             'email.required' => 'Adauga email',
             'email.email' => 'Campul email trebuie sa aiba formatul nume@adresa.com',
+            'phone.required' => 'Adauga numar telefon',
             'phone.numeric' => 'Campul telefon trebuie sa fie completat corect',
+            'phone.digits_between' => 'Campul telefon trebuie sa fie completat corect',
             'subject.required' => 'Adauga subiectul',
             'mesaj.required' => 'Adauga un mesaj',
         ];

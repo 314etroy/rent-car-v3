@@ -88,6 +88,11 @@ function currentYearMonthDayHourAndMinute()
     return Carbon::now()->format('Y-m-d H:m');
 }
 
+function specificYearMonthDayHourAndMinute($date)
+{
+    return Carbon::parse($date)->format('Y-m-d H:m');
+}
+
 function currentYearMonthDayHourMinuteAndSecond()
 {
     return Carbon::now()->format('Y-m-d H:m:s');

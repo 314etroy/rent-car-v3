@@ -150,7 +150,6 @@
                         <br>
                         {{ __('translations.service') }}: <b>{{ $this->modalProps['rowData']['nume'] }}</b>
                     @break
-
                 @endswitch
 
             </div>

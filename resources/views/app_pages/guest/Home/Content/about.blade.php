@@ -13,11 +13,11 @@
                     <span class="text-[14px] text-[#ddd]">Despre noi</span>
                     <h2
                         class="text-white mt-[5px] 2xl:text-[35px] xl:text-[33px] lg:text-[30px] md:text-[26px] sm:text-[24px] text-[22px] font-bold">
-                        Suntem alaturi <span class="text-[#7963e0]">de tine</span></h2>
+                        Suntem alături <span class="text-[#7963e0]">de tine</span></h2>
                 </div>
-                <p class="text-[16px] text-[#777] 2xl:mb-[31px] xl:mb-[35px] lg:mb-[10px] mb-[25px]">Cand inchiriati o
-                    masina, exista mai multi factori care contribuie atunci cand va decideti, de exemplu: ce dimensiuni
-                    ar trebui sa aiba masina inchiriata?</p>
+                <p class="text-[16px] text-[#777] 2xl:mb-[31px] xl:mb-[35px] lg:mb-[10px] mb-[25px]">Cand închiriați o
+                    masină, există mai mulți factori care contribuie atunci când vă decideți, de exemplu: ce dimensiuni
+                    ar trebuii să aibă mașina închiriată?</p>
                 <div class="border border-[#27213b] p-[24px] rounded-lg">
                     <div class="box-border flex justify-between max-[400px]:block">
                         <div class="left">
@@ -26,7 +26,7 @@
                                 <span class="detail text-[14px] leading-[28px] text-[#777]">Ene Mihai</span>
                             </div>
                             <div class="age pt-[20px]">
-                                <span class="text-white text-[16px] leading-[28px] font-bold">An inființatre :</span><br>
+                                <span class="text-white text-[16px] leading-[28px] font-bold">An înființatre:</span><br>
                                 <span class="detail text-[14px] leading-[28px] text-[#777]">2024</span>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="bottom pt-[20px]">
-                        <span class="text-white text-[16px] leading-[28px] font-bold">Adresa :</span>
+                        <span class="text-white text-[16px] leading-[28px] font-bold">Adresa:</span>
                         <span class="detail text-[14px] leading-[28px] text-[#777]">Strada G-RAL GRIGORE GRECESCU, Nr. 9, Câmpulung</span>
                     </div>
                 </div>

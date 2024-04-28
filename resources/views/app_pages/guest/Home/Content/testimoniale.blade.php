@@ -5,10 +5,10 @@
     </div>
     <div class="2xl:pb-[80px] pb-[70px] 2xl:pt-[80px] md:pt-[70px] pt-[20px]">
         <div class="banner text-center mb-[30px]" data-aos="fade-up" data-aos-duration="2000" data-aos-delay="300">
-            <span class="text-[14px] text-[#ddd]">Experiente Desavarsite</span>
+            <span class="text-[14px] text-[#ddd]">Experiențe Desăvarșite</span>
             <h2
                 class="text-center mt-[5px] text-white 2xl:text-[35px] xl:text-[33px] lg:text-[30px] md:text-[26px] sm:text-[24px] text-[22px] font-bold">
-                Testiomonialele <span class="text-[#7963e0]"> clientilor nostri</span></h2>
+                Testiomonialele <span class="text-[#7963e0]"> clienților noștri</span></h2>
         </div>
         <div class="flex flex-wrap justify-between items-center mx-auto mx-auto 2xl:max-w-[1320px] xl:max-w-[1140px] lg:max-w-[960px] md:max-w-[720px] sm:max-w-[540px] max-[320px]:px-[12px] relative px-6"
             data-aos="fade-up" data-aos-duration="2000" data-aos-delay="300">

@@ -7,6 +7,7 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 use App\Models\CheckoutOrder;
 use App\Models\AdditionalService;
@@ -67,7 +68,7 @@ class ModalSelectedDates extends Component
         'rawData.form_data.first_name' => 'required',
         'rawData.form_data.contry_region' => 'required',
         'rawData.form_data.complete_address' => 'required',
-        'rawData.form_data.phone' => 'required',
+        'rawData.form_data.phone' => 'required|numeric|digits_between:1,10',
         'rawData.form_data.email' => 'required|email|unique:users,email',
         'rawData.form_data.location' => 'required',
         'rawData.form_data.pickup_time' => 'required',
@@ -80,6 +81,8 @@ class ModalSelectedDates extends Component
         'rawData.form_data.contry_region.required' => 'este necesar',
         'rawData.form_data.complete_address.required' => 'este necesar',
         'rawData.form_data.phone.required' => 'este necesar',
+        'rawData.form_data.phone.numeric' => 'in format numeric',
+        'rawData.form_data.phone.digits_between' => 'maxim 10 cifre',
         'rawData.form_data.email.required' => 'este necesar',
         'rawData.form_data.email.email' => 'in format email',
         'rawData.form_data.email.unique' => 'email utilizat deja',
@@ -90,6 +93,7 @@ class ModalSelectedDates extends Component
 
     public function hideModalSelectedDates()
     {
+        $this->resetValidation();
         $this->reset([
             'showComponent',
             'rawData',
@@ -124,7 +128,7 @@ class ModalSelectedDates extends Component
         $this->timeIntervals = $timeIntervals;
 
         $correctOrderDates = getFirstAndLastDate($firstSelectedCard, $lastSelectedCard);
-        
+
         $this->firstSelectedCard = $correctOrderDates['first'];
         $this->lastSelectedCard = $correctOrderDates['last'];
 
@@ -192,7 +196,7 @@ class ModalSelectedDates extends Component
         $this->handleRawDataCheckbox($property, 'equipments_data');
         $this->handleRawDataCheckbox($property, 'services_data');
 
-        $this->handleValidateOnlyProperty($property);
+        $this->handleModalSelectedDates();
     }
 
     private function handleRawDataCheckbox(string $property, string $whatToFind)
@@ -255,17 +259,14 @@ class ModalSelectedDates extends Component
         $currentDateTime = Carbon::now();
         $dateTime1 = Carbon::createFromFormat('Y-m-d H:i', $pickUpFormat);
         $dateTime2 = Carbon::createFromFormat('Y-m-d H:i', $returnFormat);
+        $dateTime145 = Carbon::createFromFormat('Y-m-d H:i', $pickUpFormat)->addMinutes(45);
 
-        $this->showDateError = !($dateTime1->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime));
+        $this->showDateError = !($dateTime145->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime));
 
-        if (!$this->showDateError) {
-            $dateTime1->addMinutes(45);
-            // dacă $dateTime1 nu este mai mic sau egal cu $dateTime2, atunci $this->showDateError va fi setată la true, altfel va fi setată la false
-            // $dateTime1 <= dateTime2 && dateTime1 >= currentDateTime && dateTime2 >= currentDateTime
-            $this->showDateError = !($dateTime1->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime));
+        if (empty($pickupTime) || empty($returnTime)) {
+            $this->showDateError = true;
+            return;
         }
-
-        $this->showDateError = $this->checkTimeInterval($this->timeIntervals, $pickupTime, $returnTime);
     }
 
     private function calculateTotal()
@@ -277,7 +278,7 @@ class ModalSelectedDates extends Component
             'garantie' => $garantie,
         ] = $this->selectedCarData;
 
-        $buyOptions = [$garantie, $pret];
+        $buyOptions = [(float) $garantie * $this->nrOfDays, (float) $pret];
 
         $this->selectedEquipmentIds = [];
         $this->selectedServicesIds = [];
@@ -285,17 +286,17 @@ class ModalSelectedDates extends Component
         foreach ($this->rawData['equipments_data'] ?? [] as $key => $value) {
             if ($this->additionalEquipmentData[$key]['pret']) {
                 $this->selectedEquipmentIds[] = $this->aditionalEquipmentIds[$key];
-                $buyOptions[] = $this->additionalEquipmentData[$key]['pret'];
+                $buyOptions[] = (float) $this->additionalEquipmentData[$key]['pret'] * $this->nrOfDays;
             }
         }
 
         foreach ($this->selectedServices ?? [] as $key => $value) {
             if ($this->additionalServicesData[$key]['services'][$value]['pret']) {
                 $this->selectedServicesIds[] = $this->aditionalServicesIds[$key];
-                $buyOptions[] = $this->additionalServicesData[$key]['services'][$value]['pret'];
+                $buyOptions[] = (float) $this->additionalServicesData[$key]['services'][$value]['pret'];
             }
         }
-
+        
         foreach ($buyOptions as $item) {
             $totalPrice += (float) $item;
         }
@@ -303,16 +304,7 @@ class ModalSelectedDates extends Component
         $this->checkoutPrice = $totalPrice;
     }
 
-    private function handleValidateOnlyProperty(string $property)
-    {
-        if (empty($property)) {
-            dd('Eroare la validarea input-ului, contacteaza echipa de suport!');
-        }
-
-        return $this->validateOnly($property, $this->form_data_rules);
-    }
-
-    public function handleModalSelectedDates()
+    private function handleModalSelectedDates()
     {
         if ($this->hasValidationErrors($this->form_data_rules)) {
             $this->validate($this->form_data_rules);
@@ -329,27 +321,6 @@ class ModalSelectedDates extends Component
             // dd($e->validator->getMessageBag());
             return true;
         }
-    }
-
-    private function checkTimeInterval(array $arr, string $startHHmm, string $endHHmm): bool
-    {
-        foreach ($arr as $key => $value) {
-            // Dacă cheia nu este '24:00'
-            if ($key !== '24:00') {
-                // Convertim timpul de start și timpul de sfârșit la timestamp-uri pentru a facilita verificarea suprapunerii
-                $startTime = strtotime($startHHmm);
-                $endTime = strtotime($endHHmm);
-                $valueStartTime = strtotime($value['start']);
-                $valueEndTime = strtotime($value['end']);
-
-                // Verificăm dacă intervalul specificat nu se suprapune cu intervalul curent din $arr
-                if (!($startTime >= $valueEndTime || $endTime <= $valueStartTime)) {
-                    return true; // Dacă există suprapunere, returnăm true
-                }
-            }
-        }
-
-        return false; // Dacă nu există suprapunere cu niciun interval, returnăm false
     }
 
     public function handleCheckoutOrder()
@@ -395,10 +366,11 @@ class ModalSelectedDates extends Component
         [
             'id' => $car_id,
             'pretZi' => $pretZi,
+            'nume' => $car_name,
             'nr_inmatriculare' => $nr_inmatriculare,
         ] = $this->selectedCarData;
-
-        $haveAdditionalDriver = in_array('d2', array_values($this->selectedServices));
+        
+        $haveAdditionalDriver = in_array('65f8a6b2370b0', array_values($this->selectedServices));
         $arrCheckout = [];
 
         if (Auth::check() && isAdmin()) {
@@ -420,9 +392,12 @@ class ModalSelectedDates extends Component
         $arrCheckout['aditional_equipment_ids'] = json_encode($this->selectedEquipmentIds);
         $arrCheckout['aditional_services_ids'] = json_encode($selectedServicesIds);
 
+        $pick_up_dateTime = $this->firstSelectedCard . ' ' . $pickup_time;
+        $return_dateTime = $this->lastSelectedCard . ' ' . $return_time;
+
         $arrCheckout['location'] = $location;
-        $arrCheckout['pick_up_dateTime'] = $this->firstSelectedCard . ' ' . $pickup_time;
-        $arrCheckout['return_dateTime'] = $this->lastSelectedCard . ' ' . $return_time;
+        $arrCheckout['pick_up_dateTime'] = $pick_up_dateTime;
+        $arrCheckout['return_dateTime'] = $return_dateTime;
         $arrCheckout['price'] = (float) $this->checkoutPrice;
         $arrCheckout['nr_of_days'] = $this->nrOfDays;
         $arrCheckout['status'] = false;
@@ -430,10 +405,58 @@ class ModalSelectedDates extends Component
         $arrCheckout['additional_driver_name'] = $haveAdditionalDriver ? $additional_driver_name : '';
         $arrCheckout['price_per_day'] = $pretZi;
 
-        CheckoutOrder::create($arrCheckout);
-        $this->hideModalSelectedDates();
+        [
+            'order_id' => $order_id,
+        ] = CheckoutOrder::create($arrCheckout);
 
+        $buyOptions = [];
+
+        if (count($this->selectedCarData) && $this->selectedCarData['garantie'] && $this->selectedCarData['pretZi']) {
+            $buyOptions[] = ['nume' => $this->selectedCarData['nume'], 'pret' => (float) $this->selectedCarData['pretZi'], 'showPriceDetails' => true];
+            $buyOptions[] = ['nume' => 'Garantie', 'pret' => (float) $this->selectedCarData['garantie'], 'showPriceDetails' => true];
+        }
+
+        foreach ($this->additionalEquipmentData ?? [] as $key => $value) {
+            if (in_array($key, array_keys($this->rawData['equipments_data']))) {
+                $buyOptions[] = ['nume' => $value['nume'], 'pret' => (float) $value['pret'], 'showPriceDetails' => true];
+            }
+        }
+
+        foreach ($this->rawData['services_data'] ?? [] as $key1 => $value) {
+            foreach ($value ?? [] as $key2 => $data) {
+                if ($key1 && $key2 && $this->additionalServicesData[$key1]['services'][$key2]['pret'] > 0) {
+                    $buyOptions[] = ['nume' => $this->additionalServicesData[$key1]['services'][$key2]['comment'], 'pret' => (float) $this->additionalServicesData[$key1]['services'][$key2]['pret']];
+                }
+            }
+        }
+
+        $emailDetails = [
+            'nameSiPrenume' => $name . ' ' . $first_name,
+            'email' => $email,
+            'phone' => $phone,
+            'car_name' => $car_name,
+            'car_number' => $nr_inmatriculare,
+            'pick_up_dateTime' => $pick_up_dateTime,
+            'return_dateTime' => $return_dateTime,
+            'nr_of_days' => $this->nrOfDays,
+            'price' => (float) $this->checkoutPrice,
+            'buyOptions' => $buyOptions,
+            'location' => ucfirst($location),
+            'order_id' => $order_id,
+        ];
+
+        $this->handleEmailSubmit(env('MAIL_TO'), $emailDetails);
+        $this->handleEmailSubmit($emailDetails['email'], $emailDetails);
+
+        $this->hideModalSelectedDates();
         $this->emitTo('components.calendar', 'updatedSelectedCar', $nr_inmatriculare, true);
+    }
+
+    private function handleEmailSubmit(string $emailTo, array $emailDetails)
+    {
+        Mail::send('emails.checkout', ['details' => $emailDetails], function ($message) use ($emailTo, $emailDetails) {
+            $message->from('no-replay@site.ro')->to($emailTo)->subject('CheckOut: ' . $emailDetails['nameSiPrenume']);
+        });
     }
 
     public function render(): View

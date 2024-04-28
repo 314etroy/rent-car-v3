@@ -5,7 +5,7 @@
 
         <div class="flex flex-col flex-grow">
 
-            <div class="flex items-center justify-between mt-4 pl-4 pr-8">
+            <div class="flex items-center justify-between mt-4 pl-4 mr-2">
                 <div wire:ignore>
                     <select class="form-control" id="select2">
                         <option value="">Selectează autovehicul</option>
@@ -30,6 +30,10 @@
                         </button>
                     </div>
                     @livewire('common.month-calendar', ['currentYearAndMonth' => $currentYearAndMonth], key(uniqid()))
+                    <button type="button" aria-label="next_month" wire:click="renderMonth('{{ head($daysBetweenTwoDates_arr->toArray()) }}')"
+                        class="text-white bg-green-700 font-medium text-sm px-5 py-2.5 border-y-[1px] border-y-green-700 ml-2">
+                        Refresh
+                    </button>
                 </div>
             </div>
 
@@ -76,7 +80,7 @@
                         @if ($carSelected && $date >= currentYearMonthAndDay())
                             {{-- carSelected tine de dropdown-ul de sus --}}
                             @if (!in_array($date, $selectedCards))
-                                @if ($showSelectBtn[$date])
+                                @if ($showSelectBtn[$date] && !isset($cardData[$date]))
                                     <button type="button" wire:click="selectDate(`{{ $date }}`)"
                                         class="absolute top-0 right-0 hidden items-center justify-center w-6 h-6 mt-1 mr-2 text-white bg-green-400 rounded group-hover:flex hover:bg-green-500">
                                         @include('svg.plus-select-day')
@@ -95,6 +99,7 @@
                                     </button>
                                 @endif
                             @endif
+
 
                             @if (count($this->selectedCards) && isInsideOfInterval($this->selectedCards, $date))
                                 <button type="button"

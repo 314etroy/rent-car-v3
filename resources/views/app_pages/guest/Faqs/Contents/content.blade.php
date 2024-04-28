@@ -1,5 +1,5 @@
 <section id="experience" class="section-experience bg-[#161321] relative">
-    <div class="relative pt-[60px]">
+    <div class="about-main">
         <img src="assets/img/shape/bg-shape-dark.png" alt="bg-shape" class="absolute top-0 left-0 right-0 w-full bg-center bg-cover">
     </div>
     <div class="2xl:pb-[80px] pb-[70px] 2xl:pt-[80px] md:pt-[70px] pt-[20px]">
@@ -113,13 +113,15 @@
                         </div>
                     </div>
                 </div>
-                <a href="{{route("reserve_now")}}" class="link-to">
-                    <button class="w-[400px] h-[40px] p-2 rounded-md text-white bg-[#7963e0] hover:bg-opacity-80 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" wire:click="changeSection(&quot;1&quot;)">
-                        Închiriați acum mașina dorită
-                    </button>
-                </a>
+
             </div>
+            <a href="{{route("reserve_now")}}" class="link-to w-full">
+                <button class="w-[400px] h-[40px] p-2 rounded-md text-white bg-[#7963e0] hover:bg-opacity-80 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800" wire:click="changeSection(&quot;1&quot;)">
+                    Închiriați acum mașina dorită
+                </button>
+            </a>
         </div>
+
     </div>
    
 </section>

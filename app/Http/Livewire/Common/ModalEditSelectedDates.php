@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Mail;
 
 use App\Models\CheckoutOrder;
 use App\Models\AdditionalService;
@@ -27,7 +28,7 @@ class ModalEditSelectedDates extends Component
         'rawData.form_data.first_name' => 'required',
         'rawData.form_data.contry_region' => 'required',
         'rawData.form_data.complete_address' => 'required',
-        'rawData.form_data.phone' => 'required',
+        'rawData.form_data.phone' => 'required|numeric|digits_between:1,10',
         'rawData.form_data.email' => 'required|email|unique:users,email',
         'rawData.form_data.location' => 'required',
         'rawData.form_data.pickup_time' => 'required',
@@ -40,6 +41,8 @@ class ModalEditSelectedDates extends Component
         'rawData.form_data.contry_region.required' => 'este necesar',
         'rawData.form_data.complete_address.required' => 'este necesar',
         'rawData.form_data.phone.required' => 'este necesar',
+        'rawData.form_data.phone.numeric' => 'in format numeric',
+        'rawData.form_data.phone.digits_between' => 'maxim 10 cifre',
         'rawData.form_data.email.required' => 'este necesar',
         'rawData.form_data.email.email' => 'in format email',
         'rawData.form_data.email.unique' => 'email utilizat deja',
@@ -78,6 +81,8 @@ class ModalEditSelectedDates extends Component
 
     public $pickDate = '';
 
+    public $emailDetails = [];
+
     public $selectUserData = [
         'name',
         'first_name',
@@ -91,6 +96,7 @@ class ModalEditSelectedDates extends Component
 
     public function hideEditModalSelectedDates()
     {
+        $this->resetValidation();
         $this->reset([
             'showComponent',
             'rawData',
@@ -123,6 +129,7 @@ class ModalEditSelectedDates extends Component
             'nr_of_days' => $nr_of_days,
             'price_per_day' => $price_per_day,
             'pick_up_dateTime' => $pick_up_dateTime,
+            'return_dateTime' => $return_dateTime,
             'price' => $price,
             'location' => $location,
             'additional_driver' => $additional_driver,
@@ -138,7 +145,7 @@ class ModalEditSelectedDates extends Component
             'lastSelectedCard' => $lastSelectedCard,
             'timeIntervals' => $timeIntervals,
         ] = $modalCheckoutData;
-
+        
         $this->timeIntervals = $timeIntervals;
         $this->pickDate = $pickup_time;
 
@@ -146,18 +153,42 @@ class ModalEditSelectedDates extends Component
         $this->haveAdditionalDriver = $additional_driver;
         $this->pick_up_dateTime = $pick_up_dateTime;
 
-        $userData = User::where('id', $user_id)->select($this->selectUserData)->first()->toArray();
+        $userData = User::where('id', $user_id)->select($this->selectUserData)->firstOrNew()->toArray();
+
+        $resultName = isset($userData['name']) ? $userData['name'] : '';
+        $resultFirstName = isset($userData['first_name']) ? $userData['first_name'] : '';
+
+        $this->emailDetails = [
+            'nameSiPrenume' => $resultName . ' ' . $resultFirstName,
+            'email' => isset($userData['email']) ? $userData['email'] : '',
+            'car_name' => $car_name,
+            'car_number' => $nr_inmatriculare,
+            'pick_up_dateTime' => $pick_up_dateTime,
+            'return_dateTime' => $return_dateTime,
+            'nr_of_days' => $nr_of_days,
+            'price' => (float) $price,
+            'location' => ucfirst($location),
+            'order_id' => $order_id,
+        ];
 
         $this->rawData = [
             'form_data' => [
-                'name' => $userData['name'],
-                'first_name' => $userData['first_name'],
-                'company_name' => $userData['company_name'],
-                'cui' => $userData['cui'],
-                'contry_region' => $userData['contry_region'],
-                'complete_address' => $userData['complete_address'],
-                'phone' => $userData['phone'],
-                'email' => $userData['email'],
+                'name' => $userData['name'] ?? 'User_deleted',
+                'first_name' => $userData['first_name'] ?? 'User_deleted',
+                'company_name' => count($userData) && $userData['company_name'] === null ||
+                    count($userData) && $userData['company_name'] === '' ||
+                    count($userData) && $userData['company_name']
+                    ? $userData['company_name']
+                    : 'User_deleted',
+                'cui' => count($userData) && $userData['cui'] === null ||
+                    count($userData) && $userData['cui'] === '' ||
+                    count($userData) && $userData['cui']
+                    ? $userData['cui']
+                    : 'User_deleted',
+                'contry_region' => $userData['contry_region'] ?? 'User_deleted',
+                'complete_address' => $userData['complete_address'] ?? 'User_deleted',
+                'phone' => $userData['phone'] ?? 'User_deleted',
+                'email' => $userData['email'] ?? 'User_deleted',
                 'location' => $location,
                 'pickup_time' => $pickup_time,
                 'return_time' => $return_time,
@@ -217,7 +248,6 @@ class ModalEditSelectedDates extends Component
 
                 $this->rawData['services_data'][$service_key][$service_value][$checkboxPosition[$service_value]] = true;
             }
-
         }
 
         $this->getFirstAndLastDate($firstSelectedCard, $lastSelectedCard);
@@ -256,6 +286,8 @@ class ModalEditSelectedDates extends Component
         ] = $this->rawData['form_data'];
 
         $this->handleTime($pickup_time, $return_time);
+
+        $this->handleEditModalSelectedDates();
     }
 
     private function handleTime(string $pickupTime, string $returnTime)
@@ -280,15 +312,9 @@ class ModalEditSelectedDates extends Component
         $currentDateTime = Carbon::now();
         $dateTime1 = Carbon::createFromFormat('Y-m-d H:i', $pickUpFormat);
         $dateTime2 = Carbon::createFromFormat('Y-m-d H:i', $returnFormat);
+        $dateTime145 = Carbon::createFromFormat('Y-m-d H:i', $pickUpFormat)->addMinutes(45);
 
-        $this->showDateError = !($dateTime1->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime));
-
-        if (!$this->showDateError) {
-            $dateTime1->addMinutes(45);
-            // dacă $dateTime1 nu este mai mic sau egal cu $dateTime2, atunci $this->showDateError va fi setată la true, altfel va fi setată la false
-            // $dateTime1 <= dateTime2 && dateTime1 >= currentDateTime && dateTime2 >= currentDateTime
-            $this->showDateError = !($dateTime1->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime));
-        }
+        $this->showDateError = !($dateTime145->lte($dateTime2) && $dateTime1->gte($currentDateTime) && $dateTime2->gte($currentDateTime));
 
         if (empty($pickupTime) || empty($returnTime)) {
             $this->showDateError = true;
@@ -296,28 +322,6 @@ class ModalEditSelectedDates extends Component
         }
 
         unset($this->timeIntervals[$this->pickDate]);
-        $this->showDateError = $this->checkTimeInterval($this->timeIntervals, $pickupTime, $returnTime);
-    }
-
-    private function checkTimeInterval(array $arr, string $startHHmm, string $endHHmm): bool
-    {
-        foreach ($arr as $key => $value) {
-            // Dacă cheia nu este '24:00'
-            if ($key !== '24:00') {
-                // Convertim timpul de start și timpul de sfârșit la timestamp-uri pentru a facilita verificarea suprapunerii
-                $startTime = strtotime($startHHmm);
-                $endTime = strtotime($endHHmm);
-                $valueStartTime = strtotime($value['start']);
-                $valueEndTime = strtotime($value['end']);
-
-                // Verificăm dacă intervalul specificat nu se suprapune cu intervalul curent din $arr
-                if (!($startTime >= $valueEndTime || $endTime <= $valueStartTime)) {
-                    return true; // Dacă există suprapunere, returnăm true
-                }
-            }
-        }
-
-        return false; // Dacă nu există suprapunere cu niciun interval, returnăm false
     }
 
     private function takeAdditionalEquipment(array $selectedEquipmentsKeys)
@@ -388,6 +392,7 @@ class ModalEditSelectedDates extends Component
 
     public function handleCheckoutOrder()
     {
+
         $this->handleEditModalSelectedDates();
 
         $arrUser = [];
@@ -406,7 +411,7 @@ class ModalEditSelectedDates extends Component
             'return_time' => $return_time,
             'additional_driver_name' => $additional_driver_name,
         ] = $this->rawData['form_data'];
-
+        
         [
             'user_id' => $user_id,
             'order_id' => $order_id,
@@ -447,9 +452,19 @@ class ModalEditSelectedDates extends Component
         ] = $this->rawData;
 
         CheckoutOrder::where('order_id', $order_id)->delete();
+        
+        $this->handleEmailSubmit(env('MAIL_TO'), $this->emailDetails);
+        $this->handleEmailSubmit($this->emailDetails['email'], $this->emailDetails);
 
         $this->hideEditModalSelectedDates();
         $this->emitTo('components.calendar', 'updatedSelectedCar', $nr_inmatriculare, true);
+    }
+
+    private function handleEmailSubmit(string $emailTo, array $emailDetails)
+    {
+        Mail::send('emails.cancelOrder', ['details' => $emailDetails], function ($message) use ($emailTo, $emailDetails) {
+            $message->from('no-replay@site.ro')->to($emailTo)->subject('CheckOut: ' . $emailDetails['nameSiPrenume']);
+        });
     }
 
     public function render(): View
