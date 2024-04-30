@@ -140,7 +140,7 @@
         ],
         [
             'type' => 'time',
-            'key' => 'ora-predării',
+            'key' => 'ora-predarii',
             'isRequired' => true,
             'labelClass' => config('constants.common_css.calendar_modal_form.label_Class'),
             'validLabelClass' => config('constants.common_css.calendar_modal_form.valid_label'),

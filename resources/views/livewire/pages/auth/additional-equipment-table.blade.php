@@ -13,7 +13,7 @@
             <div>
                 @include('common.genericInputFields', [
                     'type' => 'search',
-                    'placeholder' => 'Cauta Echipament',
+                    'placeholder' => 'Caută Echipament',
                     'key' => 'search',
                     'wireModelName' => 'searchEquipment',
                     'emptyInputClass' => config('constants.common_css.choose_car.empty_input'),
@@ -25,7 +25,7 @@
             </div>
             <div>
                 @include('common.generic-btn', [
-                    'btn_content' => 'Adauga Echipament',
+                    'btn_content' => 'Adaugă Echipament',
                     'wire_method' => handleEmitTo(
                         $emitToPath,
                         $emitToMethod,
@@ -38,7 +38,7 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    @foreach (['Id', 'Nume', 'Action'] ?? [] as $value)
+                    @foreach (['Id', 'Nume', 'Preț', 'Action'] ?? [] as $value)
                         <th scope="col" class="px-6 py-3 {{ $value === 'Action' ? 'text-center' : null }}">
                             {{ $value }}
                         </th>
@@ -50,7 +50,7 @@
                 @foreach ($additionalEquipment->items() ?? [] as $index => $rowData)
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        @foreach (handleTableBody($rowData->getAttributes(), ['id', 'nume']) ?? [] as $key => $value)
+                        @foreach (handleTableBody($rowData->getAttributes(), ['id', 'nume', 'pret']) ?? [] as $key => $value)
                             <td class="px-6 py-4">
 
                                 {{ $key === 'id' ? handleLivewireTableIds($index, $additionalEquipment) : $value }}
@@ -61,7 +61,7 @@
                         <td class="px-6 py-4 flex justify-center">
                             <!-- Modal toggle -->
                             @include('common.generic-btn', [
-                                'btn_content' => 'Editeaza',
+                                'btn_content' => 'Editează',
                                 'wire_method' => handleEmitTo(
                                     $emitToPath,
                                     $emitToMethod,
@@ -72,7 +72,7 @@
                             ])
 
                             @include('common.generic-btn', [
-                                'btn_content' => 'Sterge',
+                                'btn_content' => 'Șterge',
                                 'wire_method' => handleEmitTo(
                                     $emitToPath,
                                     $emitToMethod,

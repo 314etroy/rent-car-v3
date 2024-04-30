@@ -40,7 +40,7 @@
                 <tr>
                     <td>{{ $value['nume'] }}</td>
                     <td>{{ $details['nr_of_days'] }} {{ $details['nr_of_days'] === 1 ? 'Zi' : 'Zile' }} x
-                        {{ $value['pret'] }} Lei / Zi = <b>{{ $details['nr_of_days'] * (float) $value['pret'] }} Lei</b></td>
+                        {{ (float) $value['pretZi'] }} Lei / Zi = <b>{{ (float) $value['pret'] }} Lei</b></td>
                 </tr>
             @else
                 <tr>
@@ -51,7 +51,7 @@
         @endforeach
         <tr>
             <td>Total</td>
-            <td><b>{{ $details['price'] }} Lei</b></td>
+            <td><b>{{ (float) $details['price'] }} Lei</b></td>
         </tr>
     </table>
     <br>

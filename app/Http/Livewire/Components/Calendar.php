@@ -162,12 +162,19 @@ class Calendar extends Component
         return $counts;
     }
 
+    public function updatingSelectedCar()
+    {
+        $this->reset([
+            'carSelected',
+            'cardData',
+            'selectedData',
+            'selectedCards',
+            'availableDatesToSelectInterval',
+        ]);
+    }
+
     public function updatedSelectedCar(string $prop, $resetSelectedDates = false)
     {
-        if($this->selectedCarNumber !== $prop && count($this->selectedCards)) {
-            $this->reset(['selectedCards']);
-        }
-
         if (!$prop) {
             $this->reset([
                 'carSelected',

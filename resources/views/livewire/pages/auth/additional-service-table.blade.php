@@ -13,7 +13,7 @@
             <div>
                 @include('common.genericInputFields', [
                     'type' => 'search',
-                    'placeholder' => 'Cauta Serviciu',
+                    'placeholder' => 'Caută Serviciu',
                     'key' => 'search',
                     'wireModelName' => 'searchService',
                     'emptyInputClass' => config('constants.common_css.choose_car.empty_input'),
@@ -25,7 +25,7 @@
             </div>
             <div>
                 @include('common.generic-btn', [
-                    'btn_content' => 'Adauga Serviciu',
+                    'btn_content' => 'Adaugă Serviciu',
                     'wire_method' => handleEmitTo(
                         $emitToPath,
                         $emitToMethod,
@@ -38,7 +38,7 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    @foreach (['Id', 'Nume', 'Action'] ?? [] as $value)
+                    @foreach (['Id', 'Nume', 'Preț 1', 'Preț 2', 'Action'] ?? [] as $value)
                         <th scope="col" class="px-6 py-3 {{ $value === 'Action' ? 'text-center' : null }}">
                             {{ $value }}
                         </th>
@@ -58,10 +58,18 @@
                             </td>
                         @endforeach
 
+                        <td class="px-6 py-4">
+                            {{ (float) head(json_decode($rowData['services'], true))['pret'] }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            {{ (float) last(json_decode($rowData['services'], true))['pret'] }}
+                        </td>
+
                         <td class="px-6 py-4 flex justify-center">
                             <!-- Modal toggle -->
                             @include('common.generic-btn', [
-                                'btn_content' => 'Editeaza',
+                                'btn_content' => 'Editează',
                                 'wire_method' => handleEmitTo(
                                     $emitToPath,
                                     $emitToMethod,
@@ -72,7 +80,7 @@
                             ])
 
                             @include('common.generic-btn', [
-                                'btn_content' => 'Sterge',
+                                'btn_content' => 'Șterge',
                                 'wire_method' => handleEmitTo(
                                     $emitToPath,
                                     $emitToMethod,

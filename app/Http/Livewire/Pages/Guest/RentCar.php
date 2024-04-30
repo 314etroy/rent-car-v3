@@ -51,7 +51,6 @@ class RentCar extends Component
             'cui' => '',
             'contry_region' => 'Romania',
             'complete_address' => '',
-            // 'judet' => '',
             'phone' => '',
             'email' => '',
             'have_account' => '',
@@ -79,7 +78,6 @@ class RentCar extends Component
         'rawData.check_out.cui' => '',
         'rawData.check_out.contry_region' => 'required',
         'rawData.check_out.complete_address' => 'required',
-        // 'rawData.check_out.judet' => 'required',
         'rawData.check_out.phone' => 'required|numeric|digits_between:1,10',
         'rawData.check_out.email' => 'required|email',
         'rawData.check_out.password' => 'required|min:8',
@@ -100,7 +98,6 @@ class RentCar extends Component
         'rawData.check_out.first_name.required' => 'este necesar',
         'rawData.check_out.contry_region.required' => 'este necesar',
         'rawData.check_out.complete_address.required' => 'este necesar',
-        // 'rawData.check_out.judet.required' => 'este necesar',
         'rawData.check_out.phone.required' => 'este necesar',
         'rawData.check_out.phone.numeric' => 'in format numeric',
         'rawData.check_out.phone.digits_between' => 'maxim 10 cifre',
@@ -175,7 +172,7 @@ class RentCar extends Component
 
             if (!empty($order)) {
                 $this->buyOptions = $order;
-                $this->pretGarantie = $order['garantie']['pret'] ?? 0;
+                $this->pretGarantie = (float) $order['garantie']['pret'] ?? 0;
                 $this->calculateTotal();
             }
 
@@ -261,7 +258,7 @@ class RentCar extends Component
             $arr[$car['cod_produs']] = [
                 'nume' => $car['nume'],
                 'code' => $car['cod_produs'],
-                'garantie' => $car['garantie'],
+                'garantie' => (float) $car['garantie'],
                 'pret' => (float) reset($prices), // pentru a lua prima valoare din array
                 'isSelected' => isset($this->jsonArr['selectedCar']['code']) && ($this->jsonArr['selectedCar']['code'] === $car['cod_produs']),
                 'options' => $optionsArr,
@@ -491,12 +488,14 @@ class RentCar extends Component
         $arr[$code] = [
             'nume' => $nume,
             'pret' => (float) $pret,
+            'pretZi' => (float) $this->pretZiPerCode[$code],
             'showPriceDetails' => true,
         ];
 
         $arr['garantie'] = [
             'nume' => 'Garantie',
             'pret' => (float) $this->pretGarantie * $this->nrZileDeInchiriere,
+            'pretZi' => (float) $this->pretGarantie,
             'showPriceDetails' => true,
         ];
 
@@ -512,10 +511,15 @@ class RentCar extends Component
     private function calculateTotal()
     {
         $totalPrice = 0;
-        foreach ($this->buyOptions as $item) {
-            $totalPrice += (float) $item['pret'];
+        foreach ($this->buyOptions as $key => $item) {
+            if (isset($item['showPriceDetails'])) {
+                $totalPrice += (float) $item['pretZi'] * $this->nrZileDeInchiriere;
+                $this->buyOptions[$key]['pret'] = (float) $item['pretZi'] * $this->nrZileDeInchiriere;
+            } else {
+                $totalPrice += (float) $item['pret'];
+            }
         }
-        $this->checkoutPrice = $totalPrice;
+        $this->checkoutPrice = (float) $totalPrice;
     }
 
     public function choseAdditionalEquipment($code)
@@ -541,6 +545,7 @@ class RentCar extends Component
         $arr[$code] = [
             'nume' => $nume,
             'pret' => (float) $pret * $this->nrZileDeInchiriere,
+            'pretZi' => (float) $pret,
             'showPriceDetails' => true,
         ];
 

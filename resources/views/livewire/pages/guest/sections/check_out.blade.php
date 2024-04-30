@@ -236,21 +236,21 @@
                                             <br>
                                             {{ $nrZileDeInchiriere }}
                                             {{ $nrZileDeInchiriere === 1 ? 'Zi' : 'Zile' }} x
-                                            {{ $value['pret'] }} Lei / Zi
+                                            {{ (float) $value['pretZi'] }} Lei / Zi
                                         </td>
                                         <td>{{ (float) $value['pret'] }} Lei</td>
                                     </tr>
                                 @else
                                     <tr>
                                         <td class="py-2">{{ $value['nume'] }}</td>
-                                        <td class="py-2">{{ $value['pret'] }} Lei</td>
+                                        <td class="py-2">{{ (float) $value['pret'] }} Lei</td>
                                     </tr>
                                 @endif
                             @endforeach
 
                             <tr>
                                 <td class="py-2 font-bold">{{ __('translations.additional_services_t_price') }}:</td>
-                                <td class="py-2 font-bold">{{ $checkoutPrice }} Lei</td>
+                                <td class="py-2 font-bold">{{ (float) $checkoutPrice }} Lei</td>
                             </tr>
                         </tbody>
                     </table>

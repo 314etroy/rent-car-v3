@@ -144,7 +144,7 @@ class Dashboard extends Component
             $arr['aditionalServices'] = $serviceArr;
             $checkOutData[$arr['codeId']] = $arr;            
         }
-        // dd($checkOutData);
+        
         $this->tableData = $checkOutData;
     }
 

@@ -3,7 +3,7 @@
         [
             'type' => 'checkbox',
             'key' => 'Display',
-            'labelText' => 'Se afiseaza pentru utilizatori',
+            'labelText' => 'Se afisează pentru utilizatori',
             'divClass' => 'flex flex-row-reverse gap-4 items-center justify-end mb-2',
             'wireModelName' => 'modalProps.rowData.display',
             'validLabelClass' => config('constants.common_css.modal_inputs.valid_label'),
@@ -16,8 +16,8 @@
         [
             'type' => 'text',
             'isRequired' => true,
-            'key' => 'Nume masina',
-            'placeholder' => 'Adauga nume masina',
+            'key' => 'Nume mașină',
+            'placeholder' => 'Adaugă nume mașină',
             'wireModelName' => 'modalProps.rowData.nume',
             'validLabelClass' => config('constants.common_css.modal_inputs.valid_label'),
             'errorLabelClass' => config('constants.common_css.modal_inputs.error_label'),
@@ -29,8 +29,8 @@
         [
             'type' => 'text',
             'isRequired' => true,
-            'key' => 'Numar inmatriculare',
-            'placeholder' => 'Adauga numar inmatriculare',
+            'key' => 'Număr înmatriculare',
+            'placeholder' => 'Adaugă număr înmatriculare',
             'wireModelName' => 'modalProps.rowData.nr_inmatriculare',
             'validLabelClass' => config('constants.common_css.modal_inputs.valid_label'),
             'errorLabelClass' => config('constants.common_css.modal_inputs.error_label'),
@@ -43,7 +43,7 @@
         //     'type' => 'text',
         //     'isRequired' => true,
         //     'key' => 'Culoare',
-        //     'placeholder' => 'Adauga culoare',
+        //     'placeholder' => 'Adaugă culoare',
         //     'wireModelName' => 'modalProps.rowData.culoare',
         //     'validLabelClass' => config('constants.common_css.modal_inputs.valid_label'),
         //     'errorLabelClass' => config('constants.common_css.modal_inputs.error_label'),
@@ -53,10 +53,10 @@
         //     'emptyInputClass' => config('constants.common_css.modal_inputs.empty_input'),
         // ],
         [
-            'type' => 'text',
+            'type' => 'number',
             'isRequired' => true,
-            'key' => 'Garantie',
-            'placeholder' => 'Adauga garantie',
+            'key' => 'Garanție',
+            'placeholder' => 'Adaugă garanție',
             'wireModelName' => 'modalProps.rowData.garantie',
             'validLabelClass' => config('constants.common_css.modal_inputs.valid_label'),
             'errorLabelClass' => config('constants.common_css.modal_inputs.error_label'),
@@ -69,7 +69,7 @@
             'type' => 'file',
             'isRequired' => true,
             'key' => 'Image',
-            'placeholder' => 'Adauga imagine',
+            'placeholder' => 'Adaugă imagine',
             'wireModelName' => 'modalProps.rowData.image',
             'validLabelClass' => config('constants.common_css.modal_inputs.valid_label'),
             'errorLabelClass' => config('constants.common_css.modal_inputs.error_label'),
@@ -111,7 +111,7 @@
                     @case('edit')
                         @if ($pretPerioadaErrorMsg)
                             @include('common.generic-btn', [
-                                'btn_content' => 'Minim o intrare de Pret si Perioada!',
+                                'btn_content' => 'Minim o intrare de Preț și Perioadă!',
                                 'class' => 'w-full mb-4 ' . getConstant('modal_generic_colors')['red'],
                             ])
                         @endif
@@ -139,13 +139,13 @@
                                 <div class="flex flex-col border rounded shadow mb-2">
                                     <div @click="opened_tab = opened_tab === 0 ? null : 0 " class="p-4 cursor-pointer">
                                         @include('common.generic-btn', [
-                                            'btn_content' => 'Gestioneaza pretul si perioada',
+                                            'btn_content' => 'Gestionează prețul și perioada',
                                             'class' => 'w-full ' . getConstant('modal_generic_colors')['purple'],
                                         ])
                                     </div>
                                     <div x-show="opened_tab==0" class="pb-4 p-4">
                                         @include('common.generic-btn', [
-                                            'btn_content' => 'Adauga pret perioada',
+                                            'btn_content' => 'Adaugă preț perioadă',
                                             'wire_method' => 'addPretPerioada()',
                                             'class' => 'w-full ' . getConstant('modal_generic_colors')['blue'],
                                         ])
@@ -156,7 +156,7 @@
                                                     'type' => 'number',
                                                     'id' => 'nr_zile' . $i,
                                                     'key' => 'Nr. zile',
-                                                    'placeholder' => 'Adauga Numar de zile',
+                                                    'placeholder' => 'Adaugă număr de zile',
                                                     'wireModelName' =>
                                                         'modalProps.rowData.pretPerioada.' . $i . '.perioada',
                                                     'validLabelClass' => config(
@@ -173,10 +173,10 @@
                                                         'constants.common_css.check_out.empty_input'),
                                                 ])
                                                 @include('common.genericInputFields', [
-                                                    'type' => 'text',
+                                                    'type' => 'number',
                                                     'id' => 'pret' . $i,
-                                                    'key' => 'Pret',
-                                                    'placeholder' => 'Adauga Pret',
+                                                    'key' => 'Preț',
+                                                    'placeholder' => 'Adaugă preț',
                                                     'wireModelName' =>
                                                         'modalProps.rowData.pretPerioada.' . $i . '.pret',
                                                     'validLabelClass' => config(
@@ -193,7 +193,7 @@
                                                         'constants.common_css.check_out.empty_input'),
                                                 ])
                                                 @include('common.generic-btn', [
-                                                    'btn_content' => 'Sterge perioada ' . $i + 1,
+                                                    'btn_content' => 'Șterge perioada ' . $i + 1,
                                                     'wire_method' => 'deletePretPerioada(' . $i . ')',
                                                     'class' =>
                                                         'w-full mt-6 ' .
@@ -206,12 +206,12 @@
                                 <div class="flex flex-col border rounded shadow mb-2">
                                     <div @click="opened_tab = opened_tab === 1 ? null : 1 " class="p-4 cursor-pointer">
                                         @include('common.generic-btn', [
-                                            'btn_content' => 'Gestioneaza optiunile',
+                                            'btn_content' => 'Gestionează opțiunile',
                                             'class' => 'w-full ' . getConstant('modal_generic_colors')['purple'],
                                         ])</div>
                                     <div x-show="opened_tab==1" class="px-4 pb-4">
                                         @include('common.generic-btn', [
-                                            'btn_content' => 'Adauga optiune',
+                                            'btn_content' => 'Adaugă opțiune',
                                             'wire_method' => 'addOptiune()',
                                             'class' => 'w-full ' . getConstant('modal_generic_colors')['blue'],
                                         ])
@@ -221,8 +221,8 @@
                                                 @include('common.genericInputFields', [
                                                     'type' => 'text',
                                                     'id' => 'nume_optiune' . $i,
-                                                    'key' => 'Nume optiune',
-                                                    'placeholder' => 'Adauga nume optiune',
+                                                    'key' => 'Nume opțiune',
+                                                    'placeholder' => 'Adaugă nume opțiune',
                                                     'wireModelName' =>
                                                         'modalProps.rowData.optiune.' . $i . '.nume',
                                                     'validLabelClass' => config(
@@ -241,8 +241,8 @@
                                                 @include('common.genericInputFields', [
                                                     'type' => 'text',
                                                     'id' => 'descriere_optiune' . $i,
-                                                    'key' => 'Descriere optiune',
-                                                    'placeholder' => 'Adauga descriere optiune',
+                                                    'key' => 'Descriere opțiune',
+                                                    'placeholder' => 'Adaugă descriere opțiune',
                                                     'wireModelName' =>
                                                         'modalProps.rowData.optiune.' . $i . '.descriere',
                                                     'validLabelClass' => config(
@@ -259,7 +259,7 @@
                                                         'constants.common_css.check_out.empty_input'),
                                                 ])
                                                 @include('common.generic-btn', [
-                                                    'btn_content' => 'Sterge optiune ' . $i + 1,
+                                                    'btn_content' => 'Șterge opțiune ' . $i + 1,
                                                     'wire_method' => 'deleteOptiune(' . $i . ')',
                                                     'class' =>
                                                         'w-full mt-6 ' .
@@ -269,6 +269,72 @@
                                         @endfor
                                     </div>
                                 </div>
+                                {{-- <div class="flex flex-col border rounded shadow mb-2">
+                                    <div @click="opened_tab = opened_tab === 2 ? null : 2 " class="p-4 cursor-pointer">
+                                        @include('common.generic-btn', [
+                                            'btn_content' => 'Preț specific / dată',
+                                            'class' => 'w-full ' . getConstant('modal_generic_colors')['purple'],
+                                        ])</div>
+                                    <div x-show="opened_tab==2" class="px-4 pb-4">
+                                        @include('common.generic-btn', [
+                                            'btn_content' => 'Adaugă preț specific',
+                                            'wire_method' => 'addPretSpecific()',
+                                            'class' => 'w-full ' . getConstant('modal_generic_colors')['blue'],
+                                        ])
+
+                                        @for ($i = 0; $i < $nrPretSpecific; $i++)
+                                            <div class="w-full mt-4 grid grid-cols-3 gap-x-4">
+                                                @include('common.genericInputFields', [
+                                                    'type' => 'date',
+                                                    'id' => 'data_pretSpecific' . $i,
+                                                    'key' => 'Data dorită',
+                                                    'placeholder' => 'Adaugă dată',
+                                                    'wireModelName' =>
+                                                        'modalProps.rowData.pretSpecific.' . $i . '.data',
+                                                    'validLabelClass' => config(
+                                                        'constants.common_css.check_out.valid_label'),
+                                                    'errorLabelClass' => config(
+                                                        'constants.common_css.check_out.error_label'),
+                                                    'emptyLabelClass' => config(
+                                                        'constants.common_css.check_out.empty_label'),
+                                                    'validInputClass' => config(
+                                                        'constants.common_css.check_out.valid_input'),
+                                                    'errorInputClass' => config(
+                                                        'constants.common_css.check_out.error_input'),
+                                                    'emptyInputClass' => config(
+                                                        'constants.common_css.check_out.empty_input'),
+                                                ])
+                                                @include('common.genericInputFields', [
+                                                    'type' => 'text',
+                                                    'id' => 'pret_pretSpecific' . $i,
+                                                    'key' => 'Preț',
+                                                    'placeholder' => 'Adaugă preț',
+                                                    'wireModelName' =>
+                                                        'modalProps.rowData.pretSpecific.' . $i . '.pret',
+                                                    'validLabelClass' => config(
+                                                        'constants.common_css.check_out.valid_label'),
+                                                    'errorLabelClass' => config(
+                                                        'constants.common_css.check_out.error_label'),
+                                                    'emptyLabelClass' => config(
+                                                        'constants.common_css.check_out.empty_label'),
+                                                    'validInputClass' => config(
+                                                        'constants.common_css.check_out.valid_input'),
+                                                    'errorInputClass' => config(
+                                                        'constants.common_css.check_out.error_input'),
+                                                    'emptyInputClass' => config(
+                                                        'constants.common_css.check_out.empty_input'),
+                                                ])
+                                                @include('common.generic-btn', [
+                                                    'btn_content' => 'Șterge opțiune ' . $i + 1,
+                                                    'wire_method' => 'deletePretSpecific(' . $i . ')',
+                                                    'class' =>
+                                                        'w-full mt-6 ' .
+                                                        getConstant('modal_generic_colors')['red'],
+                                                ])
+                                            </div>
+                                        @endfor
+                                    </div>
+                                </div> --}}
                             </div>
                         </div>
                     @break

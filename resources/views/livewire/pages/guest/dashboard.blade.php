@@ -32,7 +32,7 @@
                             </p>
 
                             <p class="dark:text-white font-medium text-gray-900 text-left text-sm truncate">
-                                Preț închiriere pe zi: {{ $value['pricePerDay'] }} lei
+                                Preț închiriere pe zi: {{ (float) $value['pricePerDay'] }} lei
                             </p>
                             <p class="dark:text-white font-medium text-gray-900 text-left text-sm truncate">
                                 Perioadă închiriere: {{ $value['nrOfDays'] }}
@@ -93,8 +93,8 @@
                                         <div
                                             class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                                             {{ $value['nrOfDays'] }}
-                                            {{ $value['nrOfDays'] > 1 ? 'Zile' : 'Zi' }} x {{ $value['pricePerDay'] }}
-                                            Lei / Zi = {{ $value['nrOfDays'] * $value['pricePerDay'] }} Lei
+                                            {{ $value['nrOfDays'] > 1 ? 'Zile' : 'Zi' }} x {{ (float) $value['pricePerDay'] }}
+                                            Lei / Zi = {{ (float) $value['pricePerDay'] * $value['nrOfDays'] }} Lei
                                         </div>
                                     </div>
                                 </li>
@@ -109,8 +109,8 @@
                                         <div
                                             class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                                             {{ $value['nrOfDays'] }}
-                                            {{ $value['nrOfDays'] > 1 ? 'Zile' : 'Zi' }} x {{ $value['garantie'] }}
-                                            Lei / Zi = {{ $value['nrOfDays'] * $value['garantie'] }} Lei
+                                            {{ $value['nrOfDays'] > 1 ? 'Zile' : 'Zi' }} x {{ (float) $value['garantie'] }}
+                                            Lei / Zi = {{ (float) $value['garantie'] * $value['nrOfDays'] }} Lei
                                         </div>
                                     </div>
                                 </li>
@@ -127,8 +127,8 @@
                                                 class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                                                 {{ $value['nrOfDays'] }}
                                                 {{ $value['nrOfDays'] > 1 ? 'Zile' : 'Zi' }} x
-                                                {{ $equipment['price'] }}
-                                                Lei / Zi = {{ $value['nrOfDays'] * $equipment['price'] }} Lei
+                                                {{ (float) $equipment['price'] }}
+                                                Lei / Zi = {{ (float) $equipment['price'] * $value['nrOfDays'] }} Lei
                                             </div>
                                         </div>
                                     </li>
@@ -144,7 +144,7 @@
                                             </div>
                                             <div
                                                 class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                                {{ $service['price'] }} Lei
+                                                {{ (float) $service['price'] }} Lei
                                             </div>
                                         </div>
                                     </li>
@@ -159,7 +159,7 @@
                                         </div>
                                         <div
                                             class="inline-flex items-center text-base font-bold text-gray-900 dark:text-white">
-                                            {{ $value['price'] }} Lei
+                                            {{ (float) $value['price'] }} Lei
                                         </div>
                                     </div>
                                 </li>

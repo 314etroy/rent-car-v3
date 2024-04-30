@@ -5,7 +5,7 @@
 
 <section>
     <div class="w-full text-center p-1">
-        <h1 class="text-4xl font-bold tracking-tight text-gray-900 pt-6">Date Masini</h1>
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900 pt-6">Date Mașini</h1>
     </div>
     <div class="relative">
         <div
@@ -13,7 +13,7 @@
             <div>
                 @include('common.genericInputFields', [
                     'type' => 'search',
-                    'placeholder' => 'Cauta Masina',
+                    'placeholder' => 'Caută Mașină',
                     'key' => 'search',
                     'wireModelName' => 'searchCar',
                     'emptyInputClass' => config('constants.common_css.choose_car.empty_input'),
@@ -24,9 +24,8 @@
                 ])
             </div>
             <div>
-                {{-- @dd($carSpecifications->items()); --}}
                 @include('common.generic-btn', [
-                    'btn_content' => 'Adauga Masina',
+                    'btn_content' => 'Adaugă Mașină',
                     'wire_method' => handleEmitTo(
                         $emitToPath,
                         $emitToMethod,
@@ -39,8 +38,7 @@
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
-                    {{-- @foreach (tableHead($carSpecifications->toArray()['data'], ['Action']) ?? [] as $value) --}}
-                    @foreach (['Id', 'Nume', 'Action'] ?? [] as $value)
+                    @foreach (['Id', 'Nume', 'Garanție', 'Action'] ?? [] as $value)
                         <th scope="col" class="px-6 py-3 {{ $value === 'Action' ? 'text-center' : null }}">
                             {{ $value }}
                         </th>
@@ -52,7 +50,7 @@
                 @foreach ($carSpecifications->items() ?? [] as $index => $rowData)
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        @foreach (handleTableBody($rowData->getAttributes(), ['id', 'nume']) ?? [] as $key => $value)
+                        @foreach (handleTableBody($rowData->getAttributes(), ['id', 'nume', 'garantie']) ?? [] as $key => $value)
                             <td class="px-6 py-4">
 
                                 {{ $key === 'id' ? handleLivewireTableIds($index, $carSpecifications) : $value }}
@@ -63,7 +61,7 @@
                         <td class="px-6 py-4 flex justify-center">
                             <!-- Modal toggle -->
                             @include('common.generic-btn', [
-                                'btn_content' => 'Editeaza',
+                                'btn_content' => 'Editează',
                                 'wire_method' => handleEmitTo(
                                     $emitToPath,
                                     $emitToMethod,
@@ -74,7 +72,7 @@
                             ])
 
                             @include('common.generic-btn', [
-                                'btn_content' => 'Sterge',
+                                'btn_content' => 'Șterge',
                                 'wire_method' => handleEmitTo(
                                     $emitToPath,
                                     $emitToMethod,
