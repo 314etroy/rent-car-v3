@@ -166,78 +166,78 @@ h2, h3, h4, h5, h6 {
 @-webkit-keyframes shadowRolling {
   0% {
     -webkit-box-shadow: 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
-            box-shadow: 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
+    box-shadow: 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
   }
   12% {
     -webkit-box-shadow: 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
-            box-shadow: 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
+    box-shadow: 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
   }
   25% {
     -webkit-box-shadow: 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
-            box-shadow: 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
+    box-shadow: 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
   }
   36% {
     -webkit-box-shadow: 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0);
-            box-shadow: 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0);
+    box-shadow: 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0);
   }
   50% {
     -webkit-box-shadow: 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0;
-            box-shadow: 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0;
+    box-shadow: 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0;
   }
   62% {
     -webkit-box-shadow: 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0;
-            box-shadow: 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0;
+    box-shadow: 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0;
   }
   75% {
     -webkit-box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0;
-            box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0;
+    box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0;
   }
   87% {
     -webkit-box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0;
-            box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0;
+    box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0;
   }
   100% {
     -webkit-box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0);
-            box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0);
+    box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0);
   }
 }
 
 @keyframes shadowRolling {
   0% {
     -webkit-box-shadow: 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
-            box-shadow: 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
+    box-shadow: 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
   }
   12% {
     -webkit-box-shadow: 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
-            box-shadow: 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
+    box-shadow: 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
   }
   25% {
     -webkit-box-shadow: 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
-            box-shadow: 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
+    box-shadow: 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0), 0px 0 rgba(121, 99, 224, 0);
   }
   36% {
     -webkit-box-shadow: 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0);
-            box-shadow: 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0);
+    box-shadow: 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0, 0px 0 rgba(121, 99, 224, 0);
   }
   50% {
     -webkit-box-shadow: 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0;
-            box-shadow: 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0;
+    box-shadow: 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0, 100px 0 #7963e0;
   }
   62% {
     -webkit-box-shadow: 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0;
-            box-shadow: 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0;
+    box-shadow: 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0, 110px 0 #7963e0;
   }
   75% {
     -webkit-box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0;
-            box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0;
+    box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0, 120px 0 #7963e0;
   }
   87% {
     -webkit-box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0;
-            box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0;
+    box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 130px 0 #7963e0;
   }
   100% {
     -webkit-box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0);
-            box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0);
+    box-shadow: 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0), 200px 0 rgba(121, 99, 224, 0);
   }
 }
 #bx-overlay {
@@ -255,11 +255,11 @@ h2, h3, h4, h5, h6 {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
 }
 #bx-overlay .loader {
   width: 10px;
@@ -270,7 +270,7 @@ h2, h3, h4, h5, h6 {
   color: #7963e0;
   left: -100px;
   -webkit-animation: shadowRolling 2s linear infinite;
-          animation: shadowRolling 2s linear infinite;
+  animation: shadowRolling 2s linear infinite;
 }
 
 /* Header */
@@ -292,7 +292,7 @@ h2, h3, h4, h5, h6 {
   position: fixed;
   background-color: rgba(255, 255, 255, 0.95) !important;
   -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.12);
-          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.12);
   z-index: 30;
 }
 
@@ -334,3 +334,20 @@ h2, h3, h4, h5, h6 {
 .portfolio-img:hover .top-contain {
   display: none;
 }
+.gap-4.grid.grid-cols-2 .flex.flex-row-reverse.gap-4.items-center.justify-end.mt-3 label span {
+  line-height: 16px !important;
+  margin-bottom: 0 !important;
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  .fixed.top-0.left-0.right-0.z-50.w-full.p-4.overflow-x-hidden.overflow-y-auto.md\:inset-0.h-modal.md\:h-full.justify-center.items-center.flex .px-6.py-6.lg\:px-8 {
+    background-color: #14101f;
+    color: white;
+  }
+  .fixed.top-0.left-0.right-0.z-50.w-full.p-4.overflow-x-hidden.overflow-y-auto.md\:inset-0.h-modal.md\:h-full.justify-center.items-center.flex  .font-bold.text-gray-900.text-center.text-m.truncate {
+    color:#fff;
+  }
+
+}
+
