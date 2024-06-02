@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HandleRoute;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
@@ -48,5 +49,13 @@ Route::middleware('auth')->group(function () {
 //     $link = '/home/starentinchirier/public_html/storage';
 //     symlink($target, $link);
 // });
+
+//ruta de test
+Route::post('/charge', [StripeController::class, 'charge'])->name('charge');
+//rute Stripe pentru plata inchirieri
+Route::get('/stripe/{order_id}', [StripeController::class, 'stripe'])->name('stripe');
+Route::get('/success', [StripeController::class, 'successPayment'])->name('successPayment');
+Route::get('/cancel', [StripeController::class, 'cancelPayment'])->name('cancelPayment');
+
 
 require __DIR__ . '/auth.php';

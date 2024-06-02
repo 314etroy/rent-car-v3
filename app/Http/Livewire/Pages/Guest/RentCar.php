@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Pages\Guest;
 
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Mail;
@@ -137,6 +138,7 @@ class RentCar extends Component
     private $nr_inmatriculare = [];
 
     protected $listeners = ['changeSection'];
+    public string $ruta;
 
     public function boot()
     {
@@ -415,7 +417,7 @@ class RentCar extends Component
         if ($value <= $this->step) {
             $this->setCookieStep($value);
         }
-
+//        dd($this->step, $value);
         switch ($this->step) {
             case 0:
                 $this->calculeazaNrDeZile($this->carsRentPrices);
@@ -794,16 +796,14 @@ class RentCar extends Component
         $arr['pick_up_dateTime'] = $pickup_date . ' ' . $pickup_time;
         $arr['price'] = (float) $this->checkoutPrice;
         $arr['nr_of_days'] = $this->nrZileDeInchiriere;
-        $arr['status'] = false;
+        $arr['status'] = 1;
         $arr['additional_driver'] = in_array('65f8a6b2370b0', array_values($this->jsonArr['selectedServices']));
         $arr['additional_driver_name'] = '';
 
         $carCode = $this->jsonArr['selectedCar']['code'];
         $arr['price_per_day'] = $this->pretZiPerCode[$carCode];
-
-        [
-            'order_id' => $order_id,
-        ] = CheckoutOrder::create($arr);
+        $arr['deleted_at'] = Carbon::now();
+        ['order_id' => $order_id] = CheckoutOrder::create($arr);
 
         $emailDetails = [
             'nameSiPrenume' => $userData['name'] . ' ' . $userData['first_name'],
@@ -819,9 +819,15 @@ class RentCar extends Component
             'location' => ucfirst($location),
             'order_id' => $order_id,
         ];
+        $encrypt= encrypt($order_id);
+        $this->ruta = route('stripe', ['order_id' => $encrypt]);
+        //set emailDetails to laravel cache with key on order_id
+        Cache::put($order_id.'_mail', $emailDetails, now()->addMinutes(30));
 
-        $this->handleEmailSubmit(env('MAIL_TO'), $emailDetails);
-        $this->handleEmailSubmit($userData['email'], $emailDetails);
+        //Am oprit emailurile
+        //$this->handleEmailSubmit(env('MAIL_TO'), $emailDetails);
+        //$this->handleEmailSubmit($userData['email'], $emailDetails);
+
     }
 
     private function handleEmailSubmit(string $emailTo, array $emailDetails)
@@ -856,6 +862,10 @@ class RentCar extends Component
                     'pretZiPerCode',
                 ]);
                 Cookie::queue(Cookie::forget('options'));
+
+                if(isset($this->ruta)){
+                    return redirect($this->ruta);
+                }
             }
 
             if ($value < 4) {
