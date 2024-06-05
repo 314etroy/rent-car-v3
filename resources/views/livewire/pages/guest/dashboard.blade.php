@@ -8,6 +8,16 @@
         <h1 class="text-4xl font-bold tracking-tight text-gray-900 py-8">Comenzi realizate</h1>
     </div>
 
+    @if (session()->has('success') || session()->has('error'))
+        <div class="p-1">
+            <div class="w-full flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <h5 class="w-full p-4 text-2xl text-center font-bold tracking-tight text-gray-900 dark:text-white">
+                    {{ session()->get('success') ?? session()->get('error') }}
+                </h5>
+            </div>
+        </div>
+    @endif
+
     <div class="p-1">
         @forelse ($tableData ?? [] as $value)
             <div
@@ -176,6 +186,29 @@
                             <div class="font-medium w-full text-black bg-gray-300 p-2 cursor-not-allowed">
                                 Comandă realizată
                             </div> --}}
+                        @endif
+                        @if ($value['isDeletedOrder'])
+                            @if ($value['status'] == '2' &&  $value['created_at'] >= now()->subMinutes(30))
+                                <div class="flex">
+                                    <div class="w-1/2">
+                                        <div class="font-medium text-gray-900 bg-gray-300 p-2 cursor-not-allowed">
+                                            Plata anulată
+                                        </div>
+                                    </div>
+                                    <div class="w-1/2">
+                                        <div class="font-medium text-gray-900 bg-gray-300 p-2 cursor-not-allowed">
+                                            <a href="{{ route('stripe', ['order_id' => encrypt($value['codeId']) ]) }}"
+                                               class="font-medium w-full text-white bg-green-500 hover:underline p-2">
+                                                Reîncearcă plata
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="font-medium w-full text-black bg-gray-300 p-2 cursor-not-allowed">
+                                    Comandă anulată
+                                </div>
+                            @endif
                         @endif
                     </div>
                 </figure>

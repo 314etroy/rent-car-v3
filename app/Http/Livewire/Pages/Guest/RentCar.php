@@ -822,7 +822,7 @@ class RentCar extends Component
         $encrypt= encrypt($order_id);
         $this->ruta = route('stripe', ['order_id' => $encrypt]);
         //set emailDetails to laravel cache with key on order_id
-        Cache::put($order_id.'_mail', $emailDetails, now()->addMinutes(30));
+        Cache::put($order_id.'_mail', $emailDetails, now()->addMinutes(50));
 
         //Am oprit emailurile
         //$this->handleEmailSubmit(env('MAIL_TO'), $emailDetails);

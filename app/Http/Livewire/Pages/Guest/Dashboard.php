@@ -92,8 +92,10 @@ class Dashboard extends Component
             $arr['pricePerDay'] = $value['price_per_day'];
             $arr['location'] = $value['location'];
             $arr['codeId'] = $value['order_id'];
+            $arr['status'] = $value['status'];
             $arr['additionalDriver'] = (bool) $value['additional_driver'];
             $arr['isDeletedOrder'] = $value['deleted_at'] !== null;
+            $arr['created_at'] = $value['created_at'];
 
             $carSpecification = CarSpecification::where('id', $value['car_id'])->first()->toArray();
             $arr['carName'] = $carSpecification['nume'];

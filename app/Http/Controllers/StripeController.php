@@ -57,14 +57,17 @@ class StripeController extends Controller
                 $this->handleEmailSubmit(env('MAIL_TO'), $mailFromCache);
                 $this->handleEmailSubmit($mailFromCache['email'], $mailFromCache);
 
-                return redirect()->route('dashboard');
+                return redirect()->route('dashboard')->with('success', 'Plata a fost efectuata cu succes!');
             }
         }
     }
     public function cancelPayment(){
         $stripe = $this->connectStripe();
         $session = $stripe->checkout->sessions->retrieve($_GET['session_id']);
-        return redirect()->route('dashboard');
+        if($session->metadata->type == 'appointment'){
+            $orderUpdate = DB::table('checkout_orders')->where('id', $session->metadata->appointment_id)->update(['status' => 2]);
+        }
+        return redirect()->route('dashboard')->with('error', 'Plata a fost anulata!');
     }
 
     public function stripe($order_id){
