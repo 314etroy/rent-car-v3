@@ -851,6 +851,10 @@ class RentCar extends Component
 
     private function handleSectionValidation(array $rules, int $value)
     {
+        if($value ==4 && $this->rawData['check_out']['have_account'] == 1){
+            $this->check_out_rules['rawData.check_out.confirm_password'] = '';
+            $rules['rawData.check_out.confirm_password']='';
+        }
         if ($this->hasValidationErrors($rules)) {
 
             $this->validate($rules);
