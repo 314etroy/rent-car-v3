@@ -664,7 +664,7 @@ class RentCar extends Component
         if ($property === 'rawData.check_out.have_account' && $this->rawData['check_out']['have_account']) {
             $this->check_out_rules['rawData.check_out.password'] = '';
             $this->check_out_rules['rawData.check_out.confirm_password'] = '';
-            return redirect()->route('login');
+//            return redirect()->route('login');
         } else {
             $this->reset(['check_out_rules']);
         }
@@ -726,7 +726,16 @@ class RentCar extends Component
 
         $password = $this->rawData['check_out']['password'] ?? '';
 
-        if (!$have_account && !Auth::check()) {
+        if (!Auth::check()) {
+            $userTry = User::where('email', $email)->first();
+            if ($userTry) {
+               Auth::attempt(['email' => $email, 'password' => $password]);
+            }
+        }
+
+        if (!Auth::check()) {
+
+
             $user = User::create([
                 'name' => $name,
                 'first_name' => $first_name,
@@ -785,7 +794,7 @@ class RentCar extends Component
 
         $selectedEquipmentIdsJson = json_encode($selectedEquipmentIds);
 
-        $arr['user_id'] = !$have_account || !Auth::check() ? $userData['id'] ?? 0 : Auth::id();
+        $arr['user_id'] = !Auth::check() ? $userData['id'] ?? 0 : Auth::id();
         $arr['order_id'] = uniqid();
         $arr['car_id'] = $this->jsonArr['selectedCar']['id'];
         $arr['aditional_services_ids'] = $selectedServicesIdsJson;
@@ -824,6 +833,9 @@ class RentCar extends Component
         //set emailDetails to laravel cache with key on order_id
         Cache::put($order_id.'_mail', $emailDetails, now()->addMinutes(50));
 
+        if(!Auth::check()){
+            Auth::loginUsingId($arr['user_id']);
+        }
         //Am oprit emailurile
         //$this->handleEmailSubmit(env('MAIL_TO'), $emailDetails);
         //$this->handleEmailSubmit($userData['email'], $emailDetails);
@@ -840,6 +852,7 @@ class RentCar extends Component
     private function handleSectionValidation(array $rules, int $value)
     {
         if ($this->hasValidationErrors($rules)) {
+
             $this->validate($rules);
         } else {
             if ($value === 4) { // am pus acest if pentru a reseta datele utilizatroului atunci cand ajunge in step 4

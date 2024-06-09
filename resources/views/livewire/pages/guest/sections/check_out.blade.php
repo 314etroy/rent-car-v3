@@ -124,7 +124,7 @@
             'type' => 'checkbox',
             'key' => 'am-deja-cont',
             'labelText' => 'Am deja cont',
-            'labelText' => '<span class="edit-terms">Am deja cont (<a href="' . route('login') . '" class="mx-1 text-blue-700 font-bold hover:underline">veți fi redirecționat către pagina de autentificare</a>)</span>',
+            'labelText' => '<span class="edit-terms">Am deja cont</span>',
             'divClass' => 'flex flex-row-reverse gap-4 items-center justify-end',
             'wireModelName' => 'rawData.check_out.have_account',
             'display' => !Auth::check(),
@@ -141,7 +141,7 @@
             'placeholder' => handlePlaceholder(__('translations.translate_password')),
             'wireModelName' => 'rawData.check_out.password',
             'isRequired' => true,
-            'display' => !Auth::check() && !$rawData['check_out']['have_account'],
+            'display' => !Auth::check(),
             'validLabelClass' => config('constants.common_css.check_out.valid_label'),
             'errorLabelClass' => config('constants.common_css.check_out.error_label'),
             'emptyLabelClass' => config('constants.common_css.check_out.empty_label'),
@@ -268,7 +268,7 @@
                         'wire_method' => 'changeSection("4")',
                         'onclick' => 'goTop()',
                         'class' =>
-                            (!Auth::check() && !$rawData['check_out']['have_account']) || Auth::check()
+                            !Auth::check() || Auth::check()
                                 ? 'w-full p-2 mt-4 rounded-md ' . getConstant('modal_generic_colors')['purple']
                                 : 'w-full p-2 mt-4 rounded-md cursor-not-allowed ' .
                                     getConstant('modal_generic_colors')['purple'],
