@@ -79,7 +79,7 @@ class RentCar extends Component
         'rawData.check_out.cui' => '',
         'rawData.check_out.contry_region' => 'required',
         'rawData.check_out.complete_address' => 'required',
-        'rawData.check_out.phone' => 'required|numeric|digits_between:1,10',
+        'rawData.check_out.phone' => ['required', 'min:6', 'regex:/^[\d\s\+\(\)]+$/'],
         'rawData.check_out.email' => 'required|email',
         'rawData.check_out.password' => 'required|min:8',
         'rawData.check_out.confirm_password' => 'required|min:8|required_with:rawData.check_out.password|same:rawData.check_out.password',
